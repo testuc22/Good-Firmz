@@ -1,0 +1,75 @@
+.form-inner-block {
+    display: flex;
+    justify-content: left;
+}
+.card-form-center {
+    display: flex;
+    justify-content: center;
+}
+.card-form-center form{
+	width: 70%;
+	margin: 40px 0;
+}
+.required {
+    color: red;
+}
+.card-footer {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0 0 0;
+}
+.card-footer .btn {
+    margin-right: 12px;
+    padding: 5px 44px;
+    font-size: 17px;
+    font-weight: 600;
+}
+[class*="sidebar-dark-"] {
+    background-color: #138496;
+}
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active, .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: #fff;
+    color: #138496;
+    font-weight: 700;
+}
+[class*="sidebar-dark"] .brand-link {
+    border-bottom: 2px solid #10798a;
+}
+[class*="sidebar-dark"] .user-panel {
+    border-bottom: 2px solid #10798a;
+}
+a {
+    color: #10798a;
+}
+.dataTables_filter{
+	display: flex;
+justify-content: end;
+}
+.bootstrap-tagsinput{
+    width: 100%;
+}
+
+.label-info{
+    background-color: #17a2b8;
+}
+
+.label {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,
+    border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+hr {
+    margin: 25px 0;
+}
+.sub-headings h4 {
+    color: #10798a;
+}
