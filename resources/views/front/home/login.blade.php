@@ -5,7 +5,7 @@ B2B-Seeker - Login
 @section('content')
 <div class="page-title">
 	<div class="container">
-		<h2>Login</h2>
+		<h2>Login123</h2>
 	</div>
 </div>
 <div class="register-content">
