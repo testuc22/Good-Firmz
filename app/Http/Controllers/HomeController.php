@@ -18,6 +18,7 @@ class HomeController extends Controller{
     	$data = isset($data->meta_value) && $data->meta_value!="" ? json_decode($data->meta_value,true) : array();
     	$categories = $this->category_repository->getCategoriesWithConditions($data['categories']);
     	$sellers = $this->seller_repository->getSellersWithConditions($data['sellers']);
-    	return view('front.home')->with(['data'=>$data,'categories'=>$categories,'sellers'=>$sellers]);
+    	//return view('front.home')->with(['data'=>$data,'categories'=>$categories,'sellers'=>$sellers]);
+        return view('new-frontend.home');
     }
 }
