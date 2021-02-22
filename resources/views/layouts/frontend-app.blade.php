@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>App Name - @yield('title')</title>
+    <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('public/frontend/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('public/frontend/css/slick.css')}}"/>
@@ -21,7 +21,7 @@
                 <div class="col-xl-12">
                     <div class="header_area">
                         <div class="logo">
-                            <a href="index.php">
+                            <a href="{{ route('/') }}">
                                 <img src="{{ asset('public/frontend/img/logo.png') }}" alt="logo...">
                             </a>
                         </div>
@@ -49,7 +49,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="join-now.php">
+                                    <a href="{{ route('sign-up') }}">
                                         <i class="fas fa-user"></i>Free Join
                                     </a>
                                 </li>

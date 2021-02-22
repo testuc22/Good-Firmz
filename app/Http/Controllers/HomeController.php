@@ -21,4 +21,19 @@ class HomeController extends Controller{
     	//return view('front.home')->with(['data'=>$data,'categories'=>$categories,'sellers'=>$sellers]);
         return view('new-frontend.home');
     }
+
+    public function products()
+    {
+        return view('new-frontend.product');
+    }
+
+    public function singleProduct()
+    {
+        return view('new-frontend.single-product');
+    }
+
+    public function signUp()
+    {
+        return view('new-frontend.sign-up');
+    }
 }

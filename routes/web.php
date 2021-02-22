@@ -125,6 +125,10 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 Route::namespace('Front')->group(function(){
 
 	Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('/');
+	Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
+	Route::get('/single-product', [App\Http\Controllers\HomeController::class, 'singleProduct'])->name('single-product');
+	Route::get('/sign-up', [App\Http\Controllers\HomeController::class, 'signUp'])->name('sign-up');
+
 
 	/*-------------------Login and register ------------------*/
 	Route::get('login', [App\Http\Controllers\LoginController::class, 'index'])->name('login');

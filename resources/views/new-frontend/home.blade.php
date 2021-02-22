@@ -354,7 +354,7 @@
 							<div class="row no-gutters">
 								<div class="col-xl-3">
 									<div class="product_source">
-										<a href="">
+										<a href="{{ route('products')}}">
 											<div class="img_area">
 												<img src="{{ asset('public/frontend/img/e1.png') }}" alt="....">
 											</div>
@@ -369,7 +369,7 @@
 									<div class="row no-gutters">
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Top Ranked Products</p>
@@ -380,7 +380,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Top Ranked Products</p>
@@ -391,7 +391,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Top Ranked Products</p>
@@ -402,7 +402,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Top Ranked Products</p>
@@ -413,7 +413,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Top Ranked Products</p>
@@ -424,7 +424,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Top Ranked Products</p>
@@ -460,7 +460,7 @@
 							<div class="row no-gutters">
 								<div class="col-xl-3">
 									<div class="product_source">
-										<a href="">
+										<a href="{{ route('products')}}">
 											<div class="img_area">
 												<img src="{{ asset('public/frontend/img/a.jpg') }}" alt="....">
 											</div>
@@ -475,7 +475,7 @@
 									<div class="row no-gutters">
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Children Clothing</p>
@@ -486,7 +486,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Children Clothing</p>
@@ -497,7 +497,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Children Clothing</p>
@@ -508,7 +508,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Children Clothing</p>
@@ -519,7 +519,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Children Clothing</p>
@@ -530,7 +530,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
 													<div class="desc">
 														<p>Children Clothing</p>
@@ -566,7 +566,7 @@
 							<div class="row no-gutters">
 								<div class="col-xl-3">
 									<div class="product_source">
-										<a href="">
+										<a href="{{ route('products')}}">
 											<div class="img_area">
 												<img src="{{ asset('public/frontend/img/v.png') }}" alt="....">
 											</div>
@@ -581,7 +581,7 @@
 									<div class="row no-gutters">
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
 													<div class="desc">
 														<p>Motorcycle Parts & Accessories</p>
@@ -592,7 +592,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
 													<div class="desc">
 														<p>Motorcycle Parts & Accessories</p>
@@ -603,7 +603,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
 													<div class="desc">
 														<p>Motorcycle Parts & Accessories</p>
@@ -614,7 +614,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
 													<div class="desc">
 														<p>Motorcycle Parts & Accessories</p>
@@ -625,7 +625,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
 													<div class="desc">
 														<p>Motorcycle Parts & Accessories</p>
@@ -636,7 +636,7 @@
 										</div>
 										<div class="col-xl-4">
 											<div class="product_content">
-												<a href="#">
+												<a href="{{ route('single-product') }}">
 													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
 													<div class="desc">
 														<p>Motorcycle Parts & Accessories</p>
