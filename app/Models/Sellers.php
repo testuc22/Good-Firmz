@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Sellers extends Model{
     use HasFactory;
 
-    public $fillable = ['name','user_id','desc','slug','email','password','logo','address1','address2','website','phone_number','status','state_id','city_id','pincode','meta_title','meta_tags','meta_desc','featured'];
+    public $fillable = ['name','type','user_id','desc','slug','email','password','logo','address1','phone_number','status','state_id','city_id','pincode','meta_title','meta_tags','meta_desc','featured'];
 
     protected $hidden = [
         'password',
@@ -35,6 +36,14 @@ class Sellers extends Model{
     }
     public function seller_reviews(){ // only for seller dashboard to show all reviews
         return $this->hasMany(SellerReviews::class,'seller_id','id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->slug = Str::slug($model->name);
+        });
     }
 
 }

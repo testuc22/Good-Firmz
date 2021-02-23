@@ -21,9 +21,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone_number');
-            $table->unsignedBigInteger('state_id');
-            $table->tinyInteger('hide_search');
-            
+            $table->string('website')->nullable();
+            $table->string('email_verification_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

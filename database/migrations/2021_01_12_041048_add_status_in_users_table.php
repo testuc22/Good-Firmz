@@ -15,7 +15,7 @@ class AddStatusInUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->tinyInteger('status')->after('hide_search')->default(0);
+            $table->tinyInteger('status')->after('website')->default(0);
         });
     }
 

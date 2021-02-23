@@ -60,7 +60,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 
 	Route::name('edit-user')->get('edit-user/{id}',[App\Http\Controllers\Admin\UsersController::class,'edit_user']);
 	Route::name('admin-update-user')->post('admin-update-user/{id}',[App\Http\Controllers\Admin\UsersController::class,'update_user']);
-
+	Route::name('verify')->get('/verify/{token}', [App\Http\Controllers\Admin\UsersController::class,'verifyEmail']);
 
 	/*-------------------Users Controllers ends ------------------*/
 

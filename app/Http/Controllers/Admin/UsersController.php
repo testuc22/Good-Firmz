@@ -12,7 +12,7 @@ use App\Http\Requests\UserRequest;
 class UsersController extends Controller{
 
     public function __construct(UserRepository $user_repository,LocationRepository $location_repository){
-	    $this->middleware('auth:admin');
+	    //$this->middleware('auth:admin');
 	    $this->user_repository = $user_repository;
 	    $this->location_repository = $location_repository;
 	}
@@ -33,7 +33,7 @@ class UsersController extends Controller{
     }
     public function save_user(UserRequest $request){
     	$result=$this->user_repository->admin_create_user($request);
-        return $result;
+        return redirect()->back()->with('success', 'User Registered Successfully ! Please Check Your Mail For Email Verification');
     }
 
     public function edit_user(Request $request,$id){
@@ -52,5 +52,11 @@ class UsersController extends Controller{
     public function view_business(Request $request,$id){
     	$userDetails = $this->user_repository->getUserByID($request,$id);
     	return view('admin.users.view_business')->with(['user'=>$userDetails]);
+    }
+
+    public function verifyEmail($token = null)
+    {
+        $this->user_repository->verifyEmail($token);
+        return redirect()->route('login');
     }
 }
