@@ -44,7 +44,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	/*-------------------Products Controllers starts ------------------*/
 	Route::name('list-products')->get('list-products',[App\Http\Controllers\Admin\ProductController::class,'index']);
 	Route::name('update-product-status')->put('update-product-status',[App\Http\Controllers\Admin\ProductController::class,'updateStatus']);
-	Route::name('add-product')->get('add-product',[App\Http\Controllers\Admin\ProductController::class,'add_product']);
+	/*Route::name('add-product')->get('add-product',[App\Http\Controllers\Admin\ProductController::class,'add_product']);*/
 	/*-------------------Products Controllers ends ------------------*/
 
 
