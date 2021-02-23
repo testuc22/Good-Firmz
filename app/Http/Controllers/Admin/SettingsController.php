@@ -25,11 +25,14 @@ class SettingsController extends Controller{
     }
 
     public function get_home_page_data(){
-    	$allCategories = $this->category_repository->getAllCategories();
+        $allCategories = $allSellers = $homeSettings = array();
 
+    	$allCategories = $this->category_repository->getAllCategories();
     	$allSellers = $this->seller_repository->getAllSellers();
     	$row = $this->settings_repository->getSettingsByKey('home_page_settings');
-    	$homeSettings = $row->meta_value ? json_decode($row->meta_value,true) : array();
+        if(!empty($row)){
+    	   $homeSettings = $row->meta_value ? json_decode($row->meta_value,true) : array();
+        }
     	return [
     		'allCategories'=>$allCategories,
     		'allSellers'   => $allSellers,
@@ -39,5 +42,25 @@ class SettingsController extends Controller{
     public function save_home_page_settings(Request $request){
     	$this->settings_repository->save_home_page_settings($request);
     	return redirect()->route('settings');
+    }
+
+    public function home_page_banner(){
+        $banners = $this->settings_repository->all_banners();
+        return view('admin.settings.homepage_banner')->with(['banners'=>$banners]);
+    }
+    public function add_banner(){
+        return view('admin.settings.add_banner');
+    }
+    public function save_banner(Request $request){
+        $this->settings_repository->save_banner($request);
+        return redirect()->route('settings-home-banner');
+    }
+    public function update_banner_status(Request $request){
+        $result=$this->settings_repository->update_banner_status($request);
+        return $result;
+    }
+    public function delete_banner(Request $request,$id){
+        $this->settings_repository->delete_banner($request,$id);
+        return redirect()->route('settings-home-banner');
     }
 }

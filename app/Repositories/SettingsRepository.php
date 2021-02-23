@@ -2,7 +2,7 @@
 namespace App\Repositories;
 use Illuminate\Http\Request;
 use App\Models\{
-	Settings
+	Settings,Banner
 };
 use Illuminate\Support\Facades\Storage;
 use App\CommonHelper;
@@ -16,7 +16,7 @@ class SettingsRepository{
     public function getSettingsByKey($key){
     	return Settings::where('meta_key',$key)->first();
     }
-    public function save_home_page_settings(Request $request){
+    public function save_home_page_settings($request){
     	$request->validate([
     		'categories'=>'required',
     		'featured_sellers'=>'required'
@@ -46,6 +46,39 @@ class SettingsRepository{
     		]);
     	}
     	$this->common_helper->setFlashMessage($request,'Settings updated successfully',"success");
+    }
+
+    public function save_banner($request){
+        $request->validate([
+            'image'=>'required|image',
+            'button_text'=>'required',
+            'button_link'=>'required|url',
+        ]);
+        $data = array(
+            'image'=>$this->common_helper->process_image($request,'public/banner_images','image'),
+            'button_text'=>$request->button_text,
+            'button_link'=>$request->button_link,
+            'status'=>1
+        );
+        // print_r($data);die;
+        Banner::create($data);
+        $this->common_helper->setFlashMessage($request,'Banner added successfully',"success");
+    }
+    public function all_banners(){
+        return Banner::orderBy('id','desc')->get();
+    }
+    public function update_banner_status($request){
+        $banner = Banner::find($request->banner);
+        $banner->update(['status'=>$request->status]);
+        return response(['message'=>'Banner Status Updated Successfully',200]);
+    }
+
+    public function delete_banner($request,$id){
+        $banner = Banner::find($id);
+        $image = $banner->image;
+        $banner->delete();
+        unlink(public_path('banner_images/'.$image));
+        $this->common_helper->setFlashMessage($request,'Banner Deleted Successfully',"success");
     }
 }
 ?>

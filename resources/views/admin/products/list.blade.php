@@ -42,14 +42,6 @@
 
             <div class="card">
 
-            <div class="card-header">
-
-              {{-- <h3 class="card-title">All Categories</h3> --}}
-
-              <a href="{{ route('add-product') }}" class="btn  bg-gradient-info" >Add New Product</a>
-
-            </div>
-
             <!-- /.card-header -->
 
             <div class="card-body">
@@ -81,7 +73,7 @@
                     {{-- <a href="javascript:void(0)" style="margin-left: 15px;" class="delete-category" data-category="{{$product->id}}"><i class="fas fa-trash-alt fa-2x" style="color: red;"></i></a> --}}
                 </td>
                     <td>
-                      <select class="custom-select show_category_in_menu" data-category="{{$product->id}}">
+                      <select class="custom-select show_product_in_menu" data-product="{{$product->id}}">
                         <option value="1" {{$product->status==1 ? 'selected' :'' }}>Show</option>
                         <option value="0" {{$product->status==0 ? 'selected' :'' }}>Hide</option>
                       </select>
@@ -116,32 +108,18 @@
 @section('scripts')
 <script type="text/javascript">
   jQuery(document).ready(function($) {
-    $(document).on('change', '.show_category_in_menu', function(event) {
-      let category=$(this).data('category');
+    $(document).on('change', '.show_product_in_menu', function(event) {
+      let product=$(this).data('product');
       let value=$(this).children('option:selected').val()
       $.ajax({
-        url:'{{route('update-product-status')}}',
-        type: 'PUT',
-        data:{category:category,'_token':'{{csrf_token()}}',status:value},
-        success:function(result){
-            show_success(result.message)
-        }
-    });
+          url:'{{route('update-product-status')}}',
+          type: 'PUT',
+          data:{product:product,'_token':'{{csrf_token()}}',status:value},
+          success:function(result){
+              show_success(result.message)
+          }
+      });
     }); 
-
-    $(document).on('click', '.delete-category', function(event) {
-        let category=$(this).data('category');
-          let _parent=$(this).parents('tr');
-          $.ajax({
-            
-            type: 'GET',
-            data:{category:category},
-            success:function(result){
-                show_success(result.message)
-                _parent.fadeOut('slow')
-            }
-        });
-    });
   });
 </script>
 @endsection

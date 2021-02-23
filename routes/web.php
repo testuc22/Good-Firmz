@@ -44,7 +44,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	/*-------------------Products Controllers starts ------------------*/
 	Route::name('list-products')->get('list-products',[App\Http\Controllers\Admin\ProductController::class,'index']);
 	Route::name('update-product-status')->put('update-product-status',[App\Http\Controllers\Admin\ProductController::class,'updateStatus']);
-	/*Route::name('add-product')->get('add-product',[App\Http\Controllers\Admin\ProductController::class,'add_product']);*/
+	Route::name('add-product')->get('add-product',[App\Http\Controllers\Admin\ProductController::class,'add_product']);
 	/*-------------------Products Controllers ends ------------------*/
 
 
@@ -67,6 +67,16 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	/*-------------------Settings Controllers starts ------------------*/
 	Route::name('settings')->get('settings',[App\Http\Controllers\Admin\SettingsController::class,'index']);
 	Route::name('save-home-settings')->post('save-home-settings',[App\Http\Controllers\Admin\SettingsController::class,'save_home_page_settings']);
+	Route::name('settings-home-banner')->get('settings-home-banner',[App\Http\Controllers\Admin\SettingsController::class,'home_page_banner']);
+	Route::name('add-banner')->get('add-banner',[App\Http\Controllers\Admin\SettingsController::class,'add_banner']);
+	Route::name('save-banner')->post('save-banner',[App\Http\Controllers\Admin\SettingsController::class,'save_banner']);
+
+	Route::name('update-banner-status')->put('update-banner-status',[App\Http\Controllers\Admin\SettingsController::class,'update_banner_status']);
+
+	Route::name('delete-banner')->get('delete-banner/{id}',[App\Http\Controllers\Admin\SettingsController::class,'delete_banner']);
+
+
+
 	/*-------------------Settings Controllers ends ------------------*/
 
 	/*-------------------Reviews Controllers starts ------------------*/
@@ -115,6 +125,10 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	/*-------------------Leads Controllers starts ------------------*/
 	Route::name('list-leads')->get('list-leads',[App\Http\Controllers\Admin\LeadsController::class,'list_leads']);
 	/*-------------------Leads Controllers ends ------------------*/
+
+
+
+
 
 });
 

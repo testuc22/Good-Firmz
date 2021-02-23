@@ -69,4 +69,8 @@ class ProductRepository
         }
         $product->productTags()->sync($productTags);
     }
+    public function updateStatus($request){
+        $this->getProductById($request->product)->update(['status'=>$request->status]);
+        return response(['message'=>'Product Status Updated Successfully',200]);
+    }
 }

@@ -29,6 +29,11 @@ class ProductController extends Controller
         $categories=$this->categoryRepository->getAllCategories();
         return view('admin.products.create')->with(['categories'=>$categories]);
     }
+    public function updateStatus()
+    {
+        $result=$this->productRepository->updateStatus($request);
+        return $result;
+    }
     /*public function getAddProductPage()
     {
         $categories=$this->categoryRepository->getAllCategories();

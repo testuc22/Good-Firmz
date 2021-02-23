@@ -1,5 +1,7 @@
 @extends('admin.layouts.default')
 @section('title','Settings')
+
+
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
@@ -29,25 +31,11 @@
                     	<form method="post" action="{{route('save-home-settings')}}" enctype="multipart/form-data">
                     		{{@csrf_field()}}
                     		<div class="card-body">
-                    			<div class="form-group">
+                                <div class="form-group">
                                     <div class="col-12 form-inner-block">
                                         <label class="col-3">Banner</label>
                                         <div class="col-9">
-                                        	@if($homeSettings['banner'])
-                                        	<div class="preview-img">
-                                        		<img src="{{ asset('public/images/'.$homeSettings['banner']) }}" style="width: 300px;margin-bottom: 10px;">
-                                        		<input type="hidden" name="old_image" value="{{$homeSettings['banner']}}">
-                                        	</div>
-                                        	@endif
-                                            <input type="file" name="image">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Banner Text</label>
-                                        <div class="col-9">
-                                            <input type="text" class="form-control" name="banner_text" @if($homeSettings['banner_text']) value="{{$homeSettings['banner_text']}}" @endif>
+                                            <a href="{{route('settings-home-banner')}}">Add Homepage Banners</a>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +45,7 @@
                                         <div class="col-9">
                                             <select class="duallistbox form-control" multiple="multiple" name="categories[]">
 							                	@foreach($allCategories as $category)
-							                	<option value="{{$category->id}}" @if($homeSettings['categories'] && in_array($category->id,$homeSettings['categories'])) selected="" @endif>{{$category->name}}</option>
+							                	<option value="{{$category->id}}" @if(isset($homeSettings['categories']) && in_array($category->id,$homeSettings['categories'])) selected="" @endif>{{$category->name}}</option>
 							                	@endforeach    
 							                </select>
 							                @if($errors->has('categories'))
@@ -74,7 +62,7 @@
                                         <div class="col-9">
                                             <select class="duallistbox form-control" multiple="multiple" name="featured_sellers[]">
 							                    @foreach($allSellers as $seller)
-							                	<option value="{{$seller->id}}" @if($homeSettings['sellers'] && in_array($seller->id,$homeSettings['sellers'])) selected="" @endif>{{$seller->name}}</option>
+							                	<option value="{{$seller->id}}" @if(isset($homeSettings['sellers']) && in_array($seller->id,$homeSettings['sellers'])) selected="" @endif>{{$seller->name}}</option>
 							                	@endforeach  
 						                  	</select>
 						                  	@if($errors->has('featured_sellers'))
@@ -108,6 +96,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.duallistbox').bootstrapDualListbox()
-	})
+});
 </script>
 @endsection
