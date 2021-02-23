@@ -30,6 +30,6 @@ class SellerCategories extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('seller_categories');
     }
 }

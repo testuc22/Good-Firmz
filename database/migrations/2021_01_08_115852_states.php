@@ -29,6 +29,6 @@ class States extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('states');
     }
 }

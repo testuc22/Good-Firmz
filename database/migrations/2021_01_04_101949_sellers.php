@@ -45,6 +45,8 @@ class Sellers extends Migration
      */
     public function down()
     {
-        //
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('sellers');
+        Schema::enableForeignKeyConstraints();
     }
 }

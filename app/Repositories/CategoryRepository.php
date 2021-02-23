@@ -16,7 +16,9 @@ class CategoryRepository{
         $this->common_helper = $common_helper;
     }
     public function getAllCategories(){
-        return Category::all();
+        return Category::where('parent', 0)
+                ->with('children')
+                ->get();
     }
 
     public function filterAllCategories($request){
@@ -37,11 +39,6 @@ class CategoryRepository{
             return $query->where('name','like','%'.$catgory_name.'%');
         })->get();
         $quries = DB::getQueryLog();
-
-  
-
-        echo $quries;die;
-        print_r($categories);die;
         return $categories;
     }
 

@@ -16,10 +16,10 @@ class HomeController extends Controller{
     public function index(){
     	$data = $this->settings_repository->getSettingsByKey('home_page_settings');
     	$data = isset($data->meta_value) && $data->meta_value!="" ? json_decode($data->meta_value,true) : array();
-    	$categories = $this->category_repository->getCategoriesWithConditions($data['categories']);
-    	$sellers = $this->seller_repository->getSellersWithConditions($data['sellers']);
-    	//return view('front.home')->with(['data'=>$data,'categories'=>$categories,'sellers'=>$sellers]);
-        return view('new-frontend.home');
+    	$categories = $this->category_repository->getAllCategories();
+        //$sellers = $this->seller_repository->getSellersWithConditions($data['sellers']);
+            //return view('front.home')->with(['data'=>$data,'categories'=>$categories,'sellers'=>$sellers]);
+        return view('new-frontend.home')->with(['categories'=>$categories]);
     }
 
     public function products()

@@ -11,10 +11,10 @@
                     <li class="breadcrumb-item active">Category List</li>
                 </ol>
             </div>
-            <div class="col-sm-6 ">
+            <div class="col-sm-6">
                 <a href="{{ route('add-category') }}" class="btn  bg-gradient-info float-right" >Add New Category</a>
-                <a href="{{ route('export-categories') }}" class="btn  bg-gradient-danger mr-2" >Export</a>
-                <form method="post" action="{{ route('import-categories') }}" enctype="multipart/form-data">
+                <a href="{{ route('export-categories') }}" class="btn  bg-gradient-danger float-right mr-2" >Export</a>
+                <form method="post" action="{{ route('import-categories') }}" enctype="multipart/form-data" class="form-inline float-right mt-2">
                     @csrf
                     <input type="file" name="csvFile" required class="form-control">
                     <button class="btn  bg-gradient-warning mr-2">Import</button>
@@ -28,9 +28,9 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                @include('admin.categories.filters')
                 <!-- /.card-header -->
                 <div class="card-body">
+                @include('admin.categories.filters')
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>

@@ -17,7 +17,33 @@
 									</div>
 									<div class="menu">
 										<ul>
-											<li>
+											@foreach ($categories as $category)
+												<li>
+													<a href="">
+														{{$category->name}}
+														<i class="fas fa-angle-right"></i>
+													</a>
+													@foreach ($category->children as $child)
+														<div class="menu_box">
+															<div class="column">
+																<h4>
+																	{{$child->name}}
+																</h4>
+																<ul>
+																	@foreach ($child->subChildren as $subChild)
+																		<li>
+																			<a href="">
+																				{{$subChild->name}}
+																			</a>
+																		</li>
+																	@endforeach
+																</ul>
+															</div>
+														</div>	
+													@endforeach
+												</li>
+											@endforeach
+											<!--<li>
 												<a href="">Home Supplies</a>
 												<i class="fas fa-angle-right"></i>
 												<div class="menu_box">
@@ -313,7 +339,7 @@
 														</ul>
 													</div>
 												</div>
-											</li>
+											</li>-->
 										</ul>
 									</div>	
 								</div>
