@@ -15,18 +15,16 @@ class Sellers extends Migration
         Schema::create('sellers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->string('type')->nullable();
             $table->string('name');
             $table->string('slug');
             $table->mediumText('desc')->nullable();
             $table->string('email');
             $table->string('logo')->nullable();
-            $table->string('address1')->nullable();
-            $table->string('address2')->nullable();
-            $table->string('address3')->nullable();
-            $table->unsignedBigInteger('state_id');
-            $table->unsignedBigInteger('city_id');
-            $table->string('pincode');
-            $table->string('website')->nullable();
+            $table->text('address1')->nullable();
+            $table->unsignedBigInteger('state_id')->nullable();
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->string('pincode')->nullable();
             $table->string('phone_number')->nullable();
             $table->smallInteger('status')->default(0);
             $table->smallInteger('featured')->default(0);

@@ -34,7 +34,7 @@
                         <div class="header_info">
                             <ul>
                                 <li>
-                                    <a href="">
+                                    <a href="{{ route('login') }}">
                                         <i class="fas fa-user"></i>Sign In
                                     </a>
                                 </li>
@@ -182,6 +182,7 @@
         </p>
     </div>
     <!--Copyright Section End-->
+
 
     <script src="{{ asset('public/frontend/js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

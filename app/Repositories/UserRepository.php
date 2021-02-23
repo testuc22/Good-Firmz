@@ -2,7 +2,7 @@
 namespace App\Repositories;
 use Illuminate\Http\Request;
 use App\Models\{
-	User
+	User, Sellers
 };
 use Session;
 use App\CommonHelper;
@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\{
     Hash,Auth,Mail
 };
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+use App\Mail\VerificationEmail;
 
 class UserRepository{
 	public function __construct(CommonHelper $common_helper){
@@ -79,7 +81,7 @@ class UserRepository{
         return redirect()->route('my-account');
     }
 
-     public function admin_update_user($request,$id){
+    public function admin_update_user($request,$id){
         // $this->validateUser($request);
         $data = [
             'first_name'=>$request->first_name,
@@ -142,17 +144,27 @@ class UserRepository{
     }
     public function admin_create_user($request){
         $user = array(
-            'first_name'=>$request->first_name,
-            'last_name'=>$request->last_name,
+            'first_name'=>$request->fname,
+            'last_name'=>$request->lname,
             'email'=>$request->email,
-            'phone_number'=>$request->phone_number,
+            'phone_number'=>$request->mobile,
             'password'=>Hash::make($request->password),
-            'state_id'=>$request->has('state_id') ? $request->state_id : 0,
-            'status'=>$request->status ? 1 : 0
+            'website'=>$request->website,
+            'email_verification_token' => Str::random(32)
         );
         $user = User::create($user);
-        $this->common_helper->setFlashMessage($request,'User created successfully.','success');
-        return redirect()->route('list-users');
+        \Mail::to('testuc22@gmail.com')->send(new VerificationEmail($user));
+        if($user) {
+            $seller = new Sellers;
+            $seller->user_id = $user->id;
+            $seller->name = $request->company_name;
+            $seller->email = $request->company_email;
+            $seller->phone_number = $request->company_number;
+            $seller->type = $request->business;
+            $seller->address1  = $request->company_address;
+            $seller->save();
+        }
+        return true;
     }
     public function getUserByID($request,$user_id){
         return User::find($user_id);
@@ -166,6 +178,17 @@ class UserRepository{
         return $status === Password::RESET_LINK_SENT
                     ? back()->with(['status' => __($status)])
                     : back()->withErrors(['email' => __($status)]);
+    }
+
+    public function verifyEmail($token = null)
+    {
+        $user = User::where('email_verification_token',$token)->first();
+        $user->update([
+            'email_verified_at' => Carbon::now(),
+            'email_verification_token' => ''
+
+        ]);
+        return true;
     }
 }
 ?>

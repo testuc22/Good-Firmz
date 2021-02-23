@@ -23,17 +23,21 @@ class UserRequest extends FormRequest
      * @return array
      */
     public function rules(){
-        $id = Auth::guard('web')->check() ? Auth::guard('web')->id() : $this->id;
         $rules = [
-            'first_name'=>'required',
-            'last_name'=>'required',
-            'phone_number'=>'required|numeric',
-            'email' => 'required|email|unique:users,email,'.$id
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|confirmed',
+            'fname'=>'required',
+            'lname'=>'required',
+            'mobile'=>'required|numeric',
+            'website'=>'required',
+            'company_name'=>'required',
+            'company_email'=>'required',
+            'company_number'=>'required|numeric',
+            'business'=>'required',
+            'company_address'=>'required',
+
         ];
-        
-        if(!Auth::guard('web')->check()){
-            $rules['password'] =  'required|confirmed';
-        }
+
         return $rules;
     }
 }

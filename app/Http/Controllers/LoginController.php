@@ -18,7 +18,7 @@ class LoginController extends Controller
     }
     public function index(){
         if(Auth::guard('web')->check()) return redirect()->route('my-account');
-    	return view('front.home.login');
+    	return view('new-frontend.login');
     }
     public function register(){
         if(Auth::guard('web')->check()) return redirect()->route('my-account');
