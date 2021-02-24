@@ -33,12 +33,46 @@
                         </div>
                         <div class="header_info">
                             <ul>
+                                @if (Auth::check())
+                                    <li>
+                                        <a href="">
+                                            <i class="fas fa-envelope"></i>Messages
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">
+                                            <i class="fas fa-rupee-sign"></i>Ordres
+                                        </a>
+                                    </li>
+                                    <li class="add_product">
+                                        <a href="#">
+                                            <i class="fas fa-business-time"></i>Business
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('add-product') }}">
+                                                    <i class="fab fa-product-hunt"></i>Add Product
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('add-product') }}">
+                                                    <i class="fas fa-briefcase"></i>Add New Bussiness
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('user-logout') }}">
+                                                    <i class="fas fa-sign-out-alt"></i>Logout
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                @else
                                 <li>
                                     <a href="{{ route('login') }}">
                                         <i class="fas fa-user"></i>Sign In
                                     </a>
                                 </li>
-                                <li>
+                                <!--<li>
                                     <a href="">
                                         <i class="fas fa-envelope"></i>Messages
                                     </a>
@@ -47,12 +81,35 @@
                                     <a href="">
                                         <i class="fas fa-rupee-sign"></i>Ordres
                                     </a>
-                                </li>
+                                </li>-->
                                 <li>
                                     <a href="{{ route('sign-up') }}">
                                         <i class="fas fa-user"></i>Free Join
                                     </a>
                                 </li>
+                                <!--<li class="add_product">
+                                    <a href="#">
+                                        <i class="fas fa-business-time"></i>Business
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('add-product') }}">
+                                                <i class="fab fa-product-hunt"></i>Add Product
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('add-product') }}">
+                                                <i class="fas fa-briefcase"></i>Add New Bussiness
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <i class="fas fa-sign-out-alt"></i>Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>-->
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -219,6 +276,21 @@
                 }
             });
         });
+        var room = 1;
+        function education_fields() {
+            room++;
+            var objTo = document.getElementById('education_fields')
+            var divtest = document.createElement("div");
+            divtest.setAttribute("class", "form-group removeclass"+room);
+            var rdiv = 'removeclass'+room;
+            divtest.innerHTML = '<div class="row"><div class="col-5"><div class="form-group"><input type="text" name="key[]" class="form-control" value="" placeholder="Enter Product Key"></div></div><div class="col-5"><div class="form-group"><input type="text" name="value[]" class="form-control" value="" placeholder="Enter Product Value"></div></div><div class="col-2"><div class="form-group"><button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"><i class="fas fa-minus mr-1"></i>Remove Fields</button></div></div></div>';
+            
+            objTo.appendChild(divtest)
+        }
+
+        function remove_education_fields(rid) {
+           $('.removeclass'+rid).remove();
+        }
     </script>
 </body>
 </html>

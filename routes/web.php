@@ -2,6 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\CheckUserLoggedIn;
 
 /*************Admin routes starts here *************/
 
@@ -138,23 +139,24 @@ Route::namespace('Front')->group(function(){
 	Route::post('send-reset-password-link', [App\Http\Controllers\LoginController::class, 'send_reset_password_link'])->name('send-reset-password-link');
 
 	Route::get('/reset-password/{token}', [App\Http\Controllers\LoginController::class, 'reset_password_form'])->name('password.reset');
+	Route::post('/password/reset', [App\Http\Controllers\LoginController::class, 'passwordReset'])->name('password.update');
 
 
-	Route::get('register', [App\Http\Controllers\LoginController::class, 'register'])->name('register');
-	Route::post('register-user', [App\Http\Controllers\LoginController::class, 'register_user'])->name('register-user');
+	/*Route::get('register', [App\Http\Controllers\LoginController::class, 'register'])->name('register');
+	/*Route::post('register-user', [App\Http\Controllers\LoginController::class, 'register_user'])->name('register-user');
 	Route::get('verify-otp', [App\Http\Controllers\LoginController::class, 'verify_otp'])->name('verify-otp');
 	Route::post('check-user-otp', [App\Http\Controllers\LoginController::class, 'check_user_otp'])->name('check-user-otp');
-	Route::get('my-account', [App\Http\Controllers\MyAccountController::class, 'index'])->name('my-account');
+	Route::get('my-account', [App\Http\Controllers\MyAccountController::class, 'index'])->name('my-account');*/
 
 	Route::get('user-logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('user-logout');
 	
-	Route::post('update-user', [App\Http\Controllers\MyAccountController::class, 'update_user'])->name('update-user');
+	/*Route::post('update-user', [App\Http\Controllers\MyAccountController::class, 'update_user'])->name('update-user');
 
-	Route::post('update-password', [App\Http\Controllers\MyAccountController::class, 'update_password'])->name('update-password');
+	Route::post('update-password', [App\Http\Controllers\MyAccountController::class, 'update_password'])->name('update-password');*/
 	/*-------------------Login and register ------------------*/
 
 	/*-------------------List Business ------------------*/
-	Route::get('list-your-business', [App\Http\Controllers\SellersController::class, 'list_your_business'])->name('list-your-business');
+	/*Route::get('list-your-business', [App\Http\Controllers\SellersController::class, 'list_your_business'])->name('list-your-business');
 
 	Route::post('create-business', [App\Http\Controllers\SellersController::class, 'create_business'])->name('create-business');
 
@@ -164,7 +166,7 @@ Route::namespace('Front')->group(function(){
 
 	Route::name('update-business')->put('update-business/{id}',[App\Http\Controllers\SellersController::class,'update_business']);
 
-	Route::get('remove-business/{slug}', [App\Http\Controllers\SellersController::class, 'remove_business'])->name('remove-business');
+	Route::get('remove-business/{slug}', [App\Http\Controllers\SellersController::class, 'remove_business'])->name('remove-business');*/
 	
 	
 	
@@ -172,20 +174,20 @@ Route::namespace('Front')->group(function(){
 
 
 	/*-------------------Search ------------------*/
-	Route::get('search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
+	//Route::get('search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
 
 	
 	/*-------------------Search ------------------*/
 
 	/*-------------------Reviews  ------------------*/
 
-	Route::post('submit-review', [App\Http\Controllers\ReviewsController::class, 'submit_review'])->name('submit-review');
+	/*Route::post('submit-review', [App\Http\Controllers\ReviewsController::class, 'submit_review'])->name('submit-review');
 
 	Route::get('all-reviews/{slug}', [App\Http\Controllers\ReviewsController::class, 'seller_reviews'])->name('all-reviews');
 
 	Route::get('business-reviews', [App\Http\Controllers\ReviewsController::class, 'user_business_reviews'])->name('business-reviews');
 
-	Route::name('delete-business-review')->get('delete-business-review/{id}',[App\Http\Controllers\ReviewsController::class,'delete_business_review']);
+	Route::name('delete-business-review')->get('delete-business-review/{id}',[App\Http\Controllers\ReviewsController::class,'delete_business_review']);*/
 
 	
 	
@@ -194,14 +196,14 @@ Route::namespace('Front')->group(function(){
 
 	/*-------------------Static Pages  ------------------*/
 
-	Route::get('page/{page}', [App\Http\Controllers\PagesController::class, 'get_page_content'])->name('page');
+	/*Route::get('page/{page}', [App\Http\Controllers\PagesController::class, 'get_page_content'])->name('page');
 
-	Route::post('send-contactus-enquiry', [App\Http\Controllers\PagesController::class, 'submit_contactus'])->name('send-contactus-enquiry');
+	Route::post('send-contactus-enquiry', [App\Http\Controllers\PagesController::class, 'submit_contactus'])->name('send-contactus-enquiry');*/
 	
 	
 	/*-------------------Static Pages ------------------*/
 
-	Route::get('all-categories', [App\Http\Controllers\CategoryController::class, 'all_categories'])->name('all-categories');
+	/*Route::get('all-categories', [App\Http\Controllers\CategoryController::class, 'all_categories'])->name('all-categories');
 
 	Route::get('all-listings/{category?}', [App\Http\Controllers\SellersController::class, 'all_listings'])->name('all-listings');
 
@@ -210,7 +212,16 @@ Route::namespace('Front')->group(function(){
 
 	Route::post('all-locations-for-search', [App\Http\Controllers\StatesController::class, 'all_locations_for_search'])->name('all-locations-for-search');
 
-	Route::name('submit-enquiry')->put('submit-enquiry',[App\Http\Controllers\LeadsController::class,'submit_enquiry']);
+	Route::name('submit-enquiry')->put('submit-enquiry',[App\Http\Controllers\LeadsController::class,'submit_enquiry']);*/
+
+	/** User Dashboard */
+	Route::group(['middleware'=>[CheckUserLoggedIn::class, PreventBackHistory::class]], function(){
+		Route::name('user-dashboard')->get('user-dashboard',[App\Http\Controllers\UsersController::class, 'userDashboard']);
+		Route::name('company-profile')->get('company-profile',[App\Http\Controllers\UsersController::class, 'companyProfile']);
+		Route::name('user-profile')->get('user-profile',[App\Http\Controllers\UsersController::class, 'userProfile']);
+		Route::name('user-products')->get('user-products',[App\Http\Controllers\UsersController::class, 'userProducts']);
+		Route::name('add-product')->get('add-product',[App\Http\Controllers\UsersController::class, 'addProduct']);
+	});
 });
 
 

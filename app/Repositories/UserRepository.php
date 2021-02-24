@@ -67,7 +67,6 @@ class UserRepository{
     }
 
     public function update_user($request){
-        // $this->validateUser($request);
         $data = [
             'first_name'=>$request->first_name,
             'last_name'=>$request->last_name,
@@ -116,17 +115,20 @@ class UserRepository{
         return redirect()->route('my-account');
     }
 
+    /**
+     * Handle Login Request
+    */
     public function check_login($request){
         $request->validate([
             'email'=>'required|email',
             'password'=>'required'
         ]);
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            $this->common_helper->setFlashMessage($request,'Login successfully','success');
-            return redirect()->route('my-account');
+        $remember_me = $request->has('remember') ? true : false; 
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember_me)) {
+            //$this->common_helper->setFlashMessage($request,'Login successfully','success');
+            return redirect()->route('user-dashboard')->with('success', 'User Logged In Successfully');
         }
-        $this->common_helper->setFlashMessage($request,'Wrong credentials','error');
-        return redirect()->route('login');
+        return redirect()->back()->with('danger', 'Wrong Credentials');
     }
 
     public function getAllUsers(){
@@ -170,6 +172,9 @@ class UserRepository{
         return User::find($user_id);
     }
 
+    /**
+     * Send Password Reset Link
+     */
     public function send_reset_password_link($request){
         $request->validate(['email' => 'required|email']);
         $status = Password::sendResetLink(
@@ -183,11 +188,35 @@ class UserRepository{
     public function verifyEmail($token = null)
     {
         $user = User::where('email_verification_token',$token)->first();
+        if($user == null) {
+            return redirect()->route('login')->with('success', 'Email Already Verified');
+        }
         $user->update([
             'email_verified_at' => Carbon::now(),
             'email_verification_token' => ''
 
         ]);
+        return true;
+    }
+
+    /**
+     * Pasword chnage Request
+     */
+    public function passwordReset($request)
+    {
+        $request->validate(
+            [
+                'token' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|confirmed|min:6',
+            ]
+        );
+
+        $user = User::where('email', $request->email)->first();
+        $user->password = Hash::make($request->password);
+        $user->remember_token = Str::random(60);
+        $user->save();
+
         return true;
     }
 }
