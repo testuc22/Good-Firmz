@@ -48,28 +48,51 @@
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
+				@if(session()->has('success'))
+				    <div class="alert alert-success alert-block">
+						<button type="button" class="close" data-dismiss="alert">×</button>	
+				        {{ session()->get('success') }}
+				    </div>
+				@endif
+				@if(session()->has('danger'))
+				    <div class="alert alert-danger alert-block">
+						<button type="button" class="close" data-dismiss="alert">×</button>	
+				        {{ session()->get('danger') }}
+				    </div>
+				@endif
 				<div class="d-flex justify-content-center form_container">
-					<form>
+					<form action="{{ route('check-login') }}" method="post">
+						@method('POST')
+						@csrf
+						@if ($errors->has('email'))
+							<p class="text-danger">{{$errors->first('email')}}</p>
+						@endif
 						<div class="input-group mb-3">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-user"></i></span>
 							</div>
-							<input type="text" name="" class="form-control input_user" value="" placeholder="username">
+							<input type="text" name="email" class="form-control input_user" value="" placeholder="username">
 						</div>
+						@if ($errors->has('password'))
+							<p class="text-danger">{{$errors->first('password')}}</p>
+						@endif
 						<div class="input-group mb-2">
 							<div class="input-group-append">
 								<span class="input-group-text"><i class="fas fa-key"></i></span>
 							</div>
-							<input type="password" name="" class="form-control input_pass" value="" placeholder="password">
+							<input type="password" name="password" class="form-control input_pass" value="" placeholder="password">
 						</div>
 						<div class="form-group">
-							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" id="customControlInline">
-								<label class="custom-control-label" for="customControlInline">Remember me</label>
-							</div>
+							<div class="form-check">
+                               <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }} value="1">
+
+                               <label class="form-check-label" for="remember">
+                                   {{ __('Remember Me') }}
+                               </label>
+                            </div>
 						</div>
 							<div class="d-flex justify-content-center mt-3 login_container">
-				 	<button type="button" name="button" class="btn login_btn">Login</button>
+				 	<button type="submit" name="button" class="btn login_btn">Login</button>
 				   </div>
 					</form>
 				</div>
@@ -79,7 +102,7 @@
 						Don't have an account? <a href="{{ route('sign-up') }}" class="ml-2">Sign Up</a>
 					</div>
 					<div class="d-flex justify-content-center links">
-						{{--<a href="#">Forgot your password?</a>--}}
+						<a href="{{ route('forget-password') }}">Forgot your password?</a>
 					</div>
 				</div>
 			</div>

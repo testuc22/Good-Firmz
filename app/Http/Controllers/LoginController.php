@@ -16,6 +16,10 @@ class LoginController extends Controller
     public function __construct(UserRepository $user_repository){
     	$this->user_repository = $user_repository;
     }
+    /**
+     * User Login Form
+     * @return login Form View
+     */
     public function index(){
         if(Auth::guard('web')->check()) return redirect()->route('my-account');
     	return view('new-frontend.login');
@@ -39,7 +43,10 @@ class LoginController extends Controller
         	'otp'=>'required',
         ]);
         return $this->user_repository->check_otp($request);
-	}   
+	}
+    /**
+     * Check Login Request
+    */
     public function check_login(Request $request){
         return $this->user_repository->check_login($request);
     }
@@ -47,16 +54,32 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        $request->session()->flash('success','Logout successfully');
-        return redirect()->route('login');
+        //$request->session()->flash('success','Logout successfully');
+        return redirect()->route('login')->with('success','Logout successfully');
     } 
     public function forgetPassword(Request $request){
-        return view('front.home.forget_password');
+        return view('new-frontend.forgot-password');
     }
+    /**
+     * Send Password Reset Link
+     */
     public function send_reset_password_link(Request $request){
         return $this->user_repository->send_reset_password_link($request);
     }
+
+    /**
+     * Paasword Reset Form
+     */
     public function reset_password_form(Request $request,$token){
-        return view('front.home.reset_password', ['token' => $token,'email'=>$request->email]);
+        return view('new-frontend.reset-password', ['token' => $token,'email'=>$request->email]);
+    }
+
+    /**
+     * Password Reset Request
+     */
+    public function passwordReset(Request $request)
+    {
+        $this->user_repository->passwordReset($request);
+        return redirect()->route('login')->with('success', 'Password Changed Successfully');
     }
 }

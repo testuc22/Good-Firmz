@@ -54,6 +54,10 @@ class UsersController extends Controller{
     	return view('admin.users.view_business')->with(['user'=>$userDetails]);
     }
 
+    /**
+     * User Email Verification
+     * 
+    */
     public function verifyEmail($token = null)
     {
         $this->user_repository->verifyEmail($token);
