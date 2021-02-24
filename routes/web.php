@@ -154,6 +154,7 @@ Route::namespace('Front')->group(function(){
 
 	Route::get('/reset-password/{token}', [App\Http\Controllers\LoginController::class, 'reset_password_form'])->name('password.reset');
 	Route::post('/password/reset', [App\Http\Controllers\LoginController::class, 'passwordReset'])->name('password.update');
+	Route::get('post-requirement', [App\Http\Controllers\HomeController::class, 'postRequirement'])->name('post-requirement');
 
 
 	/*Route::get('register', [App\Http\Controllers\LoginController::class, 'register'])->name('register');

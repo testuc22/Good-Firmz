@@ -87,6 +87,9 @@
                                         <i class="fas fa-user"></i>Free Join
                                     </a>
                                 </li>
+                                <li class="post">
+                                    <a href="{{route('post-requirement')}}">Post Requirement</a>
+                                </li>
                                 <!--<li class="add_product">
                                     <a href="#">
                                         <i class="fas fa-business-time"></i>Business

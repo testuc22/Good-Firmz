@@ -36,4 +36,9 @@ class HomeController extends Controller{
     {
         return view('new-frontend.sign-up');
     }
+
+    public function postRequirement()
+    {
+        return view('new-frontend.post-requirement');
+    }
 }
