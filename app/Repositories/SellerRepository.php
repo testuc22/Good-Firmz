@@ -142,4 +142,33 @@ class SellerRepository{
         $this->common_helper->setFlashMessage($request,'Business removed Successfully.',"success");
         return redirect()->route('user-business-details');
     }
+
+    /**
+     * Update Company Info
+     */
+    public function updateCompanyInfo($request, $id)
+    {
+        $company =  Sellers::find($id);
+        $company->name = $request->company_name;
+        $company->type = $request->business;
+        $company->email = $request->company_email;
+        $company->phone_number = $request->company_number;
+        $company->save();
+
+        return true;
+    }
+
+    /**
+     * Update Seller Info
+     */
+    public function updateSellerInfo($id, $city, $state, $zip)
+    {
+        $seller = Sellers::find($id);
+        $seller->city_id = $city;
+        $seller->state_id = $state;
+        $seller->pincode = $zip;
+        $seller->save();
+
+        return true;
+    }
 }

@@ -35,12 +35,12 @@
 							<div class="col-xl-9">
 								<div class="card mb-4">
 								    <div class="card-header">
-								    	Add Product
-								    	<a href="{{ route('company-profile') }}" class="text-decoration-none btn btn-info btn-sm float-right">Back to Listing</a>
+								    	Edit Product
+								    	<a href="{{ route('user-products') }}" class="text-decoration-none btn btn-info btn-sm float-right">Back to Product Listing</a>
 								    </div>
 								    <div class="card-body">
-								    <form action="{{ route('add-product', ['id'=>$seller->id]) }}" method="post" id="add-product-form" autocomplete="off">
-								    @method('POST')
+								    <form action="{{ route('update-product', ['id'=>$product->id]) }}" method="post" autocomplete="off">
+								    @method('PUT')
 								    @csrf
 									<div class="row">
 										<div class="col-6">
@@ -127,7 +127,7 @@
 											@endif
 											<div class="form-group">
 												<label for="">Product Name</label>
-												<input type="text" name="product_name" class="form-control" value="" placeholder="Product Name Here">
+												<input type="text" name="product_name" class="form-control" value="{{$product->name}}" placeholder="Product Name Here">
 											</div>
 										</div>
 										<div class="col-6">
@@ -142,22 +142,18 @@
 														@foreach ($category->children as $child)
 														<optgroup label="{{$child->name}}">
 															@foreach ($child->subChildren as $subchild)
-																<option value="{{$subchild->id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$subchild->name}}</option>
+																<option value="{{$subchild->id}}"
+																	@if ($product->categories[0]->id == $subchild->id)
+																		{{'selected'}}
+																	@endif
+																>
+																{{$subchild->name}}
+																</option>
 															@endforeach
 														</optgroup>
 														@endforeach
 													@endforeach
 												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-12">
-											<div class="form-group">
-												<label for="">Upload Product Images</label>
-												<div class="dropzone" id="image-upload">
-
-												</div>
 											</div>
 										</div>
 									</div>
@@ -168,10 +164,14 @@
 											@endif
 											<div class="form-group">
 												<label for="">City</label>
-												<select name="city" class="form-control">
+												<select name="city" class="form-control" disabled>
 													<option value="">Select City</option>
 													@foreach ($cities as $city)
-														<option value="{{$city->id}}">{{$city->name}}</option>
+														<option value="{{$city->id}}"
+															@if ($seller->city_id == $city->id)
+																{{'selected'}}
+															@endif
+															>{{$city->name}}</option>
 													@endforeach
 												</select>
 											</div>
@@ -182,8 +182,13 @@
 											@endif
 											<div class="form-group">
 												<label for="">State</label>
-												<select name="state" class="form-control">
+												<select name="state" class="form-control" disabled>
 													<option value="">Select State</option>
+													<option value="{{$seller->state_id}}"
+														@if ($seller->state->id == $seller->state_id)
+															{{'selected'}}
+														@endif
+														>{{$seller->state->name}}</option>
 												</select>
 											</div>
 										</div>
@@ -193,7 +198,7 @@
 											@endif
 											<div class="form-group">
 												<label for="">Zip Code</label>
-												<input type="text" name="zip" class="form-control" value="" placeholder="Enter Zip Code">
+												<input type="text" name="zip" class="form-control" value="{{$seller->pincode}}" placeholder="Enter Zip Code" disabled>
 											</div>
 										</div>
 										<div class="col-3">
@@ -202,7 +207,7 @@
 											@endif
 											<div class="form-group">
 												<label for="">Product Price</label>
-												<input type="text" name="price" class="form-control" value="" placeholder="Enter price per piece">
+												<input type="text" name="price" class="form-control" value="{{$product->price}}" placeholder="Enter price per piece">
 											</div>
 										</div>
 									</div>
@@ -213,43 +218,31 @@
 											@endif
 											<div class="form-group">
 												<label for="">Product Description</label>
-												<textarea name="product_desc" rows="5" class="form-control"></textarea>
+												<textarea name="product_desc" rows="5" class="form-control">{{$product->desc}}</textarea>
 											</div>
 										</div>
 									</div>
+									@foreach ($product->productMetas as $key => $meta)
 									<div class="row">
-										<div class="col-4">
-											<div class="form-group">
-												<label for="">Product Key</label>
-												<input type="text" name="meta[0][key]" class="form-control" value="" placeholder="Exp Key= Price">
+											<div class="col-xl-6">
+												<div class="form-group">
+													<label for="">Product Meta Key</label>
+													<input type="text" name="meta[{{$key}}][key]" class="form-control" value="{{$meta->key}}" placeholder="Exp Key= Price">
+													<input type="hidden" name="meta[{{$key}}][id]" value="{{$meta->id}}">
+												</div>
 											</div>
-											@if ($errors->has('meta.0.key'))
-												<p class="text-danger">{{$errors->first('meta.0.key')}}</p>
-											@endif
-										</div>
-										<div class="col-4">
-											<div class="form-group">
-												<label for="">Product Value</label>
-												<input type="text" name="meta[0][value]" class="form-control" value="" placeholder="Exp Value=500">
+											<div class="col-xl-6">
+												<div class="form-group">
+													<label for="">Product Meta Value</label>
+													<input type="text" name="meta[{{$key}}][value]" class="form-control" value="{{$meta->value}}" placeholder="Exp Value=500">
+												</div>
 											</div>
-											@if ($errors->has('meta.0.value'))
-												<p class="text-danger">{{$errors->first('meta.0.value')}}</p>
-											@endif
-										</div>
-										<div class="col-4">
-											<div class="form-group">
-												<button type="button" class="btn btn-primary" style="margin-top: 32px;" onclick="education_fields();">
-													<i class="fas fa-plus mr-1"></i>Add
-												</button>
-											</div>
-										</div>
-									</div>
-									<div id="education_fields">
-									</div>
+										</div>	
+									@endforeach
 									<div class="row">
 										<div class="col-12">
 											<div class="form-group" style="text-align: center;">
-												<button id="addProduct" type="button" class="btn btn-info">Add Product</button>
+												<button type="submit" class="btn btn-info">Update Product</button>
 											</div>
 										</div>
 									</div>
@@ -267,30 +260,7 @@
 @endsection
 @section('scripts')
 <script>
-  Dropzone.autoDiscover = false;
-	var myDropzone = new Dropzone(".dropzone", { 
-		autoProcessQueue: false,
-		url: '{{ route('product-image') }}',
-		headers: {
-			'X-CSRF-TOKEN': "{{ csrf_token() }}"
-		},
-		maxFilesize: 2,
-		parallelUploads:4,
-		addRemoveLinks: true,
-		acceptedFiles: ".jpeg,.jpg,.png,.gif",
-		success: function (file, response) {
-		$('form').append('<input type="hidden" name="images[]" value="' + response.name + '">')
-		},
-	});
-
-	$('#addProduct').click(function(){
-		myDropzone.processQueue();
-		setTimeout(function () {
-			$('#add-product-form').submit();
-		}, 2000);
-	})
-
-	$(document).ready(function(){
+  	$(document).ready(function(){
 		$('select[name="city"]').on('change', function() {
 			var cityId = $(this).val();
 			var url = '{{ route('city', ['id'=>':id'])}}';

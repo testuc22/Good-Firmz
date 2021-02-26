@@ -75,4 +75,28 @@ class SellersController extends Controller{
         $response = $this->sellerRepository->remove_business($request,$slug);
         return $response;
     }
+
+    /**
+     * Get Specified Company Detail
+     */
+    public function companyDetail($id)
+    {
+        $company = $this->sellerRepository->getSellerById($id);
+        return view('new-frontend.edit-company-detail')->with(['company'=>$company]);
+    }
+
+    /**
+     * Update Company Info
+     */
+    public function updateCompanyInfo(Request $request, $id)
+    {
+        $request->validate([
+            'company_name'=>'required',
+            'company_email'=>'required',
+            'company_number'=>'required',
+            'business'=>'required',
+        ]);
+        $this->sellerRepository->updateCompanyInfo($request, $id);
+        return redirect()->route('company-profile')->with('success', 'Company Detail Updated Successfully');
+    }
 }

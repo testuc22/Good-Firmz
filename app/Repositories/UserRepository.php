@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\{
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use App\Mail\VerificationEmail;
+use Exception;
 
 class UserRepository{
 	public function __construct(CommonHelper $common_helper){
@@ -218,6 +219,55 @@ class UserRepository{
         $user->save();
 
         return true;
+    }
+
+    /**
+     * User Profile Update Request
+     */
+    public function updateProfile($request, $id)
+    {
+        $user = User::find($id);
+        $user->first_name = $request->fname;
+        $user->last_name = $request->lname;
+        $user->phone_number = $request->mobile;
+        $user->website = $request->website;
+        $user->email = $request->email;
+        $user->save();
+        return true;
+    }
+
+    /**
+     * User Password Change Request
+     */
+    public function updatePassword($request, $id)
+    {
+        $user = User::find($id);
+        $matchPassword = Hash::check($request->old_password, $user->password);
+        if(!$matchPassword){
+            throw new  Exception('Password Does Not Match, Please Provide Vaild Password');
+        }
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return true;
+    }
+
+    /**
+     * User Company Detail Info
+     */
+    public function companyDetail($id)
+    {
+        $user = User::with('sellers')->find($id);
+        return $user->sellers;
+    }
+
+    /**
+     * Get Seller Id By User Id
+     */
+    public function getSellerByUserId($id)
+    {
+        $seller = Sellers::where('user_id', $id)->first();
+        return $seller;
     }
 }
 ?>

@@ -27,45 +27,48 @@
 								</div>
 							</div>
 							<div class="col-xl-9">
-								<div class="product-listing">
-									<div class="img_area">
-										<img src="img/f.jpeg" alt="...">
+							@if(session()->has('success'))
+							    <div class="alert alert-success alert-block">
+									<button type="button" class="close" data-dismiss="alert">×</button>	
+							        {{ session()->get('success') }}
+							    </div>
+							@endif
+								@if (!empty($products))
+									@foreach ($products as $product)
+										<div class="product-listing">
+											<div class="img_area">
+												<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
+											</div>
+											<div class="desc_area">
+												<h4>{{$product->name}}</h4>
+												<p>
+													Price : <i class="fas fa-rupee"></i>{{$product->price}}/ Piece(s)
+												<p>
+												<ul>
+													@foreach ($product->productMetas as $meta)
+														<li>
+															<span>{{$meta->key}} : </span>{{$meta->value}}
+														</li>
+													@endforeach
+												</ul>
+												<a href="">more</a>
+											</div>	
+											<div class="contact_info">
+												<h4>{{$product->seller->name}}</h4>
+												<p>
+													<i class="fas fa-map-marker"></i>{{$product->seller->address1}}
+												</p>
+												<a href="{{ route('edit-product', ['id'=>$product->id]) }}" class="btn btn-success btn-sm">Edit Product</a>
+											</div>
+										</div>
+									@endforeach
+								@else
+									<div class="card">
+										<div class="card-body">
+											<p>You Have Not Listing Any Product</p>
+										</div>
 									</div>
-									<div class="desc_area">
-										<h4>Artificial Flowers</h4>
-										<p>
-											Price : <i class="fas fa-rupee"></i>500/ Piece(s)
-										<p>
-										<ul>
-											<li>
-												<span>Feature :</span> Dust Resistance, Easy Washable
-										    </li>
-											<li>
-												<span>Finishing :</span> Coated, Non Coated
-											</li>
-											<li>
-												<span>Type :</span> Artificial Flowers
-											</li>
-											<li>
-												<span>Packaging Type :</span> Carton Box, Thermocol Box
-											</li>
-											<li>
-												<span>Occasion :</span> Decoration, Hotel, Mall, Party
-											</li>
-											<li>
-												<span>Material :</span> Plastic, PVC
-											</li>
-										</ul>
-										<a href="">more</a>
-									</div>	
-									<div class="contact_info">
-										<h4>Enterprise name</h4>
-										<p>
-											<i class="fas fa-map-marker"></i>Bairagarh,Bhopal
-										</p>
-										<button class="btn btn-success btn-sm">Edit Product</button>
-									</div>
-								</div>	
+								@endif
 							</div>
 						</div>	
 					</div>

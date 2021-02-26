@@ -27,31 +27,63 @@
 								</div>
 							</div>
 							<div class="col-xl-9">
+								@if(session()->has('success'))
+								    <div class="alert alert-success alert-block">
+										<button type="button" class="close" data-dismiss="alert">×</button>	
+								        {{ session()->get('success') }}
+								    </div>
+								@endif
 								<div class="card mb-4">
-								    <div class="card-header">Company Details</div>
+								    <div class="card-header">
+								    	User Company Listing
+								    	<a href="{{ route('add-business', ['id'=>$userId])}}" class="text-decoration-none btn btn-info btn-sm float-right">Add New Business</a>
+								    </div>
 								    <div class="card-body">
-								        <form>
-								            <!-- Form Row-->
+								    	<table class="table table-bordered">
+								    		<thead>
+								    			<tr>
+								    				<th>Sr no.</th>
+								    				<th>Company Name</th>
+								    				<th>Business Type</th>
+								    				<th>Company Email</th>
+								    				<th>Action</th>
+								    			</tr>
+								    		</thead>
+								    		<tbody>
+								    			@foreach ($sellers as $key => $seller)
+								    				<tr>
+								    					<td>{{++$key}}</td>
+								    					<td>{{$seller->name}}</td>
+								    					<td>{{$seller->type}}</td>
+								    					<td>{{$seller->email}}</td>
+								    					<td>
+								    						<a href="{{ route('company-detail', ['id'=>$seller->id])}}" class="btn btn-info btn-sm">
+								    							<i class="fas fa-edit"></i>Edit
+								    						</a>
+								    						<a href="{{ route('add-product', ['id'=>$seller->id]) }}" class="btn btn-info btn-sm">
+								    							<i class="fab fa-product-hunt"></i>Add Product
+								    						</a>
+								    					</td>
+								    				</tr>
+								    			@endforeach
+								    		</tbody>
+								    	</table>
+								        <!--<form>
 								            <div class="form-row">
-								                <!-- Form Group (first name)-->
 								                <div class="form-group col-md-6">
 								                    <label for="">Company name</label>
 								                    <input class="form-control" type="text" placeholder="Enter your first name" value="">
 								                </div>
-								                <!-- Form Group (last name)-->
 								                <div class="form-group col-md-6">
 								                    <label for="">Company Email</label>
 								                    <input class="form-control" type="text" placeholder="Enter your last name" value="">
 								                </div>
 								            </div>
-								            <!-- Form Row        -->
 								            <div class="form-row">
-								                <!-- Form Group (organization name)-->
 								                <div class="form-group col-md-6">
 								                    <label for="">Company Number</label>
 								                    <input class="form-control" type="text" placeholder="Enter your organization name" value="">
 								                </div>
-								                <!-- Form Group (location)-->
 								                <div class="form-group col-md-6">
 								                    <label for="">Company Business Type</label>
 								                    <select name="business" class="form-control">
@@ -68,9 +100,8 @@
 													</select>
 								                </div>
 								            </div>
-								            <!-- Save changes button-->
 								            <button class="btn btn-primary" type="button">Save changes</button>
-								        </form>
+								        </form>-->
 								    </div>
 								</div>
 							</div>
@@ -81,4 +112,57 @@
 		</div>
 	</div>
 	<!--Dashboard Section End-->
+
+	<!--Company Detail Modal Start-->
+	<div class="modal fade" id="editCompany">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="card">
+						<div class="card-header">Company Detail Edit</div>
+						<div class="card-body" id="card-body">
+							<!--<form>
+					            <div class="form-row">
+					                <div class="form-group col-md-6">
+					                    <label for="">Company name</label>
+					                    <input class="form-control" type="text" placeholder="Enter your first name" value="">
+					                </div>
+					                <div class="form-group col-md-6">
+					                    <label for="">Company Email</label>
+					                    <input class="form-control" type="text" placeholder="Enter your last name" value="">
+					                </div>
+					            </div>
+					            <div class="form-row">
+					                <div class="form-group col-md-6">
+					                    <label for="">Company Number</label>
+					                    <input class="form-control" type="text" placeholder="Enter your organization name" value="">
+					                </div>
+					                <div class="form-group col-md-6">
+					                    <label for="">Company Business Type</label>
+					                    <select name="business" class="form-control">
+											<option value="">Select Primary Business</option>
+											<option value="">Manufacturers</option>
+											<option value="">Exporters</option>
+											<option value="">Wholeseller</option>
+											<option value="">Retailer</option>
+											<option value="">Trade</option>
+											<option value="">Distribiutor</option>
+											<option value="">Importers</option>
+											<option value="">Buying House</option>
+											<option value="">Service Provider</option>
+										</select>
+					                </div>
+					            </div>
+					            <button class="btn btn-primary" type="button">Save changes</button>
+					        </form>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Company Detail Modal End-->
+
+@endsection
+@section('page-script')
 @endsection

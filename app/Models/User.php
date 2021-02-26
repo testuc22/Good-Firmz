@@ -43,6 +43,6 @@ class User extends Authenticatable
         return $this->belongsTo(States::class);
     }
     public function sellers(){
-        return $this->hasMany(Sellers::class);
+        return $this->hasMany(Sellers::class, 'user_id', 'id');
     }
 }

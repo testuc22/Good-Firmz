@@ -27,61 +27,99 @@
 								</div>
 							</div>
 							<div class="col-xl-9">
+								@if(session()->has('success'))
+								    <div class="alert alert-success alert-block">
+										<button type="button" class="close" data-dismiss="alert">×</button>	
+								        {{ session()->get('success') }}
+								    </div>
+								@endif
+								@if (session('error'))
+									<div class="alert alert-danger">{{ session('error') }}</div>
+								@endif
 								<div class="content_area">
 									<div class="row">
-			                            <div class="col-xl-4">
-			                                <!-- Profile picture card-->
+			                            <div class="col-xl-6">
 			                                <div class="card">
-			                                    <div class="card-header">Profile Picture</div>
-			                                    <div class="card-body text-center">
-			                                        <!-- Profile picture image-->
-			                                        <img class="img-account-profile rounded-circle mb-2" src="{{ asset('public/images/default-seller-logo.jpg') }}" alt="">
-			                                        <!-- Profile picture help block-->
-			                                        <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
-			                                        <!-- Profile picture upload button-->
-			                                        <button class="btn btn-primary" type="button">Upload new image</button>
+			                                	<div class="card-header">Change Password</div>
+			                                    <div class="card-body">
+			                                        <form action="{{ route('update-password', ['id'=>$user->id])}}" method="post">
+			                                        	@method('PUT')
+			                                        	@csrf
+			                                            <div class="form-row">
+			                                            	@if ($errors->has('old_password'))
+			                                            		<p class="text-danger">{{$errors->first('old_password')}}</p>
+			                                            	@endif
+			                                                <div class="form-group col-md-12">
+			                                                    <label for="">Old Password</label>
+			                                                    <input class="form-control" type="password" name="old_password" placeholder="Enter Old Password" value="">
+			                                                </div>
+			                                                @if ($errors->has('password'))
+			                                                	<p class="text-danger">{{$errors->first('password')}}</p>
+			                                                @endif
+			                                                <div class="form-group col-md-12">
+			                                                    <label for="">New Password</label>
+			                                                    <input class="form-control" type="password" name="password" placeholder="Enter your New Password" value="">
+			                                                </div>
+			                                            </div>
+			                                            @if ($errors->has('password_confirmation'))
+			                                            	<p class="text-danger">{{$errors->first('password_confirmation')}}</p>
+			                                            @endif
+			                                            <div class="form-group">
+			                                                <label for="">Confirm Password</label>
+			                                                <input class="form-control" type="password" name="password_confirmation" placeholder="Enter Password Again" value="">
+			                                            </div>
+			                                            <button class="btn btn-primary" type="submit">Password Update</button>
+			                                        </form>
 			                                    </div>
 			                                </div>
 			                            </div>
-			                            <div class="col-xl-8">
-			                                <!-- Account details card-->
+			                            <div class="col-xl-6">
 			                                <div class="card mb-4">
 			                                    <div class="card-header">Profile Details</div>
 			                                    <div class="card-body">
-			                                        <form>
-			                                            <!-- Form Row-->
+			                                        <form action="{{ route('update-profile', ['id'=>$user->id]) }}" method="post">
+			                                        	@method('PUT')
+			                                        	@csrf
 			                                            <div class="form-row">
-			                                                <!-- Form Group (first name)-->
-			                                                <div class="form-group col-md-6">
+			                                            	@if ($errors->has('fname'))
+			                                            		<p class="text-danger">{{$errors->first('fname')}}</p>
+			                                            	@endif
+			                                                <div class="form-group col-12">
 			                                                    <label for="">First name</label>
-			                                                    <input class="form-control" type="text" placeholder="Enter your first name" value="">
+			                                                    <input class="form-control" type="text" name="fname" placeholder="Enter your first name" value="{{$user->first_name}}">
 			                                                </div>
-			                                                <!-- Form Group (last name)-->
-			                                                <div class="form-group col-md-6">
+			                                                @if ($errors->has('lname'))
+			                                                	<p class="text-danger">{{$errors->first('lname')}}</p>
+			                                                @endif
+			                                                <div class="form-group col-12">
 			                                                    <label for="">Last name</label>
-			                                                    <input class="form-control" type="text" placeholder="Enter your last name" value="">
+			                                                    <input class="form-control" type="text" name="lname" placeholder="Enter your last name" value="{{$user->last_name}}">
 			                                                </div>
 			                                            </div>
-			                                            <!-- Form Row        -->
+			                                            @if ($errors->has('mobile'))
+			                                            	<p class="text-danger">{{$errors->first('mobile')}}</p>
+			                                            @endif
 			                                            <div class="form-row">
-			                                                <!-- Form Group (organization name)-->
-			                                                <div class="form-group col-md-6">
+			                                                <div class="form-group col-12">
 			                                                    <label for="">Phone Number</label>
-			                                                    <input class="form-control" type="text" placeholder="Enter your organization name" value="">
+			                                                    <input class="form-control" type="text" name="mobile" placeholder="Enter your organization name" value="{{$user->phone_number}}">
 			                                                </div>
-			                                                <!-- Form Group (location)-->
-			                                                <div class="form-group col-md-6">
+			                                                @if ($errors->has('website'))
+			                                            		<p class="text-danger">{{$errors->first('website')}}</p>
+			                                            	@endif
+			                                                <div class="form-group col-12">
 			                                                    <label for="">Website</label>
-			                                                    <input class="form-control" type="text" placeholder="Enter your website" value="">
+			                                                    <input class="form-control" type="text" name="website" placeholder="Enter your website" value="{{$user->website}}">
 			                                                </div>
 			                                            </div>
-			                                            <!-- Form Group (email address)-->
+			                                            @if ($errors->has('email'))
+		                                            		<p class="text-danger">{{$errors->first('email')}}</p>
+		                                            	@endif
 			                                            <div class="form-group">
 			                                                <label for="">Email address</label>
-			                                                <input class="form-control" type="email" placeholder="Enter your email address" value="">
+			                                                <input class="form-control" type="email" name="email" placeholder="Enter your email address" value="{{$user->email}}">
 			                                            </div>
-			                                            <!-- Save changes button-->
-			                                            <button class="btn btn-primary" type="button">Save changes</button>
+			                                            <button class="btn btn-primary" type="submit">Profile Update</button>
 			                                        </form>
 			                                    </div>
 			                                </div>
