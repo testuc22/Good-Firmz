@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('public/frontend/css/slick-theme.css') }}"/>
     <link rel="stylesheet" href="{{ asset('public/frontend/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('public/frontend/css/owl.theme.default.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/frontend/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/frontend/css/style.css') }}?version=<?php echo time();?>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -211,6 +211,7 @@
     <script src="{{ asset('public/frontend/js/custom.js') }}"></script>
     <script>
         $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
             $('.slider').slick({
                 dots: false,
                 infinite: true,

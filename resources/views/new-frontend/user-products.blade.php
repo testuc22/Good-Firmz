@@ -27,48 +27,70 @@
 								</div>
 							</div>
 							<div class="col-xl-9">
-							@if(session()->has('success'))
-							    <div class="alert alert-success alert-block">
-									<button type="button" class="close" data-dismiss="alert">×</button>	
-							        {{ session()->get('success') }}
-							    </div>
-							@endif
-								@if (!empty($products))
-									@foreach ($products as $product)
-										<div class="product-listing">
-											<div class="img_area">
-												<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
-											</div>
-											<div class="desc_area">
-												<h4>{{$product->name}}</h4>
-												<p>
-													Price : <i class="fas fa-rupee"></i>{{$product->price}}/ Piece(s)
-												<p>
-												<ul>
-													@foreach ($product->productMetas as $meta)
-														<li>
-															<span>{{$meta->key}} : </span>{{$meta->value}}
-														</li>
-													@endforeach
-												</ul>
-												<a href="">more</a>
-											</div>	
-											<div class="contact_info">
-												<h4>{{$product->seller->name}}</h4>
-												<p>
-													<i class="fas fa-map-marker"></i>{{$product->seller->address1}}
-												</p>
-												<a href="{{ route('edit-product', ['id'=>$product->id]) }}" class="btn btn-success btn-sm">Edit Product</a>
-											</div>
-										</div>
-									@endforeach
-								@else
-									<div class="card">
-										<div class="card-body">
-											<p>You Have Not Listing Any Product</p>
-										</div>
-									</div>
+								@if(session()->has('success'))
+								    <div class="alert alert-success alert-block">
+										<button type="button" class="close" data-dismiss="alert">×</button>	
+								        {{ session()->get('success') }}
+								    </div>
 								@endif
+								<div class="card">
+									<div class="card-header">Product Listing</div>
+									<div class="card-body">
+										@if (!empty($products))
+											@foreach ($products as $product)
+												<div class="media">
+													<div class="img_area">
+														<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
+													</div>
+													<div class="media-body">
+														<h4>{{$product->name}}</h4>
+														<span>
+															<i class="fas fa-rupee-sign"></i>{{$product->price}} / Piece
+														</span>
+														<p>
+															{{$product->desc}}
+														</p>
+														<ul>
+															<li>
+																<a href="{{ route('edit-product', ['id'=>$product->id]) }}">Edit Product</a>
+															</li>
+															<li>
+																<a href="">View Product Detail</a>
+															</li>
+															<li>
+																<a href="#" data-toggle="tooltip" data-placement="bottom" title="{{$product->seller->address1}}">
+																	<i class="fas fa-map-marker"></i>
+																	{{$product->seller->state->name}}
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											@endforeach
+										@endif
+									</div>
+									<div class="card-footer">
+										<nav aria-label="Page navigation example">
+										  <ul class="pagination">
+										    <li class="page-item">
+										      <a class="page-link" href="#" aria-label="Previous">
+										        <span aria-hidden="true">&laquo;</span>
+										        <span class="sr-only">Previous</span>
+										      </a>
+										    </li>
+										    <li class="page-item"><a class="page-link" href="#">1</a></li>
+										    <li class="page-item"><a class="page-link" href="#">2</a></li>
+										    <li class="page-item"><a class="page-link" href="#">3</a></li>
+										    <li class="page-item">
+										      <a class="page-link" href="#" aria-label="Next">
+										        <span aria-hidden="true">&raquo;</span>
+										        <span class="sr-only">Next</span>
+										      </a>
+										    </li>
+										  </ul>
+										</nav>
+									</div>
+								</div>
 							</div>
 						</div>	
 					</div>
