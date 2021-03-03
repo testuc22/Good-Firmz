@@ -17,7 +17,7 @@ class CategoryRepository{
     }
     public function getAllCategories(){
         return Category::where('parent', 0)
-                ->with('children')
+                ->with(['children'])
                 ->get();
     }
 
@@ -51,7 +51,7 @@ class CategoryRepository{
     }
 
     public function getCategoryById($id){
-        return Category::find($id);
+        return Category::with('parentName')->find($id);
     }
 
     public function addCategory($request){
@@ -161,6 +161,16 @@ class CategoryRepository{
         return $category->get();
     }
 
+    /**
+     * Get Category By Slug
+     */
+    public function getCategoryBySlug($slug)
+    {
+        $category = Category::with('products')
+                        ->where('slug', $slug)
+                        ->get();
+        return $category;
+    }
 
     
 

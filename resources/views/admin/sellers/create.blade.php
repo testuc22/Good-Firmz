@@ -5,12 +5,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>List User Business</h1>
+                <h1>Create Seller</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">List User Business</li>
+                    <li class="breadcrumb-item active">Create Seller</li>
                 </ol>
             </div>
         </div>
@@ -20,290 +20,165 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                {{--@foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach--}}
                 <div class="card card-primary">
                     <div class="card-header bg-info text-white">
-                        <h3 class="card-title">Create Business</h3>
+                        <h3 class="card-title">Create Seller</h3>
                     </div>
-                    <!-- /.card-header -->
-                    <div class="card-form-center">
-                        <!-- form start -->
-                        <form role="form" action="{{ route('save-seller') }}" method="POST" enctype="multipart/form-data">
-                            {{@csrf_field()}}
-                            <input type="hidden" name="userid" value="{{$userid}}">
-                            <div class="card-body">
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                                
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Business Name<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            @if($errors->has('name'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('name')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="text" class="form-control" name="name" required value="{{ old('name') }}">
-                                        </div>
-                                    </div>
+                    <!-- form start -->
+                    <form role="form" action="{{ route('save-seller') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        @method('POST')
+                        @csrf
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    @if ($errors->has('company_type'))
+                                        <p class="text-danger">{{$errors->first('company_type')}}</p>
+                                    @endif
+                                    <label for="">Company Type</label>
+                                    <select name="company_type" class="form-control">
+                                        <option value="">Select Your Company Type</option>
+                                        <option value="Manufacturers">Manufacturers</option>
+                                        <option value="Exporters">Exporters</option>
+                                        <option value="Wholeseller">Wholeseller</option>
+                                        <option value="Retailer">Retailer</option>
+                                        <option value="Trade">Trade</option>
+                                        <option value="Distribiutor">Distribiutor</option>
+                                        <option value="Importers">Importers</option>
+                                        <option value="Importers">Buying House</option>
+                                        <option value="Importers">Service Provider</option>
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Categories<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            @if($errors->has('categories'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('categories')}}
-                                                @endcomponent
-                                            @endif
-                                            <select name="categories[]" class="form-control select2" multiple="multiple" >
-                                                <option value="">Select Categories</option>
-                                                {!! $dropdown !!}
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Business Email</label>
-                                        <div class="col-9">
-                                            @if($errors->has('email'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('email')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="text" class="form-control" name="email"  value="{{ old('email') }}" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Business Contact Number<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            @if($errors->has('phone_number'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('phone_number')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="text" class="form-control" name="phone_number"  value="{{ old('phone_number') }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Logo</label>
-                                        <div class="col-9">
-                                            <input type="file" class="form-control" name="logo">
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <hr>
-                                <div class="form-group">
-                                    <div class="col-12 text-center sub-headings">
-                                        <h4>Address</h4>
-                                    </div>
-                                </div> --}}
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Address<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            @if($errors->has('address1'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('address1')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="text" class="form-control" name="address1"  value="{{ old('address1') }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Address 2<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            @if($errors->has('address2'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('address2')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="text" class="form-control" name="address2"  value="{{ old('address2') }}" required>
-                                        </div>
-                                    </div>
-                                </div> --}}
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        @if($errors->has('state_id'))
-                                            @component('admin.components.error')
-                                                {{$errors->first('state_id')}}
-                                            @endcomponent
-                                        @endif
-                                        <label for="status" class="col-3">State<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            <select class="form-control" name="state_id" id="statesList" required>
-                                                <option value="">Select State</option>
-                                                @foreach($allStates as $state)
-                                                    <option value="{{$state->id}}">{{$state->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            <img src="{{asset('images/loader.gif')}}" class="loader-img float-right" style="display: none;">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        @if($errors->has('city_id'))
-                                            @component('admin.components.error')
-                                                {{$errors->first('city_id')}}
-                                            @endcomponent
-                                        @endif
-                                        <label for="status" class="col-3">City<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            <select class="form-control" name="city_id" id="citiesList" required>
-                                                <option value="">Select city</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        @if($errors->has('pincode'))
-                                            @component('admin.components.error')
-                                                {{$errors->first('pincode')}}
-                                            @endcomponent
-                                        @endif
-                                        <label for="status" class="col-3">Pincode<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            <input type="text" class="form-control" name="pincode"  value="{{ old('pincode') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Website</label>
-                                        <div class="col-9">
-                                            @if($errors->has('website'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('website')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="url" class="form-control" name="website"  value="{{ old('website') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <hr>
-                                <div class="form-group">
-                                    <div class="col-12 text-center sub-headings">
-                                        <h4>Other Information</h4>
-                                    </div>
-                                </div> --}}
-                                 <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">Deals in<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            @if($errors->has('deals_in'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('deals_in')}}
-                                                @endcomponent
-                                            @endif
-                                            <textarea name="deals_in" required>{{ old('deals_in') }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label class="col-3">About Company<span class="required">*</span></label>
-                                        <div class="col-9">
-                                            @if($errors->has('desc'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('desc')}}
-                                                @endcomponent
-                                            @endif
-                                            <textarea class="textarea" name="desc" required>{{ old('desc') }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        @if($errors->has('status'))
-                                            @component('admin.components.error')
-                                                {{$errors->first('status')}}
-                                            @endcomponent
-                                        @endif
-                                        <label for="status" class="col-3">Active</label>
-                                        <div class="col-9">
-                                            <input type="checkbox" name="status" id="status" class="" value="{{old('status')}}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        @if($errors->has('featured'))
-                                            @component('admin.components.error')
-                                                {{$errors->first('featured')}}
-                                            @endcomponent
-                                        @endif
-                                        <label for="featured" class="col-3">Featured</label>
-                                        <div class="col-9">
-                                            <input type="checkbox" name="featured" id="featured" class="" value="{{old('featured')}}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label  class="col-3">Meta Title</label>
-                                        <div class="col-9">
-                                            @if($errors->has('meta_title'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('meta_title')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="text" class="form-control" placeholder="Meta Title" name="meta_title" value="{{old('meta_title')}}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label  class="col-3">Meta Tags</label>
-                                        <div class="col-9">
-                                            @if($errors->has('meta_tags'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('meta_tags')}}
-                                                @endcomponent
-                                            @endif
-                                            <input type="text" class="form-control" name="meta_tags" value="{{old('meta_tags')}}" data-role="tagsinput">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-12 form-inner-block">
-                                        <label  class="col-3">Meta Description</label>
-                                        <div class="col-9">
-                                            @if($errors->has('meta_desc'))
-                                                @component('admin.components.error')
-                                                    {{$errors->first('meta_desc')}}
-                                                @endcomponent
-                                            @endif
-                                            <textarea class="form-control" name="meta_desc">{{old('name')}}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <input class="checkbox" type="hidden" id="customcb2" name="owe_this_business" value="1">
-                                <input class="checkbox" type="hidden" id="customcb3" name="terms" value="1">
-                                <!-- /.card-body -->
-
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-success">Save</button>
-                                    <a href="{{URL::previous()}}" class="btn  bg-gradient-info">Back</a>
+                                <div class="col-6">
+                                    @if ($errors->has('company_name'))
+                                        <p class="text-danger">{{$errors->first('company_name')}}</p>
+                                    @endif
+                                    <label for="">Company Name</label>
+                                    <input type="text" name="company_name" class="form-control" placeholder="Enter Your Company Name">
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    @if ($errors->has('company_email'))
+                                        <p class="text-danger">{{$errors->first('company_email')}}</p>
+                                    @endif
+                                    <div class="form-group">
+                                        <label for="">Company Email</label>
+                                        <input type="text" name="company_email" class="form-control" placeholder="Enter Your Company Email" value="{{ old('company_email') }}">  
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    @if ($errors->has('company_number'))
+                                        <p class="text-danger">{{$errors->first('company_number')}}</p>
+                                    @endif
+                                    <div class="form-group">
+                                        <label for="">Company Conatct Detail</label>
+                                        <input type="text" name="company_number" class="form-control" placeholder="Enter Your Company Contact Detail" value="{{ old('company_number') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                    @if ($errors->has('address'))
+                                        <p class="text-danger">{{$errors->first('address')}}</p>
+                                    @endif
+                                    <label for="">Address</label>
+                                    <textarea name="address" class="form-control" rows="2" placeholder="Enter Your Address Detail">{{ old('address') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
+                                    @if ($errors->has('city'))
+                                        <p class="text-danger">{{$errors->first('city')}}</p>
+                                    @endif
+                                    <label for="">City</label>
+                                    <select name="city" class="form-control">
+                                        <option value="">Select Your City</option>
+                                        @foreach ($cities as $city)
+                                            <option value="{{$city->id}}">{{$city->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    @if ($errors->has('state'))
+                                        <p class="text-danger">{{$errors->first('state')}}</p>
+                                    @endif
+                                    <label for="">State</label>
+                                    <select name="state" class="form-control">
+                                        <option value="">Select Your State</option>
+                                    </select>
+                                </div>
+                                <div class="col-4">
+                                    @if ($errors->has('pincode'))
+                                        <p class="text-danger">{{$errors->first('pincode')}}</p>
+                                    @endif
+                                    <label for="">Pip Code</label>
+                                    <input type="text" class="form-control" placeholder="Enter Zip Code" name="pincode" value="{{ old('pincode') }}">
+                                </div> 
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    @if ($errors->has('status'))
+                                        <p class="text-danger">{{$errors->first('status')}}</p>
+                                    @endif
+                                    <label for="">Company Status</label>
+                                    <select name="status" class="form-control">
+                                        <option value="">Select Status</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Deactive</option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    @if ($errors->has('featured'))
+                                        <p class="text-danger">{{$errors->first('featured')}}</p>
+                                    @endif
+                                    <label for="">Featured Company</label>
+                                    <select name="featured" class="form-control">
+                                        <option value="">Select Option</option>
+                                        <option value="1">Yes</option>
+                                        <option value="0">No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    @if ($errors->has('meta_title'))
+                                        <p class="text-danger">{{$errors->first('meta_title')}}</p>
+                                    @endif
+                                    <label for="">
+                                        Company Meta Title
+                                    </label>
+                                    <input type="text" class="form-control" name="meta_title" placeholder="Meta Title" value="{{ old('meta_title') }}">
+                                </div>
+                                <div class="col-6">
+                                    @if ($errors->has('meta_tags'))
+                                        <p class="text-danger">{{$errors->first('meta_tags')}}</p>
+                                    @endif
+                                    <label for="">
+                                        Meta Tags
+                                    </label>
+                                    <input type="text" class="form-control" data-role="tagsinput" name="meta_tags" placeholder="Meta Tags" value="{{ old('meta_tags') }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-12">
+                                @if ($errors->has('meta_desc'))
+                                    <p class="text-danger">{{$errors->first('meta_desc')}}</p>
+                                @endif
+                                <label for="">
+                                    Meta Description
+                                </label>
+                                <textarea name="meta_desc" rows="2" class="form-control" placeholder="Meta DEscription here...">{{ old('meta_desc') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-info btn-sm">Create New Seller</button>
+                                <a href="{{ route('list-sellers') }}" class="btn btn-success btn-sm">Back to Listing</a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -312,5 +187,26 @@
 
 @endsection
 @section('scripts')
-
+    <script>
+        $(document).ready(function(){
+            $('select[name="city"]').on('change', function() {
+                var cityId = $(this).val();
+                var url = '{{ route('admin-city', ['id'=>':id'])}}';
+                url = url.replace(':id', cityId);
+                if (cityId) {
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        dataType: "json",
+                        success:function(data) {
+                            $('select[name="state"]').empty();
+                            $('select[name="state"]').append('<option value="'+ data.id +'">'+ data.name +'</option>');
+                        }
+                    });
+                }else{
+                     $('select[name="state"]').empty();
+                }
+            });
+        });
+    </script>
 @endsection

@@ -49,9 +49,9 @@
                                 <td>
                                     <input type="checkbox" name="box_id[]" value="{{$category->id}}" class="checkBox">
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     @if($category->image)
-                                    <img style="width: 200px;" src="{{ asset('public/category_images/'.$category->image) }}">
+                                    <img style="width: 50px; height: 50px;" src="{{ asset('public/category_images/'.$category->image) }}">
                                     @else
                                     <p class="text-center">-</p>
                                     @endif
@@ -64,14 +64,14 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <a href="{{route('list-child-categories',$category->id)}}" class="mx-1 text-success" title="View Child Categories">
-                                        <i class="fas fa-eye fa-2x"></i>
-                                    </a>
+                                    {{--<a href="{{route('list-child-categories',$category->id)}}" class="mx-1 text-success" title="View Child Categories">
+                                        <i class="fas fa-eye"></i>
+                                    </a>--}}
                                     <a href="{{route('edit-category',$category->id)}}" class="mx-1" title="Edit Category">
-                                        <i class="fas fa-edit fa-2x"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="{{route('delete-category',$category->id)}}" style="margin-left: 15px;" class="delete-category mx-1" data-category="{{$category->id}}"  title="Delete Category" onclick="return confirm('Are you sure, you want to delete this?');">
-                                        <i class="fas fa-trash-alt fa-2x" style="color: red;"></i>
+                                        <i class="fas fa-trash-alt" style="color: red;"></i>
                                     </a>
                                 </td>
                             </tr>

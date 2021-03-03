@@ -19,6 +19,11 @@ class Product extends Model
         return $this->hasOne(ProductImages::class);
     }
 
+    public function productImages()
+    {
+        return $this->hasMany(ProductImages::class);
+    }
+
     public function productMetas(){
         return $this->hasMany(ProductMeta::class);
     }
@@ -32,6 +37,14 @@ class Product extends Model
         parent::boot();
         static::saving(function ($model) {
             $model->slug = Str::slug($model->name);
+        });
+
+        static::deleted(function($product)
+        {
+            $product->images()->delete();
+            $product->productImages()->delete();
+            $product->productMetas()->delete();
+            $product->categories()->sync([]);
         });
     }
 }

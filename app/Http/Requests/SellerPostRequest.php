@@ -24,26 +24,58 @@ class SellerPostRequest extends FormRequest{
      * @return array
      */
     public function rules(){
-        $rules = [
-            'name'              =>'required|max:255',
-            'categories'        =>'required',
-            'email'             =>'nullable|email|unique:sellers,email,'.$this->id,
-            'phone_number'      =>'required',
-            'address1'          =>'required',
-            // 'address2'          =>'required',
-            'state_id'          =>'required',
-            'city_id'           =>'required',
-            'pincode'           =>'required',
-            'desc'              =>'required',
-        ];
-        if(Auth::guard('web')->check()){
-            $rules['owe_this_business'] = 'required';
-            $rules['terms']    = 'required';
+        switch($this->method()) {
+            case 'POST':
+            $rules = [
+                'company_type'      =>'required',
+                'company_name'      =>'required|max:255',
+                'company_email'     =>'email|unique:sellers,email,',
+                'compnay_number'    =>'required',
+                'address'           =>'required',
+                'city'              =>'required',
+                'state'             =>'required',
+                'pincode'           =>'required',
+                'status'            =>'required',
+                'featured'          =>'required',
+                'meta_title'        =>'required',    
+                'meta_tags'          =>'required',    
+                'meta_desc'          =>'required',    
+            ];
+            case 'PUT':
+            $rules = [
+                'company_type'      =>'required',
+                'company_name'      =>'required|max:255',
+                'company_email'     =>'required',
+                'company_number'    =>'required',
+                'address'           =>'required',
+                'city'              =>'required',
+                'state'             =>'required',
+                'pincode'           =>'required',
+                'status'            =>'required',
+                'featured'          =>'required',
+                'meta_title'        =>'required',    
+                'meta_tags'          =>'required',    
+                'meta_desc'          =>'required',
+            ];
         }
-        /*if(!($this->has('_method') && $this->_method=="PUT")){
-            $rules['password'] = 'required|confirmed';
-            $rules['email']    = 'required|email|unique:sellers';
-        }*/
         return $rules;
+    }
+
+    public function messages() {
+        return [
+            'company_type.required' => 'Required **',
+            'company_name.required' => 'Required **',
+            'company_email.required' => 'Required **',
+            'company_number.required' => 'Required **',
+            'address.required' => 'Required **',
+            'city.required' => 'Required **',
+            'state.required' => 'Required **',
+            'pincode.required' => 'Required **',
+            'status.required' => 'Required **',
+            'featured.required' => 'Required **',
+            'meta_title.required' => 'Required **',    
+            'meta_tags.required' => 'Required **',    
+            'meta_desc.required' => 'Required **',   
+        ];
     }
 }

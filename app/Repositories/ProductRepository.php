@@ -10,6 +10,7 @@ use App\Models\{
 use App\Repositories\{
     CategoryRepository
 };
+use File;
 
 class ProductRepository
 {
@@ -20,7 +21,7 @@ class ProductRepository
 
     public function getAllProducts()
     {
-        return Product::all();
+        return Product::get();
     }
 
     public function getProductById($id)
@@ -30,46 +31,23 @@ class ProductRepository
 
     public function createProduct($request)
     {
-        $this->validateData($request);
-        $productData=$this->getProductData($request);
-        $product=Product::create($productData);
-        if ($request->product_tags!=null) {
-            $this->assignTagsToProduct($request,$product);
-        }
-        return $this->getMessage($request,'Product Created Successfully');
-    }
-
-    public function validateData($request)
-    {
-        $request->validate([
-            'productName'=>'required',
-            'category'=>'required'
-        ]);
-    }
-
-    public function getProductData($request)
-    {
-        return [
-            'productName'=>$request->productName,
-            'product_category_id'=>$request->category,
-            'status'=>$request->has('status') ? 1 : 0
+        $productData = [
+            'seller_id' => $request->company_name,
+            'name'  => $request->product_name,
+            'price' => $request->product_price,
+            'desc' => $request->product_desc,
+            'status' => $request->product_status,
+            'featured' => $request->feature_product,
+            'meta_title' => $request->product_meta_title,
+            'meta_tags' => $request->product_meta_tags,
+            'meta_desc' => $request->product_meta_desc,
         ];
-    }
+        $category_id = (array)$request->product_category; 
+        $product = Product::create($productData);
+        $product->categories()->sync($category_id);
+        $this->addProductMeta($product->id, $request->meta);
+        return true;
 
-    public function getMessage($request,$message)
-    {
-        $request->session()->flash('success',$message);
-        return redirect()->route('list-products');
-    }
-
-    public function assignTagsToProduct($request,$product)
-    {
-        $productTags=explode(',',$request->product_tags);
-        $data=[];
-        foreach ($productTags as $productTag) {
-            $data[]=['product_id'=>$product->id,'tag_id'=>$productTag];
-        }
-        $product->productTags()->sync($productTags);
     }
     public function updateStatus($request){
         $this->getProductById($request->product)->update(['status'=>$request->status]);
@@ -125,8 +103,8 @@ class ProductRepository
         foreach ($productMetas as $productMeta) {
             $meta = new ProductMeta;
             $meta->product_id = $product_id;
-            $meta->key = $productMeta['key'];
-            $meta->value = $productMeta['value'];
+            $meta->key = $productMeta['product_key'];
+            $meta->value = $productMeta['product_value'];
             $meta->save();
         }
         return true;
@@ -151,6 +129,65 @@ class ProductRepository
             $productMeta->save();
         }
 
+        return true;
+    }
+
+    /**
+     * Delete Product Image
+     */
+    public function deleteProductImage($id)
+    {
+        $productImage = ProductImages::find($id);
+        $path = public_path('uploads/products/'.$productImage->image);
+        if (File::exists($path)) {
+            unlink($path);
+        }
+        $productImage->delete();
+        return true;
+        
+    }
+
+    /**
+     * Update Product Detail
+     */
+    public function updateProductDetail($request, $id)
+    {
+        $product = Product::find($id);
+        $product->name = $request->product_name;
+        $product->price = $request->product_price;
+        $product->meta_title = $request->product_meta_title;
+        $product->meta_tags = $request->product_meta_tags;
+        $product->meta_desc = $request->product_meta_desc;
+        $product->status = $request->status ? $request->status : 0;
+        $product->featured = $request->featured ? $request->featured : 0;
+        $product->save();
+        $category_id = (array)$request->product_category; 
+        $product->categories()->sync($category_id);
+        foreach ($request->meta as $key => $meta) {
+            $productMeta = ProductMeta::find($meta['id']);
+            $productMeta->key = $meta['product_key'];
+            $productMeta->value = $meta['product_value'];
+            $productMeta->save();
+        }
+
+        return true;
+    }
+
+    /**
+     * Get Product By Category Slug
+     */
+    public function getProductByCategorySlug($slug){
+        $category = $this->categoryRepository->getCategoryBySlug($slug);
+        return $category;
+    }
+
+    /**
+     * Delete Product
+     */
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
         return true;
     }
 }

@@ -103,4 +103,22 @@ class ProductController extends Controller
         $this->productRepo->updateProduct($request, $id);
         return redirect()->route('user-products')->with('success', 'Product Updated Successfully');
     }
+
+    /**
+     * Product Listing
+     */
+    public function productListing($slug)
+    {
+        $category = $this->productRepo->getProductByCategorySlug($slug);
+        return view('new-frontend.products')->with(['category'=>$category]);
+    }
+
+    /**
+     * Get Product Detail
+     */
+    public function productDetail($id)
+    {
+        $productDetail = $this->productRepo->getProductById($id);
+        return view('new-frontend.product-detail')->with(['product'=>$productDetail]);
+    }
 }

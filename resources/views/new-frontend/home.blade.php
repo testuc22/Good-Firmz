@@ -26,13 +26,13 @@
 													@foreach ($category->children as $child)
 														<div class="menu_box">
 															<div class="column">
-																<h4>
+																<a href="{{ route('category-detail', ['id'=>$category->id]) }}" class="h4">
 																	{{$child->name}}
-																</h4>
+																</a>
 																<ul>
 																	@foreach ($child->subChildren as $subChild)
 																		<li>
-																			<a href="">
+																			<a href="{{ route('products', ['slug'=>$subChild->slug])}}">
 																				{{$subChild->name}}
 																			</a>
 																		</li>
@@ -365,113 +365,145 @@
 	<!--Slider Section End-->
 
 	<!--Product Section Start-->
-	<div class="product_section">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-12">
-					<div class="product_area">
-						<div class="title">
-							<h5>
-								consumer electronics:
-							</h5>
-							<div class="label"></div>
-						</div>
-						<div class="card">
-							<div class="row no-gutters">
-								<div class="col-xl-3">
-									<div class="product_source">
-										<a href="{{ route('products')}}">
-											<div class="img_area">
-												<img src="{{ asset('public/frontend/img/e1.png') }}" alt="....">
-											</div>
-											<p>
-												Browse All Electronics Product
-											</p>
-											<button>Source now</button>
-										</a>
+	@foreach ($categories as $category)
+		<div class="product_section">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="product_area">
+							<div class="title">
+								<h5>
+									{{$category->name}}:
+								</h5>
+								<div class="label"></div>
+							</div>
+							<div class="card">
+								<div class="row no-gutters">
+									<div class="col-xl-3">
+										<div class="product_source">
+											<a href="{{ route('category-detail', ['id'=>$category->id]) }}">
+												<div class="img_area">
+													<img src="{{ asset('public/category_images/'.$category->image) }}" alt="....">
+												</div>
+												<p>
+													Browse All Electronics Product
+												</p>
+												<button>Source now</button>
+											</a>
+										</div>
 									</div>
-								</div>
-								<div class="col-xl-9">
-									<div class="row no-gutters">
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Top Ranked Products</p>
-														<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-													</div>
-												</a>
+									<div class="col-xl-9">
+										<div class="row no-gutters">
+											@foreach ($category->children as $child)
+
+												@foreach ($child->subChildren as $subChild)
+													@if ($loop->index == 3)
+														@php
+															break;
+														@endphp
+													@endif
+													@foreach ($subChild->products as $product)
+														@if ($loop->index == 1)
+															@php
+																break;
+															@endphp
+														@endif
+														<div class="col-xl-4">
+															<div class="product_content">
+																<a href="{{ route('product-detail', ['id'=>$product->id]) }}">
+																	@if (!empty($product->images))
+																		<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
+																	@endif
+																	<div class="desc">
+																		<p>{{$product->name}}</p>
+																		<span><i class="fas fa-tag"></i>{{$subChild->name}}</span>
+																	</div>
+																</a>
+															</div>
+														</div>
+													@endforeach
+												@endforeach
+											@endforeach
+											{{--<div class="col-xl-4">
+												<div class="product_content">
+													<a href="{{ route('single-product') }}">
+														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
+														<div class="desc">
+															<p>Top Ranked Products</p>
+															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
+														</div>
+													</a>
+												</div>
 											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Top Ranked Products</p>
-														<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-													</div>
-												</a>
+											<div class="col-xl-4">
+												<div class="product_content">
+													<a href="{{ route('single-product') }}">
+														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
+														<div class="desc">
+															<p>Top Ranked Products</p>
+															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
+														</div>
+													</a>
+												</div>
 											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Top Ranked Products</p>
-														<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-													</div>
-												</a>
+											<div class="col-xl-4">
+												<div class="product_content">
+													<a href="{{ route('single-product') }}">
+														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
+														<div class="desc">
+															<p>Top Ranked Products</p>
+															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
+														</div>
+													</a>
+												</div>
 											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Top Ranked Products</p>
-														<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-													</div>
-												</a>
+											<div class="col-xl-4">
+												<div class="product_content">
+													<a href="{{ route('single-product') }}">
+														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
+														<div class="desc">
+															<p>Top Ranked Products</p>
+															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
+														</div>
+													</a>
+												</div>
 											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Top Ranked Products</p>
-														<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-													</div>
-												</a>
+											<div class="col-xl-4">
+												<div class="product_content">
+													<a href="{{ route('single-product') }}">
+														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
+														<div class="desc">
+															<p>Top Ranked Products</p>
+															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
+														</div>
+													</a>
+												</div>
 											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Top Ranked Products</p>
-														<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-													</div>
-												</a>
-											</div>
-										</div>
-									</div>	
+											<div class="col-xl-4">
+												<div class="product_content">
+													<a href="{{ route('single-product') }}">
+														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
+														<div class="desc">
+															<p>Top Ranked Products</p>
+															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
+														</div>
+													</a>
+												</div>
+											</div>--}}
+										</div>	
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		</div>	
+	@endforeach
 	<!--Product Section End-->
 
 	<!--Product Section Start-->
-	<div class="product_section">
+	{{--<div class="product_section">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12">
@@ -573,11 +605,11 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>--}}
 	<!--Product Section End-->
 
 	<!--Product Section Start-->
-	<div class="product_section">
+	{{--<div class="product_section">
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-12">
@@ -679,7 +711,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div>--}}
 	<!--Product Section End-->
 
 	<!--Product Section Start-->

@@ -14,11 +14,8 @@ class HomeController extends Controller{
     	$this->seller_repository = $seller_repository;
     }
     public function index(){
-    	$data = $this->settings_repository->getSettingsByKey('home_page_settings');
-    	$data = isset($data->meta_value) && $data->meta_value!="" ? json_decode($data->meta_value,true) : array();
     	$categories = $this->category_repository->getAllCategories();
-        //$sellers = $this->seller_repository->getSellersWithConditions($data['sellers']);
-            //return view('front.home')->with(['data'=>$data,'categories'=>$categories,'sellers'=>$sellers]);
+        //dd($categories);
         return view('new-frontend.home')->with(['categories'=>$categories]);
     }
 
@@ -40,5 +37,14 @@ class HomeController extends Controller{
     public function postRequirement()
     {
         return view('new-frontend.post-requirement');
+    }
+
+    /**
+     * Category Detail
+     */
+    public function categoryDetail($id)
+    {
+        $category = $this->category_repository->getCategoryById($id);
+        return view('new-frontend.category')->with(['category'=>$category]);
     }
 }

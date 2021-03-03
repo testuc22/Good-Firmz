@@ -23,11 +23,16 @@ class Category extends Model
 
 	public function children()
 	{
-	    return $this->hasMany(Category::class, 'parent')->with('subChildren');
+	    return $this->hasMany(Category::class, 'parent')->with('subChildren.products');
 	}
 
 	public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class, 'product_categories', 'category_id', 'product_id');
+    }
+    
+    public function parentName()
+    {
+        return $this->belongsTo(Category::class, 'parent');
     }
 }

@@ -47,10 +47,10 @@
                                 </td>
                                 <td>
                                     <a href="{{route('edit-state',$state->id)}}" class="mx-1" title="Edit State">
-                                        <i class="fas fa-edit fa-2x"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="{{route('delete-state',$state->id)}}" style="margin-left: 15px;" class="delete-state mx-1" data-state="{{$state->id}}"  title="Delete State" onclick="return confirm('Are you sure, you want to delete this?');">
-                                        <i class="fas fa-trash-alt fa-2x" style="color: red;"></i>
+                                        <i class="fas fa-trash-alt" style="color: red;"></i>
                                     </a>
                                 </td>
                             </tr>

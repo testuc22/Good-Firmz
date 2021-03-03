@@ -39,13 +39,20 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	
 	Route::name('delete-seller')->get('delete-seller/{id}',[App\Http\Controllers\Admin\AdminSellersController::class,'delete_seller']);
 	Route::name('add-user-business')->get('add-user-business/{userid}',[App\Http\Controllers\Admin\AdminSellersController::class,'add_seller']);
+	Route::delete('delete-product/{id}', [App\Http\Controllers\Admin\ProductController::class, 'deleteProduct'])->name('delete-product');
 	/*-------------------Sellers Controllers ends ------------------*/
 
 
 	/*-------------------Products Controllers starts ------------------*/
 	Route::name('list-products')->get('list-products',[App\Http\Controllers\Admin\ProductController::class,'index']);
+	Route::name('admin-edit-product')->get('admin-edit-product/{id}', [App\Http\Controllers\Admin\ProductController::class, 'editProduct']);
 	Route::name('update-product-status')->put('update-product-status',[App\Http\Controllers\Admin\ProductController::class,'updateStatus']);
-	Route::name('add-product')->get('add-product',[App\Http\Controllers\Admin\ProductController::class,'add_product']);
+	Route::name('admin-add-product')->get('add-product',[App\Http\Controllers\Admin\ProductController::class,'add_product']);
+	Route::name('admin-save-product')->post('admin-product-add', [App\Http\Controllers\Admin\ProductController::class, 'saveProduct']);
+	Route::name('delete-product-image')->get('delete-product-image/{id}', [App\Http\Controllers\Admin\ProductController::class,'deleteProductImage']);
+	Route::name('update-product-detail')->put('update-product-detail/{id}', [App\Http\Controllers\Admin\ProductController::class, 'updateProductDetail']);
+	Route::get('product-image/{id}', [App\Http\Controllers\Admin\ProductController::class, 'addProductImage'])->name('admin-add-product-image');
+	Route::post('product-image-store', [App\Http\Controllers\Admin\ProductController::class, 'storeProductImage'])->name('product-image.store');
 	/*-------------------Products Controllers ends ------------------*/
 
 
@@ -143,7 +150,9 @@ Route::namespace('Front')->group(function(){
 	Route::get('/products', [App\Http\Controllers\HomeController::class, 'products'])->name('products');
 	Route::get('/single-product', [App\Http\Controllers\HomeController::class, 'singleProduct'])->name('single-product');
 	Route::get('/sign-up', [App\Http\Controllers\HomeController::class, 'signUp'])->name('sign-up');
-
+	Route::get('category/{id}', [App\Http\Controllers\HomeController::class, 'categoryDetail'])->name('category-detail');
+	Route::name('products')->get('category/product/{slug}', [App\Http\Controllers\ProductController::class, 'productListing']);
+	Route::get('product-detail/{id}', [App\Http\Controllers\ProductController::class, 'productDetail'])->name('product-detail');
 
 	/*-------------------Login and register ------------------*/
 	Route::get('login', [App\Http\Controllers\LoginController::class, 'index'])->name('login');
@@ -164,6 +173,7 @@ Route::namespace('Front')->group(function(){
 	Route::get('my-account', [App\Http\Controllers\MyAccountController::class, 'index'])->name('my-account');*/
 
 	Route::get('user-logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('user-logout');
+	Route::get('admin/city/{id}', [App\Http\Controllers\ProductController::class, 'stateAjax'])->name('admin-city');
 	
 	/*Route::post('update-user', [App\Http\Controllers\MyAccountController::class, 'update_user'])->name('update-user');
 

@@ -15,9 +15,9 @@ class CreateProductMetaTable extends Migration
     {
         Schema::create('product_meta', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
-            $table->string('key');
-            $table->string('value');
+            $table->integer('product_id')->nullable();
+            $table->string('key')->nullable();
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }

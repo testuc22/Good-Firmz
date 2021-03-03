@@ -66,8 +66,9 @@
                                         <i class="fas fa-user"></i>Free Join
                                     </a>
                                 </li>
-                                <li class="post">
-                                    <a href="{{route('post-requirement')}}">Post Requirement</a>
+                                <li>
+                                    <a href="{{route('post-requirement')}}">
+                                    <i class="fas fa-paper-plane"></i>Post Requirement</a>
                                 </li>
                                 @endif
                             </ul>

@@ -133,7 +133,7 @@ class UserRepository{
     }
 
     public function getAllUsers(){
-        return User::orderByDesc('id')->get();
+        return User::with(['sellers.state'])->orderByDesc('id')->get();
     }
 
     public function updateStatus($request){

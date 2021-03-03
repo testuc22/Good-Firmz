@@ -51,10 +51,10 @@
                                 </td>
                                 <td>
                                     <a href="{{route('edit-city',$city->id)}}" class="mx-1" title="Edit City">
-                                        <i class="fas fa-edit fa-2x"></i>
+                                        <i class="fas fa-edit"></i>
                                     </a>
                                     <a href="{{route('delete-city',$city->id)}}" style="margin-left: 15px;" class="delete-city mx-1" data-city="{{$city->id}}"  title="Delete City" onclick="return confirm('Are you sure, you want to delete this?');">
-                                        <i class="fas fa-trash-alt fa-2x" style="color: red;"></i>
+                                        <i class="fas fa-trash-alt" style="color: red;"></i>
                                     </a>
                                 </td>
                             </tr>

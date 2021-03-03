@@ -43,59 +43,68 @@ class SellerRepository{
         $this->getSellerById($request->seller)->update(['status'=>$request->status]);
         return response(['message'=>'Status Updated Successfully',200]);
     }
-    public function save_seller($request){
-    	$fields = $this->get_request_fields($request,$request->userid,$request->status);
-    	$seller = Sellers::create($fields);
-        $seller->categories()->sync($request->categories);
-        $this->common_helper->setFlashMessage($request,'Business Created Successfully',"success");
-        return $this->get_return_url();
+    public function save_seller($request, $userId){
+    	$fields = $this->get_request_fields($request,$userId);
+        $seller = Sellers::create($fields);
+        return $seller;
     }
 
     public function admin_update_seller($request,$id){
-        $this->update_seller($request,$id);
-        $this->common_helper->setFlashMessage($request,'Seller updated Successfully',"success");
-        return $this->get_return_url();
+        $seller = $this->update_seller($request,$id);
+        return $seller;
     }
     public function user_update_seller($request,$id){
-        $this->update_seller($request,$id);
-        $this->common_helper->setFlashMessage($request,'Business updated Successfully',"success");
-        return redirect()->route('user-business-details');
+        $seller = $this->update_seller($request,$id);
+        return $seller;
     }
     public function update_seller($request,$id){
-        $fields = $this->get_request_fields($request,0,$request->status);
-        // print_r($fields);
-        // die;
+        $fields = $this->get_request_fields($request,$id,$request->status);
         $seller = $this->getSellerById($id);
-        $seller->update($fields);
-        $seller->categories()->sync($request->categories);
+        $seller->type  = $request->company_type;
+        $seller->name  = $request->company_name;
+        $seller->email = $request->company_email;
+        $seller->slug  = Str::of($request->company_name)->slug('-');
+        $seller->desc  =$request->company_desc;
+        $seller->address1 = $request->address;
+        $seller->phone_number = $request->company_number;
+        $seller->state_id = $request->state;
+        $seller->city_id = $request->city;
+        $seller->pincode = $request->pincode;
+        $seller->status  = $request->status ? $request->status : 0;
+        $seller->featured  = $request->featured ? 1 : 0;
+        $seller->meta_title = $request->has('meta_title') ? $request->meta_title : '';
+        $seller->meta_tags = $request->has('meta_tags') ? $request->meta_tags : '';
+        $seller->meta_desc = $request->has('meta_desc') ? $request->meta_desc : '';
+        $seller->save();
+        return $seller;
         
     }
     function get_request_fields($request,$userId,$status = 0){
         $sellerArray = array(
-            'name'  => $request->name,
-            'email' => $request->email,
-            'slug'  =>Str::of($request->name)->slug('-'),
-            'desc'  =>$request->desc,
-            'address1' => $request->address1,
-            'address2' => $request->address2,
-            'phone_number' => $request->phone_number,
-            'state_id' => $request->state_id,
-            'city_id' => $request->city_id,
+            'user_id' => $userId,
+            'type'  => $request->company_type,
+            'name'  => $request->company_name,
+            'email' => $request->company_email,
+            'slug'  =>Str::of($request->company_name)->slug('-'),
+            'desc'  =>$request->company_desc,
+            'address1' => $request->address,
+            'phone_number' => $request->company_number,
+            'state_id' => $request->state,
+            'city_id' => $request->city,
             'pincode' => $request->pincode,
-            'website' => $request->website,
-            'status'  => $status ? $status : 0,
+            'status'  => $request->status ? $request->status : 0,
             'featured'  => $request->featured ? 1 : 0,
             'meta_title'=>$request->has('meta_title') ? $request->meta_title : '',
             'meta_tags'=>$request->has('meta_tags') ? $request->meta_tags : '',
             'meta_desc'=>$request->has('meta_desc') ? $request->meta_desc : '',
         ); 
-        if($userId){
+        /*if($userId){
             $sellerArray['user_id'] = $userId;
         }
         $imageData = $this->common_helper->process_image($request,'public/seller_logo','logo');
         if($imageData){
             $sellerArray['logo'] = $imageData;
-        }
+        }*/
         return $sellerArray;
     }
 
@@ -170,5 +179,13 @@ class SellerRepository{
         $seller->save();
 
         return true;
+    }
+
+    /**
+     * Get Active Sellers
+     */
+    public function getActiveSeller()
+    {
+        return Sellers::active()->get();
     }
 }

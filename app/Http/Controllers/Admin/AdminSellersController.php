@@ -8,18 +8,19 @@ use App\Repositories\{
 	CategoryRepository,
     LocationRepository
 };
-
+use App\CommonHelper;
 use App\Http\Requests\SellerPostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AdminSellersController extends Controller
 {
     //
-    public function __construct(SellerRepository $sellerRepository,CategoryRepository $categoryRepository,LocationRepository $location_repository){
+    public function __construct(SellerRepository $sellerRepository,CategoryRepository $categoryRepository,LocationRepository $location_repository,CommonHelper $common_helper){
 	    $this->middleware('auth:admin');
 	    $this->sellerRepository = $sellerRepository;
         $this->categoryRepository = $categoryRepository;
 	    $this->location_repository = $location_repository;
+        $this->common_helper = $common_helper;
 	}
 	public function index(Request $request){
         if(isset($request->userId) && $request->userId!=""){
@@ -34,31 +35,27 @@ class AdminSellersController extends Controller
         $result=$this->sellerRepository->updateStatus($request);
         return $result;
     }
-    public function add_seller(Request $request,$userid){
-        $dropdown = $this->categoryRepository->getCategoriesDropdown(array(),0);
-        $allStates = $this->location_repository->getAllStates();
-    	return view('admin.sellers.create')->with(['dropdown'=>$dropdown,'allStates'=>$allStates,'userid'=>$userid]);
+    public function add_seller(Request $request){
+        $cities = $this->location_repository->getAllCities();
+    	return view('admin.sellers.create')->with(['cities'=>$cities]);
     }
     public function save_seller(SellerPostRequest $request){
-        $result = $this->sellerRepository->save_seller($request);
-        return $result;
+        $userId = Auth::id();
+        $result = $this->sellerRepository->save_seller($request, $userId);
+        $this->common_helper->setFlashMessage($request,'Seller Added Successfully',"success");
+        return redirect()->route('list-sellers');
     }
 
     public function edit_seller(Request $request,$id){
     	$seller = $this->sellerRepository->getSellerById($id);
-        $cities = $this->location_repository->get_cities_by_state($seller->state->id);
-        $allStates = $this->location_repository->getAllStates();
-        $categoryIDS = $seller->categories->map(function($cat){
-            return $cat->id;
-        })->toArray();
-        
-        $dropdown = $this->categoryRepository->getCategoriesDropdown($categoryIDS,0);
-        return view('admin.sellers.edit')->with(['seller'=>$seller,'dropdown'=>$dropdown,'allCities'=>$cities,'allStates'=>$allStates]);
+        $cities = $this->location_repository->getAllCities();
+        return view('admin.sellers.edit')->with(['seller'=>$seller,'cities'=>$cities]);
     }
 
     public function update_seller(SellerPostRequest $request,$id){
     	$result = $this->sellerRepository->admin_update_seller($request,$id);
-        return $result;
+        $this->common_helper->setFlashMessage($request,'Seller updated Successfully',"success");
+        return redirect()->route('list-sellers');
     }
 
     public function delete_seller(Request $request,$id){

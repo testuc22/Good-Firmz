@@ -46,4 +46,15 @@ class Sellers extends Model{
         });
     }
 
+    /**
+     * Scope a query to only include Active Sellers users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
 }

@@ -35,73 +35,78 @@
     </section>
 
 <section class="content">
-
-      <div class="row">
-
+    <div class="row">
         <div class="col-12">
-
             <div class="card">
-
-            <!-- /.card-header -->
-
-            <div class="card-body">
-
-              <table id="example1" class="table table-bordered table-striped">
-
-                <thead>
-
-                <tr>
-
-                  <th>Product</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-
-                </thead>
-
-                <tbody>
-
-                    @foreach($products as $product)
-
-                <tr>
-
-                  <td>{{$product->productName}}</td>
-
-              
-                  <td>{{-- <a href="{{route('get-edit-product',$product->id)}}"><i class="fas fa-edit fa-2x"></i></a> --}}
-
-                    {{-- <a href="javascript:void(0)" style="margin-left: 15px;" class="delete-category" data-category="{{$product->id}}"><i class="fas fa-trash-alt fa-2x" style="color: red;"></i></a> --}}
-                </td>
-                    <td>
-                      <select class="custom-select show_product_in_menu" data-product="{{$product->id}}">
-                        <option value="1" {{$product->status==1 ? 'selected' :'' }}>Show</option>
-                        <option value="0" {{$product->status==0 ? 'selected' :'' }}>Hide</option>
-                      </select>
-                    </td>
-                </tr>
-                @endforeach
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Product</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-
-                </tfoot>
-
-              </table>
-
+                <div class="card-header">
+                    <a href="{{ route('admin-add-product') }}" class="float-right btn btn-info btn-sm">Add Product</a>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Seller Company</th>
+                                <th>Price</th>
+                                <th>Meta Title</th>
+                                <th>Meta Tags</th>
+                                <th>Meta Description</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($products as $product)
+                                <tr>
+                                    <td>{{$product->name}}</td>
+                                    <td>{{$product->seller->name}}</td>
+                                    <td>{{$product->price}} / per</td>
+                                    <td>{{$product->meta_title}}</td>
+                                    <td>{{$product->meta_tags}}</td>
+                                    <td>{{$product->meta_desc}}</td>
+                                    <td>
+                                        <select class="custom-select show_product_in_menu" data-product="{{$product->id}}">
+                                        <option value="1" {{$product->status==1 ? 'selected' :'' }}>Active</option>
+                                        <option value="0" {{$product->status==0 ? 'selected' :'' }}>Deactive</option>
+                                        </select>
+                                    </td>
+                                    <td class="d-flex align-items-center">
+                                        <a href="{{ route('admin-edit-product', ['id'=>$product->id])}}" class="mx-1" title="Edit Category">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{{ route('delete-product', ['id'=>$product->id]) }}" style="margin-left: 15px;" class="delete-category mx-1" onclick="event.preventDefault();
+                                     document.getElementById('delete-product').submit();">
+                                            <i class="fas fa-trash-alt" style="color: red;"></i>
+                                        </a>
+                                        <form id="delete-product" method="POST" action="{{ route('delete-product', ['id'=>$product->id]) }}" style="display: none;"> 
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                        <a href="{{ route('admin-add-product-image', ['id'=>$product->id])}}" class="btn btn-info btn-sm">
+                                            <i class="fas fa-plus"></i> Image
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Product</th>
+                            <th>Seller Company</th>
+                            <th>Price</th>
+                            <th>Meta Title</th>
+                            <th>Meta Tags</th>
+                            <th>Meta Description</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
-
-            <!-- /.card-body -->
-
-          </div>
-
         </div>
-
     </div>
-
 </section>
 
 @endsection
