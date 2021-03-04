@@ -346,13 +346,15 @@
 							</div>
 							<div class="col-xl-9">
 								<div class="slider_area">
-									<div class="slider">
-										<div class="item">
-											<img src="{{ asset('public/frontend/img/slider1.jpg')}}" alt="">
-										</div>
-										<div class="item">
-											<img src="{{ asset('public/frontend/img/slider2.jpg')}}" alt="">
-										</div>  
+									<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+									  <div class="carousel-inner">
+									    <div class="carousel-item active">
+									      <img src="{{ asset('public/frontend/img/slider1.jpg')}}" class="d-block w-100" alt="...">
+									    </div>
+									    <div class="carousel-item">
+									      <img src="{{ asset('public/frontend/img/slider2.jpg')}}" class="d-block w-100" alt="...">
+									    </div>
+									  </div>
 									</div>	
 								</div>
 							</div>
@@ -397,17 +399,7 @@
 											@foreach ($category->children as $child)
 
 												@foreach ($child->subChildren as $subChild)
-													@if ($loop->index == 3)
-														@php
-															break;
-														@endphp
-													@endif
-													@foreach ($subChild->products as $product)
-														@if ($loop->index == 1)
-															@php
-																break;
-															@endphp
-														@endif
+													@foreach ($subChild->product as $product)
 														<div class="col-xl-4">
 															<div class="product_content">
 																<a href="{{ route('product-detail', ['id'=>$product->id]) }}">

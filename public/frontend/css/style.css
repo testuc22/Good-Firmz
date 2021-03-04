@@ -259,7 +259,6 @@ p {
 }
 .main_section .main_area .category_area .menu ul li {
   padding: 10px 0px;
-  border-bottom: 1px solid #e6e7eb;
 }
 .main_section .main_area .category_area .menu ul li a {
   font-size: 14px;
@@ -274,7 +273,7 @@ p {
 .main_section .main_area .category_area .menu ul li .menu_box {
   position: absolute;
   top: -10px;
-  left: 100%;
+  left: 95%;
   z-index: 9999;
   height: auto;
   width: 850px;

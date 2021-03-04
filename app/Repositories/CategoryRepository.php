@@ -15,10 +15,20 @@ class CategoryRepository{
     public function __construct(CommonHelper $common_helper){
         $this->common_helper = $common_helper;
     }
+    /**
+     * Get All Categories
+     */
     public function getAllCategories(){
-        return Category::where('parent', 0)
+        /*return Category::where('parent', 0)
                 ->with(['children'])
-                ->get();
+                ->get();*/
+        $categories = Category::where('parent', 0)->get();
+        $categories = $categories->each(function($category){
+            $category->load(['children.subChildren' => function($query) {
+                $query->take(3);
+            }]);
+        });
+        return $categories;
     }
 
     public function filterAllCategories($request){

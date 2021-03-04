@@ -15,7 +15,6 @@ class HomeController extends Controller{
     }
     public function index(){
     	$categories = $this->category_repository->getAllCategories();
-        //dd($categories);
         return view('new-frontend.home')->with(['categories'=>$categories]);
     }
 
