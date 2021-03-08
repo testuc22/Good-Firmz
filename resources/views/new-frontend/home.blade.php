@@ -23,323 +23,20 @@
 														{{$category->name}}
 														<i class="fas fa-angle-right"></i>
 													</a>
-													@foreach ($category->children as $child)
-														<div class="menu_box">
+													<div class="menu_box">
+														@foreach ($category->allChildren as $child)
 															<div class="column">
 																<a href="{{ route('category-detail', ['id'=>$category->id]) }}" class="h4">
-																	{{$child->name}}
+																	{{\Illuminate\Support\Str::ucfirst($child->name)}}
 																</a>
 																<ul>
-																	@foreach ($child->subChildren as $subChild)
-																		<li>
-																			<a href="{{ route('products', ['slug'=>$subChild->slug])}}">
-																				{{$subChild->name}}
-																			</a>
-																		</li>
-																	@endforeach
+																@include('new-frontend.includes.child-category', ['child' => $child])
 																</ul>
 															</div>
-														</div>	
-													@endforeach
+														@endforeach
+													</div>	
 												</li>
 											@endforeach
-											<!--<li>
-												<a href="">Home Supplies</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Agriculture</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Food Package & Beverages</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Apperal & Fashion</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Chemicals</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Industrial Supplies</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Construction & Real Estate</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Furniture</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>
-											<li>
-												<a href="">Health & Beauty</a>
-												<i class="fas fa-angle-right"></i>
-												<div class="menu_box">
-													<div class="column">
-														<h4>
-															Suitcase, Briefcases, Laptop Bags
-														</h4>
-														<ul>
-															<li>
-																<a href="">
-																	Laptop Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Travel Bags
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Backpacks
-																</a>
-															</li>
-															<li>
-																<a href="">
-																	Luggage Bags
-																</a>
-															</li>
-														</ul>
-													</div>
-												</div>
-											</li>-->
 										</ul>
 									</div>	
 								</div>
@@ -367,7 +64,7 @@
 	<!--Slider Section End-->
 
 	<!--Product Section Start-->
-	@foreach ($categories as $category)
+	@foreach ($featureCategories as $category)
 		<div class="product_section">
 			<div class="container">
 				<div class="row">
@@ -396,92 +93,24 @@
 									</div>
 									<div class="col-xl-9">
 										<div class="row no-gutters">
-											@foreach ($category->children as $child)
-
-												@foreach ($child->subChildren as $subChild)
-													@foreach ($subChild->product as $product)
-														<div class="col-xl-4">
-															<div class="product_content">
-																<a href="{{ route('product-detail', ['id'=>$product->id]) }}">
-																	@if (!empty($product->images))
-																		<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
-																	@endif
-																	<div class="desc">
-																		<p>{{$product->name}}</p>
-																		<span><i class="fas fa-tag"></i>{{$subChild->name}}</span>
-																	</div>
-																</a>
-															</div>
+											@foreach ($category->allChildren as $child)
+												@foreach ($child->allChildren as $child)
+													<div class="col-xl-4">
+														<div class="product_content">
+															<a href="{{ route('products', ['slug'=>$child->slug])}}">
+																@if (!empty($child->image))
+																	<img src="{{ asset('public/category_images/'.$child->image) }}" alt="...">
+																@endif
+																<div class="desc">
+																	<p>{{$child->name}}</p>
+																</div>
+															</a>
 														</div>
-													@endforeach
+													</div>
+													{{--@foreach ($child->product as $product)
+													@endforeach--}}
 												@endforeach
 											@endforeach
-											{{--<div class="col-xl-4">
-												<div class="product_content">
-													<a href="{{ route('single-product') }}">
-														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-														<div class="desc">
-															<p>Top Ranked Products</p>
-															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-														</div>
-													</a>
-												</div>
-											</div>
-											<div class="col-xl-4">
-												<div class="product_content">
-													<a href="{{ route('single-product') }}">
-														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-														<div class="desc">
-															<p>Top Ranked Products</p>
-															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-														</div>
-													</a>
-												</div>
-											</div>
-											<div class="col-xl-4">
-												<div class="product_content">
-													<a href="{{ route('single-product') }}">
-														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-														<div class="desc">
-															<p>Top Ranked Products</p>
-															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-														</div>
-													</a>
-												</div>
-											</div>
-											<div class="col-xl-4">
-												<div class="product_content">
-													<a href="{{ route('single-product') }}">
-														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-														<div class="desc">
-															<p>Top Ranked Products</p>
-															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-														</div>
-													</a>
-												</div>
-											</div>
-											<div class="col-xl-4">
-												<div class="product_content">
-													<a href="{{ route('single-product') }}">
-														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-														<div class="desc">
-															<p>Top Ranked Products</p>
-															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-														</div>
-													</a>
-												</div>
-											</div>
-											<div class="col-xl-4">
-												<div class="product_content">
-													<a href="{{ route('single-product') }}">
-														<img src="{{ asset('public/frontend/img/e2.webp') }}" alt="...">
-														<div class="desc">
-															<p>Top Ranked Products</p>
-															<span><i class="fas fa-tag"></i>Plastics Smart Watch</span>
-														</div>
-													</a>
-												</div>
-											</div>--}}
 										</div>	
 									</div>
 								</div>

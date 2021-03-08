@@ -82,14 +82,14 @@
 							<i class="fa fa-envelope nav-icon" aria-hidden="true"></i>
 							<p>Contact Us</p>
 						</a>
-					</li>
+					</li>--}}
 					<li class="nav-item">
 						<a href="{{route('settings')}}" class="nav-link  @if(Request::is('*setting*')) active @endif">
 							<i class="fa fa-cog nav-icon" aria-hidden="true"></i>
 							<p>Settings</p>
 						</a>
 					</li>
-					 <li class="nav-item has-treeview">
+					{{--<li class="nav-item has-treeview">
 			            <a href="#" class="nav-link">
 			              	<i class="nav-icon fas fa-copy"></i>
 			             	 <p>

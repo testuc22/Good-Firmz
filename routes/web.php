@@ -258,6 +258,17 @@ Route::namespace('Front')->group(function(){
 		Route::get('edit-product/{id}', [App\Http\Controllers\ProductController::class, 'editProduct'])->name('edit-product');
 		Route::put('update-product/{id}', [App\Http\Controllers\ProductController::class, 'updateProduct'])->name('update-product');
 	});
+
+	/**About Us Page**/
+	Route::get('/about-us', [App\Http\Controllers\HomeController::class, 'aboutUs'])->name('about-us');
+	/**Contact Us Page**/
+	Route::get('/contact-us', [App\Http\Controllers\HomeController::class, 'contactUs'])->name('contact-us');
+	/**Feedback Page**/
+	Route::get('/feedback', [App\Http\Controllers\HomeController::class, 'feedback'])->name('feedback');
+	/**Testimonial Page**/
+	Route::get('/testimonial', [App\Http\Controllers\HomeController::class, 'testimonial'])->name('testimonial');
+	Route::get('/advertise', [App\Http\Controllers\HomeController::class, 'advertiseWithUs'])->name('advertise');
+	Route::get('/buyer_faq', [App\Http\Controllers\HomeController::class, 'frequentlyAskQuestion'])->name('buyer_faq');
 });
 
 

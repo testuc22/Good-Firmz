@@ -66,9 +66,9 @@
                                     <select name="product_category" class="form-control">
                                         <option value="">Select Product Category</option>
                                         @foreach ($categories as $category)
-                                            @foreach ($category->children as $child)
+                                            @foreach ($category->allChildren as $child)
                                                 <optgroup label="{{$child->name}}">
-                                                    @foreach ($child->subchildren as $subchild)
+                                                    @foreach ($child->allChildren as $subchild)
                                                         <option value="{{$subchild->id}}" @if (in_array($subchild->id, $productCat))
                                                             {{'selected'}}
                                                         @endif>{{$subchild->name}}</option>

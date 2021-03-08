@@ -30,7 +30,7 @@
             <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
-                @include('admin.categories.filters')
+                {{--@include('admin.categories.filters')--}}
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -39,6 +39,7 @@
                                 </th>
                                 <th>Image</th>
                                 <th>Category</th>
+                                <th>Parent</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -57,6 +58,7 @@
                                     @endif
                                 </td>
                                 <td>{{$category->name}}</td>
+                                <td>{{$category->parentName ? $category->parentName->name : 0}}</td>
                                 <td>
                                     <select class="custom-select show_category_in_menu" data-category="{{$category->id}}">
                                         <option value="1" {{$category->status==1 ? 'selected' :'' }}>Show</option>
@@ -64,9 +66,6 @@
                                     </select>
                                 </td>
                                 <td>
-                                    {{--<a href="{{route('list-child-categories',$category->id)}}" class="mx-1 text-success" title="View Child Categories">
-                                        <i class="fas fa-eye"></i>
-                                    </a>--}}
                                     <a href="{{route('edit-category',$category->id)}}" class="mx-1" title="Edit Category">
                                         <i class="fas fa-edit"></i>
                                     </a>
@@ -84,6 +83,7 @@
                                 </th>
                                 <th>Image</th>
                                 <th>Category</th>
+                                <th>Parent</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>

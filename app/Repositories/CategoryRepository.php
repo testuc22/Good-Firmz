@@ -2,7 +2,7 @@
 namespace App\Repositories;
 use Illuminate\Http\Request;
 use App\Models\{
-	Category
+	Category,ProductCategories
 };
 use Session;
 use Illuminate\Support\Str;
@@ -19,36 +19,19 @@ class CategoryRepository{
      * Get All Categories
      */
     public function getAllCategories(){
-        /*return Category::where('parent', 0)
-                ->with(['children'])
-                ->get();*/
-        $categories = Category::where('parent', 0)->get();
-        $categories = $categories->each(function($category){
-            $category->load(['children.subChildren' => function($query) {
-                $query->take(3);
-            }]);
-        });
+        return Category::where('parent', 0)
+                ->with(['allChildren'])
+                ->get();
         return $categories;
     }
 
     public function filterAllCategories($request){
-        /*$query = DB::table('categories');
-        if($request->has('category_name')){
-            echo "sdfsdf";
+        $builder = new Category;
+        if($request->has('category_name') && $request->has('category_name')!="") {
+            $categories = $builder->where('name','like','%'.$request->category_name.'%')->get();
+        }else{
+            $categories = $builder->get();
         }
-        echo "1212";
-        die;
-        if(isset($request->category_name) && $request->category_name != "" ){
-            $query = $query->where('slug', 'like', $request->category_name.'%')
-                  ->orwhere('name', 'like', $request->category_name.'%');
-        }
-        return $query->get();*/
-        DB::enableQueryLog();
-        $catgory_name = ($request->has('category_name') && $request->has('category_name')!="") ? $request->has('category_name') : null;
-        $categories = Category::when($catgory_name,function($query,$catgory_name){
-            return $query->where('name','like','%'.$catgory_name.'%');
-        })->get();
-        $quries = DB::getQueryLog();
         return $categories;
     }
 
@@ -139,23 +122,25 @@ class CategoryRepository{
                 $selected = "selected";
             }
             $html .= '<option value="'.$cat->id.'" '.$selected.'>'.$cat->name.'</option>';
-            $categoriesHTML = $this->getChildOptions($cat,$cat->name,$categoryIDs);
+            $categoriesHTML = $this->getChildOptions($cat,"",$categoryIDs);
             $html .= $categoriesHTML;
         }
         // $html .= '</select>';
         return $html;
     }
     public function getChildOptions($cat,$current_cat,$categoryIDs=array()){
+        
         $html = '';
         $categories = $this->getChildCategories($cat->id);
         if(!empty($categories)){
             foreach($categories as $category){
-                $current_cat_1 = $current_cat." >> ".$category->name;
+                $current_cat_1 = $current_cat." -- ";
                 $selected = "";
                 if($categoryIDs && in_array($category->id, $categoryIDs)){
                     $selected = "selected";
                 }
-                $html .= '<option value="'.$category->id.'"  '.$selected.'>'.$current_cat_1.'</option>';
+                $html .= '<option value="'.$category->id.'"  '.$selected.'>'.$current_cat_1.''.$category->name.'</option>';
+
                 $categories = $this->getChildOptions($category,$current_cat_1,$categoryIDs);
                 $html .= $categories;
             }
@@ -182,6 +167,17 @@ class CategoryRepository{
         return $category;
     }
 
-    
+    public function featureCategories()
+    {
+        $categories = Category::where('parent', 0)
+                        ->active()
+                        ->get();
+        $categories = $categories->each(function($category){
+            $category->load(['allChildren.allChildren' => function($query) {
+                $query->limit(3)->get();
+            }]);
+        });
+        return $categories;
+    }    
 
 }

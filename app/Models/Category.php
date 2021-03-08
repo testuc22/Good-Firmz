@@ -16,15 +16,15 @@ class Category extends Model
         return $this->belongsToMany(Seller::class, 'seller_categories', 'category_id', 'seller_id');
     }
 
-    public function subChildren()
+    /*public function subChildren()
 	{
-	  return $this->hasMany(Category::class, 'parent');
+	  return $this->hasMany(Category::class, 'parent')->with('children');
 	}
 
 	public function children()
 	{
-	    return $this->hasMany(Category::class, 'parent');//->with('subChildren.products');
-	}
+	    return $this->hasMany(Category::class, 'parent');
+	}*/
 
 	public function products()
     {
@@ -40,4 +40,19 @@ class Category extends Model
     {
         return $this->belongsTo(Category::class, 'parent');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent');
+    }
+    public function allChildren()
+    {
+      return $this->children()->with('allChildren');
+    }
+
 }

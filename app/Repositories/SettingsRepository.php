@@ -18,8 +18,7 @@ class SettingsRepository{
     }
     public function save_home_page_settings($request){
     	$request->validate([
-    		'categories'=>'required',
-    		'featured_sellers'=>'required'
+    		'categories'=>'required'
     	]);
     	$data = array(
     		'banner_text'=>$request->banner_text ? $request->banner_text : '' ,

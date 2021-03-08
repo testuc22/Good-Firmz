@@ -139,9 +139,9 @@
 												<select name="product_cat" class="form-control">
 													<option value="">Select Product Category</option>
 													@foreach ($categories as $category)
-														@foreach ($category->children as $child)
+														@foreach ($category->allChildren as $child)
 														<optgroup label="{{$child->name}}">
-															@foreach ($child->subChildren as $subchild)
+															@foreach ($child->allChildren as $subchild)
 																<option value="{{$subchild->id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$subchild->name}}</option>
 															@endforeach
 														</optgroup>

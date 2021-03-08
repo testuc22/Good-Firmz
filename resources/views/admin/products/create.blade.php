@@ -67,15 +67,7 @@
                                 </label>
                                 <select name="product_category" class="form-control">
                                     <option value="">Select Product Category</option>
-                                    @foreach ($categories as $category)
-                                        @foreach ($category->children as $child)
-                                            <optgroup label="{{$child->name}}">
-                                                @foreach ($child->subchildren as $subchild)
-                                                    <option value="{{$subchild->id}}">{{$subchild->name}}</option>
-                                                @endforeach
-                                            </optgroup>
-                                        @endforeach
-                                    @endforeach
+                                    {!! $categories !!}
                                 </select>
                             </div>
                             <div class="col-3">
@@ -127,7 +119,7 @@
                                         <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_meta_title')}}</p>
                                     @endif
                                 </label>
-                                <input type="text" class="form-control" name="product_meta_title" placeholder="Product Meta Title" value="">
+                                <input type="text" class="form-control" name="product_meta_title" placeholder="Product Meta Title (optional)" value="">
                             </div>
                             <div class="col-6">
                                 <label for="">
@@ -136,7 +128,7 @@
                                         <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_meta_tags')}}</p>
                                     @endif
                                 </label>
-                                <input type="text" class="form-control" data-role="tagsinput" name="product_meta_tags" placeholder="Product Meta Tags" value="">
+                                <input type="text" class="form-control" data-role="tagsinput" name="product_meta_tags" placeholder="Product Meta Tags (optional)" value="">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -146,7 +138,7 @@
                                     <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_meta_desc')}}</p>
                                 @endif
                             </label>
-                            <textarea name="product_meta_desc" rows="2" class="form-control" placeholder="Product Meta DEscription here..."></textarea>
+                            <textarea name="product_meta_desc" rows="2" class="form-control" placeholder="Product Meta DEscription here... (optional)"></textarea>
                         </div>
                         <div class="form-group row">
                             <label for="">

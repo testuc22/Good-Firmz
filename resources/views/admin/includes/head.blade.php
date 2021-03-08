@@ -24,7 +24,7 @@
 		<!-- summernote -->
 		<link rel="stylesheet" href="{{asset('admin/plugins/summernote/summernote-bs4.css')}}">
 		<!-- Google Font: Source Sans Pro -->
-		<link rel="stylesheet" href="{{asset('admin/plugins/datatables/dataTables.bootstrap4.css')}}">
+		<link rel="stylesheet" href="{{asset('admin/plugins/datatables/dataTables.bootstrap4.min.css')}}">
 		<link rel="stylesheet" href="{{asset('admin/plugins/toastr/toastr.min.css')}}">
 		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" />
 		<link rel="stylesheet" href="{{asset('admin/plugins/jquery-ui/jquery-ui.theme.min.css')}}">

@@ -23,7 +23,7 @@
                     <div class="header_area">
                         <div class="logo">
                             <a href="{{ route('/') }}">
-                                <img src="{{ asset('public/frontend/img/logo.png') }}" alt="logo...">
+                                <i class="fas fa-hands-helping"></i> <Span>Good</Span>Firmz
                             </a>
                         </div>
                         <div class="search_bar">
@@ -93,16 +93,16 @@
                                     <h4>General Links</h4>
                                     <ul>
                                         <li>
-                                            <a href="">About us</a>
+                                            <a href="{{ route('about-us') }}">About us</a>
                                         </li>
                                         <li>
-                                            <a href="">Contact us</a>
+                                            <a href="{{ route('contact-us') }}">Contact us</a>
                                         </li>
                                         <li>
-                                            <a href="">feedback</a>
+                                            <a href="{{ route('feedback') }}">feedback</a>
                                         </li>
                                         <li>
-                                            <a href="">Testimonials</a>
+                                            <a href="{{ route('testimonial') }}">Testimonials</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -112,13 +112,13 @@
                                     <h4>Our Services</h4>
                                     <ul>
                                         <li>
-                                            <a href="">Advertise with us</a>
+                                            <a href="{{ route('advertise') }}">Advertise with us</a>
                                         </li>
                                         <li>
-                                            <a href="">Membership Plan</a>
+                                            <a href="{{ route('advertise') }}">Membership Plan</a>
                                         </li>
                                         <li>
-                                            <a href="">Banner Advertisement</a>
+                                            <a href="{{ route('advertise') }}">Banner Advertisement</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -128,16 +128,13 @@
                                     <h4>Buyers</h4>
                                     <ul>
                                         <li>
-                                            <a href="">Post Your Requirement</a>
+                                            <a href="{{ route('post-requirement') }}">Post Your Requirement</a>
                                         </li>
                                         <li>
                                             <a href="">Browse Suppliers</a>
                                         </li>
                                         <li>
-                                            <a href="">Country Suppliers</a>
-                                        </li>
-                                        <li>
-                                            <a href="">Buyer FAQ</a>
+                                            <a href="{{ route('buyer_faq') }}">Buyer FAQ</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -147,13 +144,13 @@
                                     <h4>Sellers</h4>
                                     <ul>
                                         <li>
-                                            <a href="">Sell Your Product</a>
+                                            <a href="{{ route('sign-up') }}">Sell Your Product</a>
                                         </li>
-                                        <li>
+                                        <!--<li>
                                             <a href="">Lastest Buyleads</a>
-                                        </li>
+                                        </li>-->
                                         <li>
-                                            <a href="">Seller FAQ</a>
+                                            <a href="{{ route('buyer_faq') }}">Seller FAQ</a>
                                         </li>
                                     </ul>
                                 </div>

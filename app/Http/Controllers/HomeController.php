@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\{
 	SettingsRepository,CategoryRepository,SellerRepository
 };
+use App\Models\Category;
 class HomeController extends Controller{
     //
     public function __construct(SettingsRepository $settings_repository,CategoryRepository $category_repository,SellerRepository $seller_repository){
@@ -14,8 +15,12 @@ class HomeController extends Controller{
     	$this->seller_repository = $seller_repository;
     }
     public function index(){
-    	$categories = $this->category_repository->getAllCategories();
-        return view('new-frontend.home')->with(['categories'=>$categories]);
+        $categories = Category::where('parent', 0)
+                        ->with('allChildren')
+                        ->take(7)->get();
+        $featureCategories = $this->category_repository->featureCategories();
+        //dd($featureCategories);
+        return view('new-frontend.home')->with(['categories'=>$categories, 'featureCategories'=>$featureCategories]);
     }
 
     public function products()
@@ -45,5 +50,50 @@ class HomeController extends Controller{
     {
         $category = $this->category_repository->getCategoryById($id);
         return view('new-frontend.category')->with(['category'=>$category]);
+    }
+
+    /**
+     * About Us Page
+     */
+    public function aboutUs()
+    {
+        return view('new-frontend.about');
+    }
+
+    /**
+     * Contact Us Page
+     */
+    public function contactUs() {
+        return view('new-frontend.contact-us');
+    }
+
+    /**
+     * Feedback Page
+     */
+    public function feedback() {
+        return view('new-frontend.feedback');
+    }
+
+    /**
+     * Testimonial Page
+     */
+    public function testimonial()
+    {
+        return view('new-frontend.testimonial');
+    }
+
+    /**
+     * Advertise With Us
+     */
+    public function advertiseWithUs(){
+        return view('new-frontend.advertise');
+    }
+
+    /**
+     * Frequentily Ask Question Page
+     */
+    public function frequentlyAskQuestion()
+    {
+        return view('new-frontend.frquently');
     }
 }

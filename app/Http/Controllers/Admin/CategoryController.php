@@ -14,9 +14,8 @@ class CategoryController extends Controller{
 	}
 
     public function listCategories(Request $request){
-        $dropdown = $this->categoryRepository->getCategoriesDropdown(array(),0);
         $categories=$this->categoryRepository->filterAllCategories($request);
-        return view('admin/categories/list')->with(['categories'=>$categories,'dropdown'=>$dropdown]);
+        return view('admin/categories/list')->with(['categories'=>$categories]);
     }
 
     public function listChildCategories($id){

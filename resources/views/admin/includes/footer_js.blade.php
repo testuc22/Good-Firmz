@@ -58,8 +58,8 @@ AdminLTE for demo purposes-->
 <script>
   $(function () {
     $("#example1").DataTable({
-      "dom": '<"top">rt<"bottom"ipl><"clear">',
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "filter": true
     });
     // Summernote
     $('.textarea').summernote({

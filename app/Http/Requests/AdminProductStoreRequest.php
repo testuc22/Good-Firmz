@@ -32,9 +32,6 @@ class AdminProductStoreRequest extends FormRequest
                 'product_status'  =>'required',
                 'product_name' => 'required',
                 'product_price' => 'required',
-                'product_meta_title' => 'required',
-                'product_meta_tags' => 'required',
-                'product_meta_desc' => 'required',
                 'product_desc' => 'required',
             ];
         }
@@ -56,9 +53,6 @@ class AdminProductStoreRequest extends FormRequest
             'product_status.required'  => 'Required *',
             'product_name.required'  => 'Required *',
             'product_price.required' => 'Required *',
-            'product_meta_title.required'=> 'Required *',
-            'product_meta_tags.required' => 'Required *',
-            'product_meta_desc.required' => 'Required *',
             'product_desc.required' => 'Required *',
         ];
     }

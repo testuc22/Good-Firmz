@@ -56,7 +56,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                {{--<div class="form-group">
                                     <div class="col-12 form-inner-block">
                                         <label class="col-3">Featured Listings</label>
                                         <div class="col-9">
@@ -72,7 +72,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
+                                </div>--}}
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-success">Save</button>
                                     <a href="{{URL::previous()}}" class="btn  bg-gradient-info">Back</a>
