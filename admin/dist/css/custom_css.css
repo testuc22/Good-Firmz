@@ -76,3 +76,49 @@ hr {
 .bootstrap-tagsinput{
     padding: 6px 6px;
 }
+.pager{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    margin-top: 20px;
+}
+.pager li {
+    display: inline-block;
+}
+.pager li span{
+    height: 30px;
+    width: 100px;
+    display: block;
+    text-align: center;
+    line-height: 25px;
+    background-color: #10798a;
+    color: #fff;
+}
+.pager li.active span{
+    height: 30px;
+    width: 30px;
+    display: block;
+    text-align: center;
+    line-height: 25px;
+    background-color: #10798a;
+    color: #fff;
+}
+.pager li a{
+    height: 30px;
+    width: 30px;
+    display: block;
+    text-align: center;
+    line-height: 25px;
+    background-color: #10798a;
+    color: #fff;
+}
+
+.pager li.next a{
+    height: 30px;
+    width: 100px;
+    display: block;
+    text-align: center;
+    line-height: 25px;
+    background-color: #10798a;
+}

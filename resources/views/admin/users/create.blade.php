@@ -20,6 +20,9 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
+                @foreach ($errors->all() as $error)
+                       <div>{{ $error }}</div>
+                   @endforeach
                 <div class="card card-primary">
                     <div class="card-header bg-info text-white">
                         <h3 class="card-title">Create User</h3>
@@ -34,12 +37,12 @@
                                     <div class="col-12 form-inner-block">
                                         <label class="col-3">First Name<span class="required">*</span></label>
                                         <div class="col-9">
-                                            @if($errors->has('first_name'))
+                                            @if($errors->has('fname'))
                                                 @component('admin.components.error')
-                                                    {{$errors->first('first_name')}}
+                                                    {{$errors->first('fname')}}
                                                 @endcomponent
                                             @endif
-                                            <input type="text" class="form-control" name="first_name" required value="{{ old('first_name') }}">
+                                            <input type="text" class="form-control" name="fname" required value="{{ old('fname') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -47,12 +50,12 @@
                                     <div class="col-12 form-inner-block">
                                         <label class="col-3">Last Name<span class="required">*</span></label>
                                         <div class="col-9">
-                                            @if($errors->has('last_name'))
+                                            @if($errors->has('lname'))
                                                 @component('admin.components.error')
-                                                    {{$errors->first('last_name')}}
+                                                    {{$errors->first('lname')}}
                                                 @endcomponent
                                             @endif
-                                            <input type="text" class="form-control" name="last_name" required value="{{ old('last_name') }}">
+                                            <input type="text" class="form-control" name="lname" required value="{{ old('lname') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +107,7 @@
                                                     {{$errors->first('phone_number')}}
                                                 @endcomponent
                                             @endif
-                                            <input type="number" class="form-control" name="phone_number"  value="{{ old('phone_number') }}" required>
+                                            <input type="number" class="form-control" name="mobile"  value="{{ old('phone_number') }}" required>
                                         </div>
                                     </div>
                                 </div>

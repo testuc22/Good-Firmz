@@ -13,8 +13,10 @@ class SearchController extends Controller {
     	$this->categoryRepository = $categoryRepository;
     }
     public function index(Request $request){
-    	$sellers = $this->search_repo->search_listings($request);
+        $categories = $this->search_repo->searchProduct($request);
+    	/*$sellers = $this->search_repo->search_listings($request);
     	$parentCategories = $this->categoryRepository->getParentCategories(1);
-        return view('front.seller.all_listings')->with(['sellers'=>$sellers,'parentCategories'=>$parentCategories]);
+        return view('front.seller.all_listings')->with(['sellers'=>$sellers,'parentCategories'=>$parentCategories]);*/
+        return view('new-frontend.product-listing')->with(['categories'=>$categories]);
     }
 }

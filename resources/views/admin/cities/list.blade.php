@@ -25,7 +25,7 @@
                 
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table id="example1" class="table table-bordered table-striped">
+                    <table id="example2" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -69,6 +69,7 @@
                             </tr>
                         </tfoot>
                     </table>
+                    {{ $allCities->links('vendor.pagination.custom-pagination') }}
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -91,6 +92,15 @@ jQuery(document).ready(function($) {
               }
         });
     }); 
+});
+$(function () {
+    $("#example2").DataTable({
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        "filter": false,
+        "paging": false,
+        "bInfo" : false ,
+        "bLengthChange" : false
+    });
 });
 </script>
 @endsection

@@ -25,14 +25,14 @@
 													</a>
 													<div class="menu_box">
 														@foreach ($category->allChildren as $child)
-															<div class="column">
-																<a href="{{ route('category-detail', ['id'=>$category->id]) }}" class="h4">
-																	{{\Illuminate\Support\Str::ucfirst($child->name)}}
-																</a>
-																<ul>
-																@include('new-frontend.includes.child-category', ['child' => $child])
-																</ul>
-															</div>
+																<div class="column">
+																	<a href="{{ route('category-detail', ['id'=>$category->id]) }}" class="h4">
+																		{{\Illuminate\Support\Str::ucfirst($child->name)}}
+																	</a>
+																	<ul>
+																	@include('new-frontend.includes.child-category', ['child' => $child])
+																	</ul>
+																</div>
 														@endforeach
 													</div>	
 												</li>

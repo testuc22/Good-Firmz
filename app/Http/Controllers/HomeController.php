@@ -17,15 +17,14 @@ class HomeController extends Controller{
     public function index(){
         $categories = Category::where('parent', 0)
                         ->with('allChildren')
-                        ->take(7)->get();
+                        ->take(10)->get();
         $featureCategories = $this->category_repository->featureCategories();
-        //dd($featureCategories);
         return view('new-frontend.home')->with(['categories'=>$categories, 'featureCategories'=>$featureCategories]);
     }
 
     public function products()
     {
-        return view('new-frontend.product');
+        return view('new-frontend.product-listing');
     }
 
     public function singleProduct()

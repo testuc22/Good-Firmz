@@ -3,7 +3,7 @@ namespace App\Repositories;
 
 use Session;
 use App\Models\{
-    Sellers
+    Sellers, Category
 };
 use App\CommonHelper;
 use Illuminate\Http\Request;
@@ -41,5 +41,19 @@ class SearchRepository{
         
         $searchQuery = $searchQuery->get();
         return $searchQuery;
+    }
+
+    /**
+     * Search Product
+     */
+    public function searchProduct($request)
+    {
+        $builder = new Category;
+        if ($request->has('search')) {
+            $categories = $builder->where('name','like','%'.$request->search.'%')->get();
+        }else{
+            $categories = $builder->get();
+        }
+        return $categories;
     }
 }

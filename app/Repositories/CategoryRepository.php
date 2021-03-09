@@ -67,6 +67,7 @@ class CategoryRepository{
             'name'=>$request->name,
             'slug'=>$this->common_helper->create_unique_slug($request->name,0,'categories'),
             'status'=>$request->has('status') ? 1 : 0,
+            'featured'=>$request->has('featured') ? 1 : 0,
             'meta_title'=>$request->meta_title,
             'meta_tags'=>$request->meta_tags,
             'meta_desc'=>$request->meta_desc,
@@ -170,11 +171,13 @@ class CategoryRepository{
     public function featureCategories()
     {
         $categories = Category::where('parent', 0)
-                        ->active()
+                        ->featured()
+                        ->inRandomOrder()
+                        ->take(2)
                         ->get();
         $categories = $categories->each(function($category){
             $category->load(['allChildren.allChildren' => function($query) {
-                $query->limit(3)->get();
+                $query->limit(2)->get();
             }]);
         });
         return $categories;

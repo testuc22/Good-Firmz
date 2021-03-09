@@ -19,7 +19,7 @@ class Products extends Migration
             $table->unsignedBigInteger('featured_image')->default(0);
             $table->string('name');
             $table->string('slug');
-            $table->double('price', 8, 2);
+            $table->string('price');
             $table->longText('desc')->nullable();
             $table->longText('specifications')->nullable();
             $table->smallInteger('status')->default(0);

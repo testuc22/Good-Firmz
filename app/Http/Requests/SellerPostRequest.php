@@ -36,10 +36,7 @@ class SellerPostRequest extends FormRequest{
                 'state'             =>'required',
                 'pincode'           =>'required',
                 'status'            =>'required',
-                'featured'          =>'required',
-                'meta_title'        =>'required',    
-                'meta_tags'          =>'required',    
-                'meta_desc'          =>'required',    
+                'featured'          =>'required',    
             ];
             case 'PUT':
             $rules = [
@@ -53,9 +50,6 @@ class SellerPostRequest extends FormRequest{
                 'pincode'           =>'required',
                 'status'            =>'required',
                 'featured'          =>'required',
-                'meta_title'        =>'required',    
-                'meta_tags'          =>'required',    
-                'meta_desc'          =>'required',
             ];
         }
         return $rules;

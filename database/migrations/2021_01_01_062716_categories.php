@@ -21,6 +21,7 @@ class Categories extends Migration
             $table->string('slug');
             $table->string('image')->nullable();
             $table->smallInteger('status');
+            $table->boolean('featured')->default(0);
             $table->string('meta_title')->nullable();
             $table->text('meta_tags')->nullable();
             $table->text('meta_desc')->nullable();

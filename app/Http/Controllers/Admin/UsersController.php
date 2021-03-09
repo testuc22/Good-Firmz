@@ -31,7 +31,7 @@ class UsersController extends Controller{
     	$allStates = $this->location_repository->getAllStates();
         return view('admin.users.create')->with(['allStates'=>$allStates]);
     }
-    public function save_user(UserRequest $request){
+    public function save_user(Request $request){
     	$result=$this->user_repository->admin_create_user($request);
         return redirect()->back()->with('success', 'User Registered Successfully ! Please Check Your Mail For Email Verification');
     }

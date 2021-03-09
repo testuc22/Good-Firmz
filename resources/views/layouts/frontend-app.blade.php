@@ -27,8 +27,9 @@
                             </a>
                         </div>
                         <div class="search_bar">
-                            <form class="search">
-                                <input type="text" placeholder="Search.." name="search">
+                            <form action="{{ route('search')}}" class="search" autocomplete="off">
+                                @csrf
+                                <input type="text" placeholder="Search Product ..." name="search" value="{{old('search')}}" required/>
                                 <button type="submit"><i class="fas fa-search"></i>Search</button>
                             </form>
                         </div>

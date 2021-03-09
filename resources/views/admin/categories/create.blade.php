@@ -65,14 +65,17 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-12 form-inner-block">
-                                        @if($errors->has('status'))
-                                            @component('admin.components.error')
-                                                {{$errors->first('status')}}
-                                            @endcomponent
-                                        @endif
                                         <label  class="col-3">Active</label>
                                         <div class="col-9">
                                             <input type="checkbox" name="status" id="status" class="" value="{{old('status')}}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-12 form-inner-block">
+                                        <label  class="col-3">Featured Category</label>
+                                        <div class="col-9">
+                                            <input type="checkbox" name="featured" id="featured" class="" value="{{old('featured')}}">
                                         </div>
                                     </div>
                                 </div>

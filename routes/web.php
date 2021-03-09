@@ -199,7 +199,7 @@ Route::namespace('Front')->group(function(){
 
 
 	/*-------------------Search ------------------*/
-	//Route::get('search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
+	Route::get('search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
 
 	
 	/*-------------------Search ------------------*/

@@ -104,11 +104,13 @@ p {
   float: left;
   width: 400px;
   background: #f1f1f1;
+  outline: none;
 }
 .header_section .header_area .search_bar .search button {
   float: left;
   width: 100px;
   padding: 5px;
+  outline: none;
   background: #d32e35;
   color: white;
   font-size: 17px;
@@ -121,7 +123,7 @@ p {
   margin-right: 5px;
 }
 .header_section .header_area .search_bar .search button:hover {
-  background: #0b7dda;
+  background: #d32e35;
 }
 .header_section .header_area .search_bar .search::after {
   content: "";
@@ -404,6 +406,7 @@ p {
 }
 .product_section .product_area .card .product_content a .desc {
   text-align: center;
+  margin-top: 10px;
 }
 .product_section .product_area .card .product_content a .desc p {
   font-size: 15px;
@@ -671,6 +674,17 @@ p {
 .dashboard_section .dashboard_area .card .card-body .media .img_area img {
   width: 100px;
   height: 100px;
+}
+.dashboard_section .dashboard_area .card .card-body .media .product_img_area {
+  
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin-right: 10px;
+  text-align: center;
+}
+.dashboard_section .dashboard_area .card .card-body .media .product_img_area img {
+  width: 100%;
 }
 .dashboard_section .dashboard_area .card .card-body .media .media-body h4 {
   font-size: 18px;

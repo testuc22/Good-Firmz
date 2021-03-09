@@ -84,6 +84,14 @@
                         </div>
                         <div class="form-group">
                             <div class="col-12 form-inner-block">
+                                <label for="status"  class="col-3">Featured Categories</label>
+                                <div class="col-9">
+                                    <input type="checkbox" name="featured" id="featured" class="" value="{{$category->featured}}" {{ $category->featured==1 ? 'checked' : ''}}>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12 form-inner-block">
                                 <label  class="col-3">Meta Title</label>
                                 <div class="col-9">
                                     @if($errors->has('meta_title'))

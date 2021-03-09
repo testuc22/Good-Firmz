@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    public $fillable = ['parent','name','slug','image','status','meta_title','meta_tags','meta_desc'];
+    public $fillable = ['parent','name','slug','image','status','featured','meta_title','meta_tags','meta_desc'];
 
     public function sellers()
     {
@@ -41,9 +41,9 @@ class Category extends Model
         return $this->belongsTo(Category::class, 'parent');
     }
 
-    public function scopeActive($query)
+    public function scopeFeatured($query)
     {
-        return $query->where('status', 1);
+        return $query->where('featured', 1);
     }
 
     public function children()

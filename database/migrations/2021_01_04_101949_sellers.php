@@ -28,6 +28,7 @@ class Sellers extends Migration
             $table->string('phone_number')->nullable();
             $table->smallInteger('status')->default(0);
             $table->smallInteger('featured')->default(0);
+            $table->string('website')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_tags')->nullable();
             $table->text('meta_desc')->nullable();

@@ -14,31 +14,35 @@
 									@foreach ($category as $category)
 										@foreach ($category->products as $product)
 											<div class="col-xl-6">
-										<div class="media">
-											<div class="img_area">
-												<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
+												<div class="media">
+													<div class="img_area">
+														@if (!empty($product->images))
+															<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
+														@else
+															<img src="{{ asset('public/images/comming.jpg') }}" alt="...">
+														@endif
+													</div>
+													<div class="media-body">
+														<h4>{{$product->name}}</h4>
+														<span>
+															<i class="fas fa-rupee-sign"></i>{{$product->price}}
+														</span>
+														<p>
+															{{\Illuminate\Support\Str::limit($product->desc, 150)}}
+														</p>
+														<ul>
+															<li>
+																<a href="{{ route('product-detail', ['id'=>$product->id]) }}">View Product Detail</a>
+															</li>
+															<li>
+																<a href="#" data-toggle="tooltip" data-placement="bottom" title="{{$product->seller->address1}}">
+																	<i class="fas fa-map-marker"></i> {{$product->seller->state->name}}
+																</a>
+															</li>
+														</ul>
+													</div>
+												</div>	
 											</div>
-											<div class="media-body">
-												<h4>{{$product->name}}</h4>
-												<span>
-													<i class="fas fa-rupee-sign"></i>{{$product->price}} / Piece
-												</span>
-												<p>
-													{{\Illuminate\Support\Str::limit($product->desc, 150)}}
-												</p>
-												<ul>
-													<li>
-														<a href="{{ route('product-detail', ['id'=>$product->id]) }}">View Product Detail</a>
-													</li>
-													<li>
-														<a href="#" data-toggle="tooltip" data-placement="bottom" title="{{$product->seller->address1}}">
-															<i class="fas fa-map-marker"></i> {{$product->seller->state->name}}
-														</a>
-													</li>
-												</ul>
-											</div>
-										</div>	
-									</div>
 										@endforeach
 									@endforeach
 								</div>

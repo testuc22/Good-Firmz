@@ -35,7 +35,6 @@ class UserRequest extends FormRequest
             'company_number'=>'required|numeric',
             'business'=>'required',
             'company_address'=>'required',
-
         ];
 
         return $rules;

@@ -150,7 +150,7 @@
                                     <label for="">
                                         Company Meta Title
                                     </label>
-                                    <input type="text" class="form-control" name="meta_title" placeholder="Meta Title" value="{{ old('meta_title') }}">
+                                    <input type="text" class="form-control" name="meta_title" placeholder="Meta Title (optional)" value="{{ old('meta_title') }}">
                                 </div>
                                 <div class="col-6">
                                     @if ($errors->has('meta_tags'))
@@ -159,7 +159,7 @@
                                     <label for="">
                                         Meta Tags
                                     </label>
-                                    <input type="text" class="form-control" data-role="tagsinput" name="meta_tags" placeholder="Meta Tags" value="{{ old('meta_tags') }}">
+                                    <input type="text" class="form-control" data-role="tagsinput" name="meta_tags" placeholder="Meta Tags (optional)" value="{{ old('meta_tags') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -170,7 +170,7 @@
                                 <label for="">
                                     Meta Description
                                 </label>
-                                <textarea name="meta_desc" rows="2" class="form-control" placeholder="Meta DEscription here...">{{ old('meta_desc') }}</textarea>
+                                <textarea name="meta_desc" rows="2" class="form-control" placeholder="Meta DEscription here... (optional)">{{ old('meta_desc') }}</textarea>
                                 </div>
                             </div>
                             <div class="form-group text-center">

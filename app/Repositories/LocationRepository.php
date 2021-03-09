@@ -17,10 +17,14 @@ class LocationRepository{
         $this->common_helper = $common_helper;
     }
     public function getAllCities(){
-    	return City::orderByDesc('id')->get();
+    	return City::orderByDesc('id')->paginate(10);
     }
     public function getAllStates(){
     	return States::all();
+    }
+
+    public function cities(){
+        return City::get();
     }
 
     public function get_cities_by_state($state_id){

@@ -36,7 +36,7 @@ class AdminSellersController extends Controller
         return $result;
     }
     public function add_seller(Request $request){
-        $cities = $this->location_repository->getAllCities();
+        $cities = $this->location_repository->cities();
     	return view('admin.sellers.create')->with(['cities'=>$cities]);
     }
     public function save_seller(SellerPostRequest $request){

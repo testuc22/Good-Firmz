@@ -27,16 +27,14 @@
 								<div class="left_side">
 									<div class="box">
 										<h5>GoodFirmz.com</h5>
-										<span>C/o  Webridrez.com</span>
 										<p>
-											Kashish Complex, Grain Market, Ludhiana, Punjab 141003
+											GoodFirmz is  online B2B marketplace, connecting buyers with suppliers.the channel focuses on providing a platform to Small & Medium Enterprises  as well as individuals.
 										</p>
 									</div>
 									<div class="box">
-										<h5>For any assistance call us at</h5>
-										<span>( 9:30 AM to 6:00 PM IST, Mon to Fri )</span>
+										<h5>For any assistance Email us at</h5>
 										<p>
-											<i class="fas fa-phone-square-alt"></i> <b>Call:</b> +91- 1236547890
+											<i class="fas fa-envelope-square"></i> <b>Email : </b> info@website.com
 										</p>
 									</div>
 								</div>
@@ -44,7 +42,39 @@
 							<div class="col-xl-7">
 								<div class="right_side">
 									<div class="map_area">
-										<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13697.821488023219!2d75.8557443!3d30.8739198!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x1d2424541bf6f0c4!2sWebRiderz!5e0!3m2!1sen!2sin!4v1615179265359!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+										<div class="card">
+											<div class="card-body">
+												<form action="">
+													<div class="row">
+														<div class="col-6">
+															<div class="form-group">
+																<label for="">Name:</label>
+																<input type="text" name="name" class="form-control" value="" placeholder="Enter Name here">
+															</div>
+														</div>
+														<div class="col-6">
+															<div class="form-group">
+																<label for="">Email:</label>
+																<input type="text" name="email" class="form-control" value="" placeholder="Enter Email here">
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-12">
+															<div class="form-group">
+																<label for="">Message</label>
+																<textarea name="msg" class="form-control" rows="4"></textarea>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-12">
+															<button class="btn btn-info btn-sm">Submit</button>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
