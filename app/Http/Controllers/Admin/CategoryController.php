@@ -67,5 +67,12 @@ class CategoryController extends Controller{
         return $result;
     }
 
-
+    /**
+     * Ajax Call For Category Subcategory
+     */
+    public function categoryAjaxCall($id)
+    {
+        $categories = $this->categoryRepository->getCategoryByParentId($id);
+        return json_encode($categories);
+    }
 }

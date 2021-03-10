@@ -183,4 +183,12 @@ class CategoryRepository{
         return $categories;
     }    
 
+    /**
+     * Get Parent Wise Category
+     */
+    public function getCategoryByParentId($id)
+    {
+        $categories = Category::where('parent', $id)->get();
+        return $categories;
+    }
 }

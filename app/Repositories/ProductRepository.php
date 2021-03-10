@@ -42,7 +42,11 @@ class ProductRepository
             'meta_tags' => $request->product_meta_tags,
             'meta_desc' => $request->product_meta_desc,
         ];
-        $category_id = (array)$request->product_category; 
+        $category_id = [
+            $request->product_category,
+            $request->sub_category,
+            $request->child_category,
+        ]; 
         $product = Product::create($productData);
         $product->categories()->sync($category_id);
         $this->addProductMeta($product->id, $request->meta);
@@ -161,7 +165,11 @@ class ProductRepository
         $product->status = $request->status ? $request->status : 0;
         $product->featured = $request->featured ? $request->featured : 0;
         $product->save();
-        $category_id = (array)$request->product_category; 
+        $category_id = $category_id = [
+            $request->product_category,
+            $request->sub_category,
+            $request->child_category,
+        ]; 
         $product->categories()->sync($category_id);
         foreach ($request->meta as $key => $meta) {
             $productMeta = ProductMeta::find($meta['id']);

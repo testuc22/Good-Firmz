@@ -17,6 +17,6 @@
 	</div>
 	@include('admin.includes.footer_js')
 	@yield('scripts')
-		
+	@stack('head')
 </body>
 </html>

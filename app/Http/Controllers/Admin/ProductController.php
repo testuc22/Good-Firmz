@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function add_product()
     {
         $sellers = $this->sellerRepo->getActiveSeller();
-        $categories = $this->categoryRepository->getCategoriesDropdown(array(),0);
+        $categories = $this->categoryRepository->getParentCategories(array(),0);
         return view('admin.products.create')->with(['categories'=>$categories, 'sellers'=>$sellers]);
     }
     public function updateStatus()

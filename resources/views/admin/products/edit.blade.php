@@ -33,7 +33,7 @@
                         @method('PUT')
                         <div class="card-body">
                             <div class="form-group row">
-                                <div class="col-3">
+                                <div class="col-6">
                                     <label for="">Company Name</label>
                                     <select name="company_name"  class="form-control" disabled>
                                         <option value="">Select Company</option>
@@ -45,7 +45,7 @@
                                     </select>
                                     </label>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-6">
                                     <label for="">Company Business Type</label>
                                     <select name="business_type" class="form-control" disabled>
                                         <option value="">Select Business Type</option>
@@ -56,29 +56,75 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-3">
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-4">
                                     <label for="">
-                                        Product Category
+                                        Category
                                         @if ($errors->has('product_category'))
                                             <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_category')}}</p>
                                         @endif
                                     </label>
                                     <select name="product_category" class="form-control">
-                                        <option value="">Select Product Category</option>
+                                        <option value="">Select Category</option>
                                         @foreach ($categories as $category)
-                                            @foreach ($category->allChildren as $child)
-                                                <optgroup label="{{$child->name}}">
-                                                    @foreach ($child->allChildren as $subchild)
-                                                        <option value="{{$subchild->id}}" @if (in_array($subchild->id, $productCat))
-                                                            {{'selected'}}
-                                                        @endif>{{$subchild->name}}</option>
-                                                    @endforeach
-                                                </optgroup>
-                                            @endforeach
+                                            <option value="{{$category->id}}" @if (in_array($category->id, $productCat))
+                                                {{'selected'}}
+                                            @endif>{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4">
+                                    <label for="">Sub Category</label>
+                                    <select name="sub_category" class="form-control">
+                                        <option value="">Select Sub Category</option>
+                                        @foreach ($categories as $category)
+                                            @foreach ($category->children as $child)
+                                                @if (in_array($child->id, $productCat))
+                                                    <option value="{{$child->id}}" selected>{{$child->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    </select>
+                                </div> 
+                                <div class="col-4">
+                                    <label for="">Child Category</label>
+                                    <select name="child_category" class="form-control">
+                                        <option value="">Select Child Category</option>
+                                        @foreach ($categories as $category)
+                                            @foreach ($category->children as $child)
+                                                @foreach ($child->allchildren as $subchild)
+                                                    @if (in_array($subchild->id, $productCat))
+                                                        <option value="{{$subchild->id}}" selected>{{$subchild->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            @endforeach
+                                        @endforeach
+                                    </select>
+                                </div> 
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
+                                    <label for="">
+                                        Product Name
+                                        @if ($errors->has('product_name'))
+                                            <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_name')}}</p>
+                                        @endif
+                                    </label>
+                                    <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name" value="{{$product->name}}">
+                                </div>
+                                <div class="col-6">
+                                    <label for="">
+                                        Product Price
+                                        @if ($errors->has('product_price'))
+                                            <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_price')}}</p>
+                                        @endif
+                                    </label>
+                                    <input type="text" name="product_price" class="form-control" placeholder="Enter Product Price" value="{{$product->price}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-6">
                                     <label for="">
                                         Product Status
                                         @if ($errors->has('product_status'))
@@ -95,27 +141,7 @@
                                         @endif>Deactive</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-4">
-                                    <label for="">
-                                        Product Name
-                                        @if ($errors->has('product_name'))
-                                            <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_name')}}</p>
-                                        @endif
-                                    </label>
-                                    <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name" value="{{$product->name}}">
-                                </div>
-                                <div class="col-4">
-                                    <label for="">
-                                        Product Price
-                                        @if ($errors->has('product_price'))
-                                            <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_price')}}</p>
-                                        @endif
-                                    </label>
-                                    <input type="text" name="product_price" class="form-control" placeholder="Enter Product Price" value="{{$product->price}}">
-                                </div>
-                                <div class="col-4">
+                                <div class="col-6">
                                     <label for="">Featured Product</label>
                                     <select name="feature_product" class="form-control">
                                         <option value="1" @if ($product->featured == 1)
@@ -126,6 +152,15 @@
                                         @endif>No</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="">
+                                    Product Description
+                                    @if ($errors->has('product_desc'))
+                                        <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_desc')}}</p>
+                                    @endif
+                                </label>
+                                <textarea name="product_desc" rows="5" class="form-control" placeholder="About Product Description">{{$product->desc}}</textarea>
                             </div>
                             <div class="form-group row">
                                 <div class="col-6">
@@ -156,15 +191,6 @@
                                 </label>
                                 <textarea name="product_meta_desc" rows="2" class="form-control" placeholder="Product Meta DEscription here...">{{$product->meta_desc}}</textarea>
                             </div>
-                            <div class="form-group row">
-                                <label for="">
-                                    Product Description
-                                    @if ($errors->has('product_desc'))
-                                        <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_desc')}}</p>
-                                    @endif
-                                </label>
-                                <textarea name="product_desc" rows="5" class="form-control" placeholder="About Product Description">{{$product->desc}}</textarea>
-                            </div>
                             <label for="">Product Additional Info</label>
                             @foreach ($product->productMetas as $key => $meta)
                                 <div class="form-group row">
@@ -193,3 +219,50 @@
     </div>
 </div>
 @endsection
+@push('head')
+    <script>
+        $('select[name="product_category"]').on('change', function() {
+            var catId = $(this).val();
+            var url = '{{ route('admin-category', ['id'=>':id'])}}';
+            url = url.replace(':id', catId);
+            if (catId) {
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="sub_category"]').empty();
+                        $('select[name="child_category"]').empty();
+                        $('select[name="sub_category"]').append('<option value="">Select Sub Category</option>');
+                        $.each(data, function(index) {
+                            $('select[name="sub_category"]').append('<option value="'+ data[index].id +'">'+ data[index].name +'</option>');
+                        })
+                    }
+                });
+            }else{
+                $('select[name="sub_category"]').empty();
+            }
+        });
+        $('select[name="sub_category"]').on('change', function() {
+            var catId = $(this).val();
+            var url = '{{ route('admin-category', ['id'=>':id'])}}';
+            url = url.replace(':id', catId);
+            if (catId) {
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="child_category"]').empty();
+                        $.each(data, function(index) {
+                            $('select[name="child_category"]').append('<option value="'+ data[index].id +'">'+ data[index].name +'</option>');
+                        })
+                    }
+                });
+            }else{
+                $('select[name="child_category"]').empty();
+            }
+        });
+    </script>
+@endpush
+

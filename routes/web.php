@@ -25,6 +25,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	Route::name('export-categories')->get('export-categories',[App\Http\Controllers\Admin\ImportExportController::class,'exportCategories']);
 
 	Route::name('list-child-categories')->get('list-child-categories/{id}',[App\Http\Controllers\Admin\CategoryController::class,'listChildCategories']);
+	Route::get('admin-category/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'categoryAjaxCall'])->name('admin-category');
 	
 
 	/*-------------------Category Controllers ends ------------------*/
