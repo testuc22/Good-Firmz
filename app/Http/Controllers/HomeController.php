@@ -17,7 +17,12 @@ class HomeController extends Controller{
     public function index(){
         $categories = Category::where('parent', 0)
                         ->with('allChildren')
-                        ->take(10)->get();
+                        ->take(10)
+                        ->get()
+                        ->map(function($category){
+                            $category->allChildren = $category->allChildren->take(6);
+                            return $category;
+                        });
         $featureCategories = $this->category_repository->featureCategories();
         return view('new-frontend.home')->with(['categories'=>$categories, 'featureCategories'=>$featureCategories]);
     }

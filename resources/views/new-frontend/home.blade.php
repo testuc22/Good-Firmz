@@ -34,6 +34,9 @@
 																	</ul>
 																</div>
 														@endforeach
+														@if (count($category->allChildren) > 5)
+															<a href="{{ route('category-detail', ['id'=>$category->id]) }}" class="btn btn-info btn-sm text-decoration-none text-white">View More</a>
+														@endif
 													</div>	
 												</li>
 											@endforeach

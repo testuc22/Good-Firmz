@@ -34,33 +34,78 @@
 																<td>Product Price</td>
 																<td><i class="fas fa-rupee-sign"></i> {{$product->price}}</td>
 															</tr>
-															@foreach ($product->productMetas as $meta)
-																<tr>
-																	<td>{{$meta->key}}</td>
-																	<td>{{$meta->value}}</td>
-																</tr>
-															@endforeach
 															<tr>
 																<td>Product Description</td>
 																<td>{{$product->desc}}</td>
 															</tr>
-															<tr>
-																<td>Location</td>
-																<td>{{$product->seller->address1}},{{$product->seller->state->name}}</td>
-															</tr>
-															<tr>
-																<td>
-																	<a href="" class="btn btn-info btn-sm">Send Enquiry</a>
-																</td>
-																<td>
-																	<a href="" class="btn btn-success btn-sm">whatsapp</a>
-																</td>
-															</tr>
 														</table>
+														<a href="" class="btn btn-info btn-sm">Send Enquiry</a>
+														<a href="" class="btn btn-success btn-sm">whatsapp</a>
 													</div>
 												</div>
 											</div>
 										</div>	
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xl-12">
+										<div class="product_info">
+											<ul class="nav nav-tabs">
+											  <li class="active"><a data-toggle="tab" href="#home" class="btn btn-info btn-sm mr-1 text-decoration-none">Company Info</a></li>
+											  <li><a data-toggle="tab" href="#menu1" class="btn btn-info btn-sm text-decoration-none">Product Additional Detail</a></li>
+											</ul>
+
+											<div class="tab-content mt-4">
+												<div id="home" class="tab-pane show fade in active">
+													<table class="table table-bordered">
+														<tr>
+															<td>Company Name</td>
+															<td>{{$product->seller->name}}</td>
+														</tr>
+														<tr>
+															<td>Company Email</td>
+															<td>{{$product->seller->email}}</td>
+														</tr>
+														<tr>
+															<td>Company Number</td>
+															<td>{{$product->seller->phone_number}}</td>
+														</tr>
+														<tr>
+															<td>Address</td>
+															<td>{{$product->seller->address1}}</td>
+														</tr>
+														<tr>
+															<td>City</td>
+															<td>{{$product->seller->city->name}}</td>
+														</tr>
+														<tr>
+															<td>State</td>
+															<td>{{$product->seller->state->name}}</td>
+														</tr>
+														<tr>
+															<td>Zip Code</td>
+															<td>{{$product->seller->pincode}}</td>
+														</tr>
+													</table>
+												</div>
+											  <div id="menu1" class="tab-pane fade">
+											    <table class="table table-bordered">
+											    	@foreach ($product->productMetas as $meta)
+												    	@if ($meta->key == '' && $meta->value == '')
+												    		<tr>
+												    			<td colspan="2">No Any Additional Info</td>
+												    		</tr>
+												    	@else
+												    		<tr>
+												    			<td>{{$meta->key}}</td>
+												    			<td>{{$meta->value}}</td>
+												    		</tr>
+												    	@endif
+											    	@endforeach
+											    </table>
+											  </div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
