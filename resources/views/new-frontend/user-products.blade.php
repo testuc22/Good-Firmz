@@ -40,7 +40,12 @@
 											@foreach ($products as $product)
 												<div class="media">
 													<div class="img_area">
-														<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
+														@if (!empty($product->images))
+															<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
+														@else
+															<img src="" alt="Comming Soon">
+
+														@endif
 													</div>
 													<div class="media-body">
 														<h4>{{$product->name}}</h4>
