@@ -16,11 +16,11 @@ class HomeController extends Controller{
     }
     public function index(){
         $categories = Category::where('parent', 0)
-                        ->with('allChildren')
-                        ->take(10)
+                        ->with('children')
+                        ->take(8)
                         ->get()
                         ->map(function($category){
-                            $category->allChildren = $category->allChildren->take(6);
+                            $category->children = $category->children->take(10);
                             return $category;
                         });
         $featureCategories = $this->category_repository->featureCategories();

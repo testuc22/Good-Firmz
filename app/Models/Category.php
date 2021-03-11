@@ -50,9 +50,9 @@ class Category extends Model
     {
         return $this->hasMany(Category::class, 'parent');
     }
-    public function allChildren()
+    /*public function allChildren()
     {
       return $this->children()->with('allChildren');
-    }
+    }*/
 
 }

@@ -26,13 +26,14 @@
                                 <i class="fas fa-hands-helping"></i> <Span>Good</Span>Firmz
                             </a>
                         </div>
-                        <div class="search_bar">
-                            <form action="{{ route('search')}}" class="search" autocomplete="off">
-                                @csrf
-                                <input type="text" placeholder="Search Product ..." name="search" value="{{old('search')}}" required/>
-                                <button type="submit"><i class="fas fa-search"></i>Search</button>
-                            </form>
-                        </div>
+                        {{--@if(Route::current()->getName() != '/')--}}
+                            <div class="search_bar">
+                                <form class="search" action="{{ route('search') }}" autocomplete="off">
+                                    <input type="text" placeholder="Search.." name="search">
+                                    <button type="submit"><i class="fas fa-search"></i>Search</button>
+                                </form>
+                            </div>
+                        {{--@endif--}}
                         <div class="header_info">
                             <ul>
                                 @if (Auth::check())

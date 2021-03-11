@@ -1,6 +1,53 @@
 @extends('layouts.frontend-app')
 @section('title', 'Good Firmz')
 @section('content')
+	<!--Banner Section Start-->
+	{{--<div class="banner_section" style="background-image: url({{ asset('images/banner.jpeg') }});">
+	    <div class="container">
+	        <div class="row justify-content-center">
+	            <div class="col-xl-6">
+	                <div class="search_bar">
+	                    <form class="search">
+	                        <input type="text" placeholder="Search.." name="search">
+	                        <button type="submit"><i class="fas fa-search"></i>Search</button>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>--}}
+	<!--Banner Section End-->
+
+	<!--Menu Section Start-->
+	{{--<div class="menu_section">
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-xl-12">
+	                <div class="menu_area">
+	                    <ul>
+	                        @foreach ($categories as $category)
+	                            <li>
+	                                <a href="{{ route('cat-slug', ['slug'=>$category->slug]) }}">
+	                                    {{$category->name}}
+	                                </a>
+	                                <div class="mega_menu">
+	                                    <ul>
+	                                        @foreach ($category->children as $child)
+	                                            <li>
+	                                                <a href="{{ route('products', ['slug'=>$child->slug]) }}">{{$child->name}}</a>
+	                                            </li>
+	                                        @endforeach
+	                                    </ul>
+	                                </div>
+	                            </li>
+	                        @endforeach
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>--}}
+	<!--Menu Section End-->
 	<!--Slider Section Start-->
 	<div class="main_section">
 		<div class="container">
@@ -19,27 +66,29 @@
 										<ul>
 											@foreach ($categories as $category)
 												<li>
-													<a href="">
+													<a href="{{ route('cat-slug', ['slug'=>$category->slug]) }}">
 														{{$category->name}}
 														<i class="fas fa-angle-right"></i>
 													</a>
 													<div class="menu_box">
-														@foreach ($category->allChildren as $child)
-																<div class="column">
-																	<a href="{{ route('category-detail', ['id'=>$category->id]) }}" class="h4">
-																		{{\Illuminate\Support\Str::ucfirst($child->name)}}
-																	</a>
-																	<ul>
-																	@include('new-frontend.includes.child-category', ['child' => $child])
-																	</ul>
-																</div>
+														<ul>
+														@foreach ($category->children as $child)
+															<li>
+																<a href="{{ route('products', ['slug'=>$child->slug]) }}">{{$child->name}}</a>
+															</li>
 														@endforeach
-														@if (count($category->allChildren) > 5)
-															<a href="{{ route('category-detail', ['id'=>$category->id]) }}" class="btn btn-info btn-sm text-decoration-none text-white">View More</a>
-														@endif
+															@if (count($category->children) > 8)
+																<li class="view">
+																	<a href="{{ route('cat-slug', ['slug'=>$category->slug]) }}">View More</a>
+																</li>
+															@endif
+														</ul>
 													</div>	
 												</li>
 											@endforeach
+											<li>
+												<a href="{{ route('all-category') }}" class="text-danger">All Categories</a>
+											</li>
 										</ul>
 									</div>	
 								</div>
@@ -88,7 +137,7 @@
 													<img src="{{ asset('public/category_images/'.$category->image) }}" alt="....">
 												</div>
 												<p>
-													Browse All Electronics Product
+													Browse All {{$category->name}}
 												</p>
 												<button>Source now</button>
 											</a>
@@ -96,23 +145,19 @@
 									</div>
 									<div class="col-xl-9">
 										<div class="row no-gutters">
-											@foreach ($category->allChildren as $child)
-												@foreach ($child->allChildren as $child)
-													<div class="col-xl-4">
-														<div class="product_content">
-															<a href="{{ route('products', ['slug'=>$child->slug])}}">
-																@if (!empty($child->image))
-																	<img src="{{ asset('public/category_images/'.$child->image) }}" alt="...">
-																@endif
-																<div class="desc">
-																	<p>{{$child->name}}</p>
-																</div>
-															</a>
-														</div>
+											@foreach ($category->children as $child)
+												<div class="col-xl-4">
+													<div class="product_content">
+														<a href="{{ route('products', ['slug'=>$child->slug])}}">
+															@if (!empty($child->image))
+																<img src="{{ asset('public/category_images/'.$child->image) }}" alt="...">
+															@endif
+															<div class="desc">
+																<p>{{$child->name}}</p>
+															</div>
+														</a>
 													</div>
-													{{--@foreach ($child->product as $product)
-													@endforeach--}}
-												@endforeach
+												</div>
 											@endforeach
 										</div>	
 									</div>
@@ -124,218 +169,6 @@
 			</div>
 		</div>	
 	@endforeach
-	<!--Product Section End-->
-
-	<!--Product Section Start-->
-	{{--<div class="product_section">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-12">
-					<div class="product_area">
-						<div class="title">
-							<h5>
-								Apperal:
-							</h5>
-							<div class="label"></div>
-						</div>
-						<div class="card">
-							<div class="row no-gutters">
-								<div class="col-xl-3">
-									<div class="product_source">
-										<a href="{{ route('products')}}">
-											<div class="img_area">
-												<img src="{{ asset('public/frontend/img/a.jpg') }}" alt="....">
-											</div>
-											<p>
-												Browse All Apperal Product
-											</p>
-											<button>Source now</button>
-										</a>
-									</div>
-								</div>
-								<div class="col-xl-9">
-									<div class="row no-gutters">
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Children Clothing</p>
-														<span><i class="fas fa-tag"></i>Apperal</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Children Clothing</p>
-														<span><i class="fas fa-tag"></i>Apperal</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Children Clothing</p>
-														<span><i class="fas fa-tag"></i>Apperal</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Children Clothing</p>
-														<span><i class="fas fa-tag"></i>Apperal</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Children Clothing</p>
-														<span><i class="fas fa-tag"></i>Apperal</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/a2.webp') }}" alt="...">
-													<div class="desc">
-														<p>Children Clothing</p>
-														<span><i class="fas fa-tag"></i>Apperal</span>
-													</div>
-												</a>
-											</div>
-										</div>
-									</div>	
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>--}}
-	<!--Product Section End-->
-
-	<!--Product Section Start-->
-	{{--<div class="product_section">
-		<div class="container">
-			<div class="row">
-				<div class="col-xl-12">
-					<div class="product_area">
-						<div class="title">
-							<h5>
-								VEHICLES & ACCESSORIES:
-							</h5>
-							<div class="label"></div>
-						</div>
-						<div class="card">
-							<div class="row no-gutters">
-								<div class="col-xl-3">
-									<div class="product_source">
-										<a href="{{ route('products')}}">
-											<div class="img_area">
-												<img src="{{ asset('public/frontend/img/v.png') }}" alt="....">
-											</div>
-											<p>
-												Browse All Vehicals & Accessories Product
-											</p>
-											<button>Source now</button>
-										</a>
-									</div>
-								</div>
-								<div class="col-xl-9">
-									<div class="row no-gutters">
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
-													<div class="desc">
-														<p>Motorcycle Parts & Accessories</p>
-														<span><i class="fas fa-tag"></i>Vehicals & Accessories</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
-													<div class="desc">
-														<p>Motorcycle Parts & Accessories</p>
-														<span><i class="fas fa-tag"></i>Vehicals & Accessories</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
-													<div class="desc">
-														<p>Motorcycle Parts & Accessories</p>
-														<span><i class="fas fa-tag"></i>Vehicals & Accessories</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
-													<div class="desc">
-														<p>Motorcycle Parts & Accessories</p>
-														<span><i class="fas fa-tag"></i>Vehicals & Accessories</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
-													<div class="desc">
-														<p>Motorcycle Parts & Accessories</p>
-														<span><i class="fas fa-tag"></i>Vehicals & Accessories</span>
-													</div>
-												</a>
-											</div>
-										</div>
-										<div class="col-xl-4">
-											<div class="product_content">
-												<a href="{{ route('single-product') }}">
-													<img src="{{ asset('public/frontend/img/v2.webp')}}" alt="...">
-													<div class="desc">
-														<p>Motorcycle Parts & Accessories</p>
-														<span><i class="fas fa-tag"></i>Vehicals & Accessories</span>
-													</div>
-												</a>
-											</div>
-										</div>
-									</div>	
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>--}}
 	<!--Product Section End-->
 
 	<!--Product Section Start-->

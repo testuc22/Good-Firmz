@@ -45,7 +45,6 @@ class ProductRepository
         $category_id = [
             $request->product_category,
             $request->sub_category,
-            $request->child_category,
         ]; 
         $product = Product::create($productData);
         $product->categories()->sync($category_id);
@@ -168,7 +167,6 @@ class ProductRepository
         $category_id = $category_id = [
             $request->product_category,
             $request->sub_category,
-            $request->child_category,
         ]; 
         $product->categories()->sync($category_id);
         foreach ($request->meta as $key => $meta) {
@@ -197,5 +195,14 @@ class ProductRepository
         $product = Product::find($id);
         $product->delete();
         return true;
+    }
+
+    /**
+     * Get Product By Slug
+     */
+    public function getProductBySlug($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        return $product;
     }
 }

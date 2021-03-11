@@ -33,7 +33,7 @@
 															</p>
 															<ul>
 																<li>
-																	<a href="{{ route('product-detail', ['id'=>$product->id]) }}">View Product Detail</a>
+																	<a href="{{ route('product-detail', ['slug'=>$product->slug]) }}">View Product Detail</a>
 																</li>
 																<li>
 																	<a href="#" data-toggle="tooltip" data-placement="bottom" title="{{$product->seller->address1}}">

@@ -109,16 +109,25 @@ class ProductController extends Controller
      */
     public function productListing($slug)
     {
-        $category = $this->productRepo->getProductByCategorySlug($slug);
+        $category = $this->productRepo->getProductByCategorySlug($slug)->first();
         return view('new-frontend.products')->with(['category'=>$category]);
     }
 
     /**
      * Get Product Detail
      */
-    public function productDetail($id)
+    public function productDetail($slug)
     {
-        $productDetail = $this->productRepo->getProductById($id);
+        $productDetail = $this->productRepo->getProductBySlug($slug);
+        return view('new-frontend.product-detail')->with(['product'=>$productDetail]);
+    }
+
+    /**
+     * Category's Single Product Detail
+     */
+    public function catProduct($cateSlug, $productSlug)
+    {
+        $productDetail = $this->productRepo->getProductBySlug($productSlug);
         return view('new-frontend.product-detail')->with(['product'=>$productDetail]);
     }
 }

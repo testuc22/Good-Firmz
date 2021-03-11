@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <label for="">
                                     Category
                                     @if ($errors->has('product_category'))
@@ -74,18 +74,18 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <label for="">SubCategory</label>
                                 <select name="sub_category" class="form-control">
                                     <option value="">Select Sub Category</option>
                                 </select>
                             </div>
-                            <div class="col-4">
+                            {{--<div class="col-4">
                                 <label for="">Child Category</label>
                                 <select name="child_category" class="form-control">
                                     <option value="">Select Child Category</option>
                                 </select>
-                            </div>
+                            </div>--}}
                         </div>
                         <div class="form-group row">
                             <div class="col-6">
@@ -241,7 +241,7 @@
                 $('select[name="sub_category"]').empty();
             }
         });
-        $('select[name="sub_category"]').on('change', function() {
+       {{--$('select[name="sub_category"]').on('change', function() {
             var catId = $(this).val();
             var url = '{{ route('admin-category', ['id'=>':id'])}}';
             url = url.replace(':id', catId);
@@ -260,7 +260,7 @@
             }else{
                 $('select[name="child_category"]').empty();
             }
-        });
+        });--}}
     });
 </script>
 @endsection

@@ -16,5 +16,21 @@ class CategoryController extends Controller{
     	return view('front.categories.all_categories')->with(['categories'=>$categories]);
     }
 
-    
+    /**
+     * Category Listing
+     */
+    public function categoryDetail($slug)
+    {
+    	$category = $this->category_repository->getCategoryBySlug($slug)->first();
+    	return view('new-frontend.category')->with(['category'=>$category]);
+    }
+
+    /**
+     * Get All Category Listing
+     */
+    public function allCategoryListing()
+    {
+        $categories = $this->category_repository->getAllCategories();
+        return view('new-frontend.all-category')->with(['categories'=>$categories]);
+    }
 }

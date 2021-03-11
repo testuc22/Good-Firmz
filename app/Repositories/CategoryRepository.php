@@ -20,7 +20,7 @@ class CategoryRepository{
      */
     public function getAllCategories(){
         return Category::where('parent', 0)
-                ->with(['allChildren'])
+                ->with(['children'])
                 ->get();
         return $categories;
     }
@@ -142,8 +142,8 @@ class CategoryRepository{
                 }
                 $html .= '<option value="'.$category->id.'"  '.$selected.'>'.$current_cat_1.''.$category->name.'</option>';
 
-                $categories = $this->getChildOptions($category,$current_cat_1,$categoryIDs);
-                $html .= $categories;
+                /*$categories = $this->getChildOptions($category,$current_cat_1,$categoryIDs);
+                $html .= $categories;*/
             }
         }
         return $html;
@@ -176,7 +176,7 @@ class CategoryRepository{
                         ->take(2)
                         ->get();
         $categories = $categories->each(function($category){
-            $category->load(['allChildren.allChildren' => function($query) {
+            $category->load(['children' => function($query) {
                 $query->limit(2)->get();
             }]);
         });

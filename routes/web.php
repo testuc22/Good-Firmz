@@ -152,8 +152,11 @@ Route::namespace('Front')->group(function(){
 	Route::get('/single-product', [App\Http\Controllers\HomeController::class, 'singleProduct'])->name('single-product');
 	Route::get('/sign-up', [App\Http\Controllers\HomeController::class, 'signUp'])->name('sign-up');
 	Route::get('category/{id}', [App\Http\Controllers\HomeController::class, 'categoryDetail'])->name('category-detail');
-	Route::name('products')->get('category/product/{slug}', [App\Http\Controllers\ProductController::class, 'productListing']);
-	Route::get('product-detail/{id}', [App\Http\Controllers\ProductController::class, 'productDetail'])->name('product-detail');
+	Route::name('products')->get('impact/{slug}', [App\Http\Controllers\ProductController::class, 'productListing']);
+	Route::get('product-detail/{slug}', [App\Http\Controllers\ProductController::class, 'productDetail'])->name('product-detail');
+	Route::get('/export/{slug}', [App\Http\Controllers\CategoryController::class, 'categoryDetail'])->name('cat-slug');
+	Route::get('/{category}/{product}', [App\Http\Controllers\ProductController::class, 'catProduct'])->name('cat-product');
+	Route::get('/all-category', [App\http\Controllers\CategoryController::class, 'allCategoryListing'])->name('all-category');
 
 	/*-------------------Login and register ------------------*/
 	Route::get('login', [App\Http\Controllers\LoginController::class, 'index'])->name('login');
