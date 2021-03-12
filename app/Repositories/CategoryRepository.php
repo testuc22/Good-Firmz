@@ -49,6 +49,10 @@ class CategoryRepository{
 
     public function addCategory($request){
         $this->validateCategoryData($request);
+        $exist = $this->categoryExists($request);
+        if($exist->count() > 0) {
+            throw new \Exception('Category Already Exist in Parent');
+        }
         $categoryData=$this->getCategoryData($request);
         Category::create($categoryData);
         $this->common_helper->setFlashMessage($request,'Product Category Created Successfully',"success");
@@ -57,7 +61,7 @@ class CategoryRepository{
 
     public function validateCategoryData($request){
         $request->validate([
-        	'name'=>'required|unique:categories'
+        	'name'=>'required'
         ]);
     }
 
@@ -190,5 +194,17 @@ class CategoryRepository{
     {
         $categories = Category::where('parent', $id)->get();
         return $categories;
+    }
+
+    /**
+     * Category Exist in Child Category
+     */
+    public function categoryExists($request)
+    {
+        $category = Category::where('parent', $request->parent)
+                                ->where('name', $request->name)
+                                ->get();
+
+        return $category;
     }
 }

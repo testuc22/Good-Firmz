@@ -46,6 +46,9 @@
                                     <div class="col-12 form-inner-block">
                                         <label  class="col-3">Category Name</label>
                                         <div class="col-9">
+                                            @if($errors->any())
+                                                <p class="text-danger">{{$errors->first()}}</p>
+                                            @endif
                                             @if($errors->has('name'))
                                                 @component('admin.components.error')
                                                     {{$errors->first('name')}}

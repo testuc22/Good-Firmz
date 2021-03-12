@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\CategoryRepository;
+use Exception;
 
 class CategoryController extends Controller{
 
@@ -30,8 +31,15 @@ class CategoryController extends Controller{
     }
 
     public function addCategory(Request $request){
-        $result=$this->categoryRepository->addCategory($request);
-        return $result;
+        try {
+            $result=$this->categoryRepository->addCategory($request);
+            return $result;
+        } catch (Exception $e) {
+            return redirect()
+                    ->back()
+                    ->withInput($request->all())
+                    ->withErrors([$e->getMessage()]);
+        }
     }
 
     public function getEditCategoryPage($id){
