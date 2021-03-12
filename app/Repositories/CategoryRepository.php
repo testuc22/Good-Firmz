@@ -49,6 +49,7 @@ class CategoryRepository{
 
     public function addCategory($request){
         $this->validateCategoryData($request);
+        dd('ok');
         $categoryData=$this->getCategoryData($request);
         Category::create($categoryData);
         $this->common_helper->setFlashMessage($request,'Product Category Created Successfully',"success");
@@ -57,7 +58,7 @@ class CategoryRepository{
 
     public function validateCategoryData($request){
         $request->validate([
-        	'name'=>'required'
+        	'name'=>'required|unique:categories'
         ]);
     }
 
