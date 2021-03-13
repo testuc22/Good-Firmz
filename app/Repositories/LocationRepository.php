@@ -19,6 +19,9 @@ class LocationRepository{
     public function getAllCities(){
     	return City::orderByDesc('id')->paginate(10);
     }
+    public function getCities() {
+        return City::orderByDesc('id')->get();  
+    }
     public function getAllStates(){
     	return States::all();
     }

@@ -56,7 +56,7 @@
                                         <p class="text-danger">{{$errors->first('company_name')}}</p>
                                     @endif
                                     <label for="">Company Name</label>
-                                    <input type="text" name="company_name" class="form-control" placeholder="Enter Your Company Name">
+                                    <input type="text" name="company_name" class="form-control" placeholder="Enter Your Company Name" value="{{old('company_name')}}">
                                 </div>
                             </div>
                             <div class="row">

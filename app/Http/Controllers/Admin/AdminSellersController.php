@@ -48,7 +48,7 @@ class AdminSellersController extends Controller
 
     public function edit_seller(Request $request,$id){
     	$seller = $this->sellerRepository->getSellerById($id);
-        $cities = $this->location_repository->getAllCities();
+        $cities = $this->location_repository->getCities();
         return view('admin.sellers.edit')->with(['seller'=>$seller,'cities'=>$cities]);
     }
 
