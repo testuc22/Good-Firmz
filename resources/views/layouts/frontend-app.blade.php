@@ -29,7 +29,7 @@
                         {{--@if(Route::current()->getName() != '/')--}}
                             <div class="search_bar">
                                 <form class="search" action="{{ route('search') }}" autocomplete="off">
-                                    <input type="text" placeholder="Search.." name="search">
+                                    <input type="text" placeholder="Search By Category.." name="search">
                                     <button type="submit"><i class="fas fa-search"></i>Search</button>
                                 </form>
                             </div>

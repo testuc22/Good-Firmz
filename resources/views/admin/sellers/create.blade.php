@@ -74,7 +74,7 @@
                                         <p class="text-danger">{{$errors->first('company_number')}}</p>
                                     @endif
                                     <div class="form-group">
-                                        <label for="">Company Conatct Detail</label>
+                                        <label for="">Company Contact Detail</label>
                                         <input type="text" name="company_number" class="form-control" placeholder="Enter Your Company Contact Detail" value="{{ old('company_number') }}">
                                     </div>
                                 </div>

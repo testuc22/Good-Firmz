@@ -747,9 +747,13 @@ p {
 .dashboard_section .dashboard_area .content_area .card .card-body .h5 {
   color: #333333;
 }
-.dashboard_section .dashboard_area .card .card-body .media {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-  padding-bottom: 15px;
+.dashboard_section .dashboard_area .card-title {
+  margin-bottom: 10px;
+  background: #d32e35;
+  color: #fff;
+  padding: 5px 10px;
+}
+.dashboard_section .dashboard_area .card {
   margin-bottom: 10px;
 }
 .dashboard_section .dashboard_area .card .card-body .media .img_area {
@@ -1105,4 +1109,24 @@ p {
 }
 .question_section .question_area .card .card-body .tab-content .tab-pane #accordion .card .collapse .card-body {
   font-size: 14px;
+}
+.dashboard_section .dashboard_area .card .card-body .company_info {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+.dashboard_section .dashboard_area .card .card-body .company_info p {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.dashboard_section .dashboard_area .card .card-body .company_info p span {
+  color: #d32e35;
+}
+.dashboard_section .dashboard_area .card .card-body .company_info button.btn{
+  background: #d32e35;
+  color: #fff;
+}
+.dashboard_section .dashboard_area .advertisement img {
+  width: 100%;
+  margin-bottom: 15px;
 }

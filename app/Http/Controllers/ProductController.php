@@ -110,7 +110,11 @@ class ProductController extends Controller
     public function productListing($slug)
     {
         $category = $this->productRepo->getProductByCategorySlug($slug)->first();
-        return view('new-frontend.products')->with(['category'=>$category]);
+        $childs = $this->categoryRepo->getChildCategories($category->id);
+        if ($childs->count() == 0) {
+            $childs = $this->categoryRepo->getChildCategories($category->parent);
+        }
+        return view('new-frontend.products')->with(['category'=>$category, 'childs'=>$childs]);
     }
 
     /**

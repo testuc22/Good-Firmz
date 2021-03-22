@@ -13,10 +13,16 @@
 									@foreach ($category->children as $child)
 										<div class="col-xl-4">
 											<div class="category">
-												<h5>{{$child->name}}</h5>
+												<a href="{{ route('products', ['slug'=>$child->slug]) }}" class="text-decoration-none">
+													<h5>{{$child->name}}</h5>
+												</a>
 												<div class="media">
 													<div class="img_area">
-														<img src="{{ asset('public/category_images/'.$child->image) }}" class="align-self-start">
+														@if (empty($child->image))
+															<img src="{{ asset('public/category_images/comming.jpg') }}" class="align-self-start" alt="...">
+														@else
+															<img src="{{ asset('public/category_images/'.$child->image) }}" class="align-self-start">
+														@endif
 													</div>
 													@if (count($child->products) > 0)
 														<div class="media-body">

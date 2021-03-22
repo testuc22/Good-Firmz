@@ -62,4 +62,12 @@ class AdminSellersController extends Controller
     	$result = $this->sellerRepository->delete_seller($request,$id);
         return $result;
     }
+
+    /**
+     * Get Seller Info
+     */
+    public function getSellerInfo($id) {
+        $sellerInfo = $this->sellerRepository->getSellerById($id);
+        return json_encode($sellerInfo);
+    }
 }

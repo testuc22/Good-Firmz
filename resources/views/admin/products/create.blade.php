@@ -39,7 +39,7 @@
                                 <select name="company_name"  class="form-control">
                                     <option value="">Select Company</option>
                                     @foreach ($sellers as $seller)
-                                        <option value="{{$seller->id}}">{{$seller->name}}</option>
+                                        <option value="{{$seller->id}}"{{ (old('company_name') == $seller->id ? "selected":"") }}>{{$seller->name}}</option>
                                     @endforeach
                                 </select>
                                 </label>
@@ -54,7 +54,7 @@
                                 <select name="business_type" class="form-control">
                                     <option value="">Select Business Type</option>
                                     @foreach ($sellers as $seller)
-                                        <option value="{{$seller->id}}">{{$seller->type}}</option>
+                                        {{--<option value="{{$seller->id}}">{{$seller->type}}</option>--}}
                                     @endforeach
                                 </select>
                             </div>
@@ -70,7 +70,7 @@
                                 <select name="product_category" class="form-control">
                                     <option value="">Select Product Category</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                        <option value="{{$category->id}}"{{ (old('product_category') == $category->id ? "selected":"") }}>{{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -95,7 +95,7 @@
                                         <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_name')}}</p>
                                     @endif
                                 </label>
-                                <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name" value="">
+                                <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name" value="{{ old('product_name')}}">
                             </div>
                             <div class="col-6">
                                 <label for="">
@@ -104,7 +104,7 @@
                                         <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_price')}}</p>
                                     @endif
                                 </label>
-                                <input type="text" name="product_price" class="form-control" placeholder="Enter Product Price" value="">
+                                <input type="text" name="product_price" class="form-control" placeholder="Enter Product Price" value="{{ old('product_price') }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -114,7 +114,7 @@
                                     <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_desc')}}</p>
                                 @endif
                             </label>
-                            <textarea name="product_desc" rows="5" class="form-control" placeholder="About Product Description"></textarea>
+                            <textarea name="product_desc" rows="5" class="form-control" placeholder="About Product Description">{{ old('product_desc') }}</textarea>
                         </div>
                         <div class="form-group row">
                             <div class="col-6">
@@ -146,7 +146,7 @@
                                         <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_meta_title')}}</p>
                                     @endif
                                 </label>
-                                <input type="text" class="form-control" name="product_meta_title" placeholder="Product Meta Title (optional)" value="">
+                                <input type="text" class="form-control" name="product_meta_title" placeholder="Product Meta Title (optional)" value="{{ old('product_meta_title') }}">
                             </div>
                             <div class="col-6">
                                 <label for="">
@@ -155,7 +155,7 @@
                                         <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_meta_tags')}}</p>
                                     @endif
                                 </label>
-                                <input type="text" class="form-control" data-role="tagsinput" name="product_meta_tags" placeholder="Product Meta Tags (optional)" value="">
+                                <input type="text" class="form-control" data-role="tagsinput" name="product_meta_tags" placeholder="Product Meta Tags (optional)" value="{{ old('product_meta_tags') }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -165,7 +165,7 @@
                                     <p class="text-danger float-right" style="margin: 0;">{{$errors->first('product_meta_desc')}}</p>
                                 @endif
                             </label>
-                            <textarea name="product_meta_desc" rows="2" class="form-control" placeholder="Product Meta DEscription here... (optional)"></textarea>
+                            <textarea name="product_meta_desc" rows="2" class="form-control" placeholder="Product Meta DEscription here... (optional)">{{ old('product_meta_desc') }}</textarea>
                         </div>
                         <label for="">Product Additional Info</label>
                         <div class="d-flex justify-content-around">
@@ -261,6 +261,22 @@
                 $('select[name="child_category"]').empty();
             }
         });--}}
+        $('select[name="company_name"]').on('change', function() {
+            var sellerId = $(this).val(); 
+            var url = '{{ route('company-name', ['id'=>':id'])}}';
+            url = url.replace(':id', sellerId);
+            if (sellerId) {
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    dataType: "json",
+                    success:function(data) {
+                        $('select[name="business_type"]').empty();
+                        $('select[name="business_type"]').append('<option value="'+ data.id +'">'+ data.type +'</option>');
+                    }
+                });
+            }
+        });
     });
 </script>
 @endsection

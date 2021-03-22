@@ -41,6 +41,7 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	Route::name('delete-seller')->get('delete-seller/{id}',[App\Http\Controllers\Admin\AdminSellersController::class,'delete_seller']);
 	Route::name('add-user-business')->get('add-user-business/{userid}',[App\Http\Controllers\Admin\AdminSellersController::class,'add_seller']);
 	Route::delete('delete-product/{id}', [App\Http\Controllers\Admin\ProductController::class, 'deleteProduct'])->name('delete-product');
+	Route::get('seller/{id}', [App\Http\Controllers\Admin\AdminSellersController::class, 'getSellerInfo'])->name('company-name');
 	/*-------------------Sellers Controllers ends ------------------*/
 
 
