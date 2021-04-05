@@ -9,20 +9,16 @@
 					<div class="dashboard_area">
 						<div class="row">
 							<div class="col-xl-3">
-								<div class="card">
-									<div class="card-header">Related Category</div>
-									<div class="card-body">
-										<ul class="list-group">
-											@foreach ($childs as $child)
-												<li class="list-group-item">
-													<a href="{{ route('products', ['slug'=>$child->slug]) }}" class="text-secondary text-decoration-none">
-														{{$child->name}}
-													</a>
-												</li>
-											@endforeach
-										</ul>	
-									</div>
-								</div>
+								<div class="card-title">Related Category</div>
+								<ul class="list-group">
+									@foreach ($childs as $child)
+										<li class="list-group-item">
+											<a href="{{ route('products', ['slug'=>$child->slug]) }}" class="text-secondary text-decoration-none">
+												{{$child->name}}
+											</a>
+										</li>
+									@endforeach
+								</ul>
 							</div>
 							<div class="col-xl-7">
 								<div class="card-title">{{$category->name}} : Listing</div>

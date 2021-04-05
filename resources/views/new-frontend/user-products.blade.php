@@ -38,7 +38,7 @@
 									<div class="card-body">
 										@if (!empty($products))
 											@foreach ($products as $product)
-												<div class="media">
+												<div class="media mt-4">
 													<div class="img_area">
 														@if (!empty($product->images))
 															<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">

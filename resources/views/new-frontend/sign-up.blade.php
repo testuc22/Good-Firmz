@@ -80,6 +80,8 @@
 								</div>
 							</div>
 
+							<input type="checkbox" name="have_business" value="1"> Please check checkbox if you have business <br/>
+							<br/>
 							<h4>
 								<i class="fas fa-user"></i> Business Location & Profile
 							</h4>

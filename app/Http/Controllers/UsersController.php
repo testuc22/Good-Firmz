@@ -52,7 +52,11 @@ class UsersController extends Controller
     {
         $userId = Auth::id();
         $seller = $this->userRepo->getSellerByUserId($userId);
-        $products = $this->productRepo->getUsersProduct($seller->id);
+        if (!empty($seller)) {
+            $products = $this->productRepo->getUsersProduct($seller->id);
+        }else{
+            $products = array();
+        }
         return view('new-frontend.user-products')->with(['products'=>$products]);
     }
 

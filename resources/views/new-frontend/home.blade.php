@@ -134,7 +134,11 @@
 										<div class="product_source">
 											<a href="{{ route('category-detail', ['id'=>$category->id]) }}">
 												<div class="img_area">
-													<img src="{{ asset('public/category_images/'.$category->image) }}" alt="....">
+													@if (!empty($category->image))
+														<img src="{{ asset('public/category_images/'.$category->image) }}" alt="....">
+													@else
+														<img src="{{ asset('public/category_images/comming.jpg') }}" alt="....">
+													@endif
 												</div>
 												<p>
 													Browse All {{$category->name}}
@@ -151,6 +155,8 @@
 														<a href="{{ route('products', ['slug'=>$child->slug])}}">
 															@if (!empty($child->image))
 																<img src="{{ asset('public/category_images/'.$child->image) }}" alt="...">
+															@else
+																<img src="{{ asset('public/category_images/comming.jpg') }}" alt="...">
 															@endif
 															<div class="desc">
 																<p>{{$child->name}}</p>
@@ -169,6 +175,15 @@
 			</div>
 		</div>	
 	@endforeach
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="all_cat" style="text-align: center;">
+					<a href="{{ route('all-category') }}" class="btn btn-danger btn-sm">All Categories</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<!--Product Section End-->
 
 	<!--Product Section Start-->

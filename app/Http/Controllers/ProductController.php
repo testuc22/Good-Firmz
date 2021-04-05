@@ -11,6 +11,9 @@ use App\Models\States;
 use App\Models\ProductCategories;
 use App\Models\City;
 use File;
+use Validator;
+use App\Mail\SendProductEnquiryMail;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -133,5 +136,42 @@ class ProductController extends Controller
     {
         $productDetail = $this->productRepo->getProductBySlug($productSlug);
         return view('new-frontend.product-detail')->with(['product'=>$productDetail]);
+    }
+
+    /**
+     * Send Product Enquiry Mail
+     */
+    public function sendEnquiry(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required|min:10|numeric',
+            'msg' => 'required',
+        ]);
+        if ($validator->fails())
+        {
+            return response()->json(array(
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+
+            ));
+        }
+        $product = $this->productRepo->getProductById($request->p_id);
+        $user = Auth::user();
+        $detail = [
+            'name' => $user->first_name.' '.$user->last_name,
+            'email' => $user->email,
+            'phone' => $user->phone_number,
+            'msg' =>$request->msg,
+            'product' => $product->name
+        ];
+        //$product->seller->email;
+        \Mail::to('testuc22@gmail.com')->send(new SendProductEnquiryMail($detail));
+        return response()->json([
+            'success'=>true,
+            'msg' => 'Thank you,we will contact u soon'
+        ]);
     }
 }

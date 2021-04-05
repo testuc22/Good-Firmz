@@ -15,10 +15,14 @@
 										<div class="col-xl-3">
 											<div class="category">
 												<a href="{{ route('products', ['slug'=>$child->slug]) }}" class="text-decoration-none text-center">
-													<div class="img_area mb-1">
-														<img src="{{ asset('public/category_images/'.$child->image) }}" class="align-self-start">
+													<div class="img_area mb-2" style="height: 70px; width: 70px; margin: 0 auto;">
+														@if (!empty($child->image))
+															<img src="{{ asset('public/category_images/'.$child->image) }}" class="align-self-start" style="width: 100%;">
+														@else
+															<img src="{{ asset('public/category_images/comming.jpg') }}" class="align-self-start" style="width: 100%;">
+														@endif
 													</div>
-													<h5>{{$child->name}}</h5>
+													<h5 style="font-size: 14px;">{{$child->name}}</h5>
 												</a>
 												{{--<div class="media">
 													<div class="img_area">

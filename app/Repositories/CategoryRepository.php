@@ -177,13 +177,17 @@ class CategoryRepository{
         $categories = Category::where('parent', 0)
                         ->featured()
                         ->inRandomOrder()
-                        ->take(2)
-                        ->get();
-        $categories = $categories->each(function($category){
+                        ->take(4)
+                        ->get()
+                        ->map(function($category){
+                            $category->children = $category->children->take(6);
+                            return $category;
+                        });
+        /*$categories = $categories->each(function($category){
             $category->load(['children' => function($query) {
                 $query->limit(2)->get();
             }]);
-        });
+        });*/
         return $categories;
     }    
 

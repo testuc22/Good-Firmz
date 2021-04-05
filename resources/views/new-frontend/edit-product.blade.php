@@ -140,7 +140,8 @@
 													<option value="">Select Product Category</option>
 													@foreach ($categories as $category)
 														@foreach ($category->children as $child)
-														<optgroup label="{{$child->name}}">
+														<option value="">{{$child->name}}</option>
+														{{--<optgroup label="{{$child->name}}">
 															@foreach ($child->subChildren as $subchild)
 																<option value="{{$subchild->id}}"
 																	@if ($product->categories[0]->id == $subchild->id)
@@ -150,7 +151,7 @@
 																{{$subchild->name}}
 																</option>
 															@endforeach
-														</optgroup>
+														</optgroup>--}}
 														@endforeach
 													@endforeach
 												</select>

@@ -156,7 +156,7 @@ Route::namespace('Front')->group(function(){
 	Route::name('products')->get('impact/{slug}', [App\Http\Controllers\ProductController::class, 'productListing']);
 	Route::get('product-detail/{slug}', [App\Http\Controllers\ProductController::class, 'productDetail'])->name('product-detail');
 	Route::get('/export/{slug}', [App\Http\Controllers\CategoryController::class, 'categoryDetail'])->name('cat-slug');
-	Route::get('/{category}/{product}', [App\Http\Controllers\ProductController::class, 'catProduct'])->name('cat-product');
+	Route::get('/exporters/{category}/{product}', [App\Http\Controllers\ProductController::class, 'catProduct'])->name('cat-product');
 	Route::get('/all-category', [App\Http\Controllers\CategoryController::class, 'allCategoryListing'])->name('all-category');
 
 	/*-------------------Login and register ------------------*/
@@ -208,6 +208,10 @@ Route::namespace('Front')->group(function(){
 
 	
 	/*-------------------Search ------------------*/
+
+	/*-------------------Send Enquiry Mail ------------------*/
+	Route::post('send-enquiry', [App\Http\Controllers\ProductController::class, 'sendEnquiry'])->name('send-enquiry');
+	/*-------------------Send Enquiry Mail ------------------*/
 
 	/*-------------------Reviews  ------------------*/
 

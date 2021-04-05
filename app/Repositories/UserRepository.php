@@ -126,10 +126,20 @@ class UserRepository{
         ]);
         $remember_me = $request->has('remember') ? true : false; 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember_me)) {
-            //$this->common_helper->setFlashMessage($request,'Login successfully','success');
-            return redirect()->route('user-dashboard')->with('success', 'User Logged In Successfully');
+            if($request->ajax()){
+                return response()->json([
+                    'intended' => \URL::previous()
+                ]);       
+            }else{
+                return redirect()->route('user-dashboard')->with('success', 'User Logged In Successfully');
+            }
+        }else{
+            if($request->ajax()){
+                return response()->json(['error'=>'Wrong Credentials']);
+            }else{
+                return redirect()->back()->with('danger', 'Wrong Credentials');
+            }
         }
-        return redirect()->back()->with('danger', 'Wrong Credentials');
     }
 
     public function getAllUsers(){
@@ -147,6 +157,7 @@ class UserRepository{
     }
     public function admin_create_user($request){
         $user = array(
+            'type' => $request->has('have_business') ? 'seller' : 'normal_user',
             'first_name'=>$request->fname,
             'last_name'=>$request->lname,
             'email'=>$request->email,
@@ -157,7 +168,7 @@ class UserRepository{
         );
         $user = User::create($user);
         \Mail::to('testuc22@gmail.com')->send(new VerificationEmail($user));
-        if($user) {
+        if($user && $request->has('have_business')) {
             $seller = new Sellers;
             $seller->user_id = $user->id;
             $seller->name = $request->company_name;
