@@ -37,7 +37,7 @@ class ProductController extends Controller
     {
     	$seller = $this->sellerRepo->getSellerById($id);
         $cities = City::all();
-        $categories = $this->categoryRepo->getAllCategories();
+        $categories = $this->categoryRepo->getParentCategories(array(),0);
     	return view('new-frontend.add-product')->with(['seller'=>$seller, 'categories'=>$categories, 'cities'=>$cities]);
     }
 
@@ -46,7 +46,6 @@ class ProductController extends Controller
      */
     public function saveProduct(ProductStoreRequest $request, $id)
     {
-        $this->sellerRepo->updateSellerInfo($id, $request->city, $request->state,$request->zip);
         $product = $this->productRepo->addProduct($request, $id);
         if ($product) {
             $this->productRepo->productImages($product->id, $request->images);
@@ -92,10 +91,11 @@ class ProductController extends Controller
     public function editProduct($id)
     {
         $product = $this->productRepo->getProductById($id);
+        $productCat = $product->categories->pluck('id')->toArray();
         $seller = $this->sellerRepo->getSellerById($product->seller_id);
         $cities = City::all();
         $categories = $this->categoryRepo->getAllCategories();
-        return view('new-frontend.edit-product')->with(['seller'=>$seller, 'categories'=>$categories, 'cities'=>$cities, 'product'=>$product]);
+        return view('new-frontend.edit-product')->with(['seller'=>$seller, 'categories'=>$categories, 'cities'=>$cities, 'product'=>$product, 'productCat'=>$productCat]);
     }
 
     /**
@@ -103,6 +103,7 @@ class ProductController extends Controller
      */
     public function updateProduct(Request $request, $id)
     {
+        //dd($request->all());
         $this->productRepo->updateProduct($request, $id);
         return redirect()->route('user-products')->with('success', 'Product Updated Successfully');
     }
@@ -173,5 +174,13 @@ class ProductController extends Controller
             'success'=>true,
             'msg' => 'Thank you,we will contact u soon'
         ]);
+    }
+
+    /**
+     * Get Product Image From Database
+     */
+    public function getProductImage()
+    {
+        
     }
 }

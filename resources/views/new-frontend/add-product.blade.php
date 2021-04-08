@@ -44,12 +44,9 @@
 								    @csrf
 									<div class="row">
 										<div class="col-6">
-											@if ($errors->has('type'))
-												<p class="text-danger">{{$errors->first('type')}}</p>
-											@endif
 											<div class="form-group">
 												<label for="">Business Type</label>
-												<select name="type" class="form-control" disabled>
+												<select name="company_type" class="form-control" disabled>
 													<option value="">Select Primary Business</option>
 													<option value="Manufacturers" 
 													@if ($seller->type == 'Manufacturers')
@@ -95,27 +92,18 @@
 											</div>
 										</div>
 										<div class="col-6">
-											@if ($errors->has('company_name'))
-												<p class="text-danger">{{$errors->first('company_name')}}</p>
-											@endif
 											<div class="form-group">
 												<label for="">Company Name</label>
 												<input type="text" name="company_name" class="form-control" value="{{$seller->name}}" placeholder="Company Name" disabled>
 											</div>
 										</div>
 										<div class="col-6">
-											@if ($errors->has('company_email'))
-												<p class="text-danger">{{$errors->first('company_email')}}</p>
-											@endif
 											<div class="form-group">
 												<label for="">Company Email</label>
 												<input type="text" name="company_email" class="form-control" value="{{$seller->email}}" placeholder="Company Email" disabled>
 											</div>
 										</div>
 										<div class="col-6">
-											@if ($errors->has('company_number'))
-												<p class="text-danger">{{$errors->first('company_number')}}</p>
-											@endif
 											<div class="form-group">
 												<label for="">Company Number</label>
 												<input type="text" name="company_number" class="form-control" value="{{$seller->phone_number}}" placeholder="Company Contact Number" disabled>
@@ -131,78 +119,34 @@
 											</div>
 										</div>
 										<div class="col-6">
-											@if ($errors->has('product_cat'))
-												<p class="text-danger">{{$errors->first('product_cat')}}</p>
-											@endif
-											<div class="form-group">
-												<label for="">Product Category</label>
-												<select name="product_cat" class="form-control">
-													<option value="">Select Product Category</option>
-													@foreach ($categories as $category)
-														@foreach ($category->allChildren as $child)
-														<optgroup label="{{$child->name}}">
-															@foreach ($child->allChildren as $subchild)
-																<option value="{{$subchild->id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$subchild->name}}</option>
-															@endforeach
-														</optgroup>
-														@endforeach
-													@endforeach
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-12">
-											<div class="form-group">
-												<label for="">Upload Product Images</label>
-												<div class="dropzone" id="image-upload">
-
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-3">
-											@if ($errors->has('city'))
-												<p class="text-danger">{{$errors->first('city')}}</p>
-											@endif
-											<div class="form-group">
-												<label for="">City</label>
-												<select name="city" class="form-control">
-													<option value="">Select City</option>
-													@foreach ($cities as $city)
-														<option value="{{$city->id}}">{{$city->name}}</option>
-													@endforeach
-												</select>
-											</div>
-										</div>
-										<div class="col-3">
-											@if ($errors->has('state'))
-												<p class="text-danger">{{$errors->first('state')}}</p>
-											@endif
-											<div class="form-group">
-												<label for="">State</label>
-												<select name="state" class="form-control">
-													<option value="">Select State</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-3">
-											@if ($errors->has('zip'))
-												<p class="text-danger">{{$errors->first('zip')}}</p>
-											@endif
-											<div class="form-group">
-												<label for="">Zip Code</label>
-												<input type="text" name="zip" class="form-control" value="" placeholder="Enter Zip Code">
-											</div>
-										</div>
-										<div class="col-3">
 											@if ($errors->has('price'))
 												<p class="text-danger">{{$errors->first('price')}}</p>
 											@endif
 											<div class="form-group">
 												<label for="">Product Price</label>
 												<input type="text" name="price" class="form-control" value="" placeholder="Enter price per piece">
+											</div>
+										</div>
+										<div class="col-6">
+											@if ($errors->has('product_category'))
+												<p class="text-danger">{{$errors->first('product_category')}}</p>
+											@endif
+											<div class="form-group">
+												<label for="">Product Category</label>
+												<select name="product_category" class="form-control">
+													<option value="">Select Product Category</option>
+													@foreach ($categories as $category)
+													    <option value="{{$category->id}}"{{ (old('product_category') == $category->id ? "selected":"") }}>{{$category->name}}</option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+										<div class="col-6">
+											<div class="form-group">
+												<label for="">Product Sub Category</label>
+												<select name="sub_category" class="form-control">
+													<option value="">Select Sub Category</option>
+												</select>
 											</div>
 										</div>
 									</div>
@@ -218,27 +162,37 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-4">
+										<div class="col-12">
+											<div class="form-group">
+												<label for="">Upload Product Images</label>
+												<div class="dropzone" id="image-upload">
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-5">
 											<div class="form-group">
 												<label for="">Product Key</label>
-												<input type="text" name="meta[0][key]" class="form-control" value="" placeholder="Exp Key= Price">
+												<input type="text" name="meta[0][product_key]" class="form-control" value="" placeholder="Exp Key= Price">
 											</div>
 											@if ($errors->has('meta.0.key'))
 												<p class="text-danger">{{$errors->first('meta.0.key')}}</p>
 											@endif
 										</div>
-										<div class="col-4">
+										<div class="col-5">
 											<div class="form-group">
 												<label for="">Product Value</label>
-												<input type="text" name="meta[0][value]" class="form-control" value="" placeholder="Exp Value=500">
+												<input type="text" name="meta[0][product_value]" class="form-control" value="" placeholder="Exp Value=500">
 											</div>
 											@if ($errors->has('meta.0.value'))
 												<p class="text-danger">{{$errors->first('meta.0.value')}}</p>
 											@endif
 										</div>
-										<div class="col-4">
+										<div class="col-2">
 											<div class="form-group">
-												<button type="button" class="btn btn-primary" style="margin-top: 32px;" onclick="education_fields();">
+												<button type="button" class="btn btn-success btn-sm" style="margin-top: 32px;" onclick="education_fields();">
 													<i class="fas fa-plus mr-1"></i>Add
 												</button>
 											</div>
@@ -249,7 +203,7 @@
 									<div class="row">
 										<div class="col-12">
 											<div class="form-group" style="text-align: center;">
-												<button id="addProduct" type="button" class="btn btn-info">Add Product</button>
+												<button id="addProduct" type="button" class="btn btn-danger btn-sm">Add Product</button>
 											</div>
 										</div>
 									</div>
@@ -289,26 +243,28 @@
 			$('#add-product-form').submit();
 		}, 2000);
 	})
-
 	$(document).ready(function(){
-		$('select[name="city"]').on('change', function() {
-			var cityId = $(this).val();
-			var url = '{{ route('city', ['id'=>':id'])}}';
-			url = url.replace(':id', cityId);
-			if (cityId) {
-				$.ajax({
-					url: url,
-					type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                    	$('select[name="state"]').empty();
-                    	$('select[name="state"]').append('<option value="'+ data.id +'">'+ data.name +'</option>');
-					}
-				});
-			}else{
-				 $('select[name="state"]').empty();
-			}
-		});
+	    $('select[name="product_category"]').on('change', function() {
+	        var catId = $(this).val();
+	        var url = '{{ route('admin-category', ['id'=>':id'])}}';
+	        url = url.replace(':id', catId);
+	        if (catId) {
+	            $.ajax({
+	                url: url,
+	                type: "GET",
+	                dataType: "json",
+	                success:function(data) {
+	                    $('select[name="sub_category"]').empty();
+	                    $('select[name="sub_category"]').append('<option value="">Select Sub Category</option>');
+	                    $.each(data, function(index) {
+	                        $('select[name="sub_category"]').append('<option value="'+ data[index].id +'">'+ data[index].name +'</option>');
+	                    })
+	                }
+	            });
+	        }else{
+	            $('select[name="sub_category"]').empty();
+	        }
+	    });
 	});
 </script>
 @stop

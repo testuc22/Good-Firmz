@@ -268,8 +268,9 @@ class UserRepository{
      */
     public function companyDetail($id)
     {
-        $user = User::with('sellers')->find($id);
-        return $user->sellers;
+        //$user = User::with('sellers')->find($id);
+        $sellers = Sellers::where('user_id', $id)->paginate(5);
+        return $sellers;
     }
 
     /**

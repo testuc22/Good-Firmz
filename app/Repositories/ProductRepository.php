@@ -77,7 +77,10 @@ class ProductRepository
             'price' => $request->price,
             'desc' => $request->product_desc,
         ];
-        $category_id = (array)$request->product_cat;
+        $category_id = [
+            $request->product_category,
+            $request->sub_category,
+        ]; 
         $product = Product::create($productData);
         $product->categories()->sync($category_id);
         return $product;
@@ -123,15 +126,17 @@ class ProductRepository
         $product->price = $request->price;
         $product->desc = $request->product_desc;
         $product->save();
-        $category_id = (array)$request->product_cat; 
+        $category_id = [
+            $request->product_category,
+            $request->sub_category,
+        ]; 
         $product->categories()->sync($category_id);
         foreach ($request->meta as $key => $meta) {
             $productMeta = ProductMeta::find($meta['id']);
-            $productMeta->key = $meta['key'];
-            $productMeta->value = $meta['value'];
+            $productMeta->key = $meta['product_key'];
+            $productMeta->value = $meta['product_value'];
             $productMeta->save();
         }
-
         return true;
     }
 

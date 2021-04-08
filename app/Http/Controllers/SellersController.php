@@ -11,7 +11,9 @@ use App\Repositories\{
 
 use App\Http\Requests\SellerPostRequest;
 use Illuminate\Support\Facades\Auth;
+
 class SellersController extends Controller{
+
     public function __construct(SellerRepository $sellerRepository,CategoryRepository $categoryRepository,LocationRepository $location_repository){
 	    $this->middleware('auth:web')->only('user_business_details');
 	    $this->sellerRepository = $sellerRepository;
@@ -82,21 +84,26 @@ class SellersController extends Controller{
     public function companyDetail($id)
     {
         $company = $this->sellerRepository->getSellerById($id);
-        return view('new-frontend.edit-company-detail')->with(['company'=>$company]);
+        $cities = $this->location_repository->getCities();
+        return view('new-frontend.edit-company-detail')->with(['company'=>$company, 'cities'=>$cities]);
     }
 
     /**
      * Update Company Info
      */
-    public function updateCompanyInfo(Request $request, $id)
+    public function updateCompanyInfo(SellerPostRequest $request, $id)
     {
-        $request->validate([
-            'company_name'=>'required',
-            'company_email'=>'required',
-            'company_number'=>'required',
-            'business'=>'required',
-        ]);
-        $this->sellerRepository->updateCompanyInfo($request, $id);
+        $this->sellerRepository->user_update_seller($request, $id);
         return redirect()->route('company-profile')->with('success', 'Company Detail Updated Successfully');
+    }
+
+    /**
+     * Save Company Detail
+     */
+    public function saveCompanyDetail(SellerPostRequest $request)
+    {
+        $userId = $request->user_id;
+        $result = $this->sellerRepository->save_seller($request, $userId);
+        return redirect()->route('company-profile')->with('success', 'Company Detail Added Successfully');
     }
 }

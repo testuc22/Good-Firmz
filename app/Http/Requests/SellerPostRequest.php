@@ -35,8 +35,8 @@ class SellerPostRequest extends FormRequest{
                 'city'              =>'required',
                 'state'             =>'required',
                 'pincode'           =>'required',
-                'status'            =>'required',
-                'featured'          =>'required',    
+                'status'            =>'sometimes|required',
+                'featured'          =>'sometimes|required',    
             ];
             case 'PUT':
             $rules = [
@@ -48,8 +48,8 @@ class SellerPostRequest extends FormRequest{
                 'city'              =>'required',
                 'state'             =>'required',
                 'pincode'           =>'required',
-                'status'            =>'required',
-                'featured'          =>'required',
+                'status'            =>'sometimes|required',
+                'featured'          =>'sometimes|required',
             ];
         }
         return $rules;

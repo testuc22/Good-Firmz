@@ -135,11 +135,6 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
 	/*-------------------Leads Controllers starts ------------------*/
 	Route::name('list-leads')->get('list-leads',[App\Http\Controllers\Admin\LeadsController::class,'list_leads']);
 	/*-------------------Leads Controllers ends ------------------*/
-
-
-
-
-
 });
 
 /*************Admin routes ends here *************/
@@ -257,7 +252,7 @@ Route::namespace('Front')->group(function(){
 		//Route::name('add-product')->get('add-product',[App\Http\Controllers\UsersController::class, 'addProduct']);
 		Route::name('update-profile')->put('update-profile/{id}', [App\Http\Controllers\UsersController::class, 'updateProfile']);
 		Route::name('update-password')->put('update-password/{id}', [App\Http\Controllers\UsersController::class, 'updatePassword']);
-		Route::name('add-business')->get('add-business/{id}', [App\Http\Controllers\UsersController::class, 'addNewBusiness']);
+		Route::name('add-business')->get('add-business', [App\Http\Controllers\UsersController::class, 'addNewBusiness']);
 		Route::name('add-product')->get('add-product/{id}', [App\Http\Controllers\ProductController::class, 'addProduct']);
 		Route::name('company-detail')->get('company-detail/{id}', [App\Http\Controllers\SellersController::class, 'companyDetail']);
 		Route::name('update-company-info')->put('update-company-info/{id}', [App\Http\Controllers\SellersController::class, 'updateCompanyInfo']);
@@ -266,6 +261,9 @@ Route::namespace('Front')->group(function(){
 		Route::get('city/{id}', [App\Http\Controllers\ProductController::class, 'stateAjax'])->name('city');
 		Route::get('edit-product/{id}', [App\Http\Controllers\ProductController::class, 'editProduct'])->name('edit-product');
 		Route::put('update-product/{id}', [App\Http\Controllers\ProductController::class, 'updateProduct'])->name('update-product');
+
+		/**Save Compnay From Frontend**/
+		Route::post('save-company', [App\Http\Controllers\SellersController::class, 'saveCompanyDetail'])->name('save-company');
 	});
 
 	/**About Us Page**/

@@ -1,6 +1,9 @@
 @extends('layouts.frontend-app')
 @section('title', 'Login')
 <style>
+	.login_area{
+		padding: 100px 0px;
+	}
 	.user_card {
 		height: 400px;
 		width: 350px;
@@ -17,6 +20,34 @@
 		border-radius: 5px;
 
 	}
+	.brand_logo_container {
+		position: absolute;
+		height: 100px;
+		width: 100px;
+		top: -50px;
+		border-radius: 50%;
+		background: #fff;
+		padding: 10px;
+		text-align: center;
+		border: 2px solid #eee;
+	}
+	.brand_logo{
+		padding-top: 8px;
+	}
+
+	.brand_logo i{
+		font-size: 32px;
+		text-align: center;
+		color: #d32e35;
+	}
+
+	.brand_logo span {
+		font-size: 14px;
+		font-weight: bold;
+		color: #555;
+		display: block;
+	}
+	
 	.login_btn {
 		width: 100%;
 		background: #c0392b !important;
@@ -45,8 +76,8 @@
 	}
 </style>
 @section('content')
-	<div class="container h-100">
-		<div class="d-flex justify-content-center h-100">
+	<div class="container">
+		<div class=" login_area d-flex justify-content-center">
 			<div class="user_card">
 				@if(session()->has('success'))
 				    <div class="alert alert-success alert-block">
@@ -60,6 +91,14 @@
 				        {{ session()->get('danger') }}
 				    </div>
 				@endif
+				<div class="d-flex justify-content-center">
+					<div class="brand_logo_container">
+						<div class="brand_logo">
+							<i class="fas fa-hands-helping"></i>
+							<span>Good Firmz</span>
+						</div>	
+					</div>
+				</div>
 				<div class="d-flex justify-content-center form_container">
 					<form action="{{ route('check-login') }}" method="post">
 						@method('POST')
@@ -99,10 +138,10 @@
 		
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
-						Don't have an account? <a href="{{ route('sign-up') }}" class="ml-2">Sign Up</a>
+						Don't have an account? <a href="{{ route('sign-up') }}" class="text-decoration-none text-info ml-2">Sign Up</a>
 					</div>
 					<div class="d-flex justify-content-center links">
-						<a href="{{ route('forget-password') }}">Forgot your password?</a>
+						<a href="{{ route('forget-password') }}" class="text-decoration-none text-success">Forgot your password?</a>
 					</div>
 				</div>
 			</div>

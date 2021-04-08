@@ -247,7 +247,7 @@
             var divtest = document.createElement("div");
             divtest.setAttribute("class", "form-group removeclass"+room);
             var rdiv = 'removeclass'+room;
-            divtest.innerHTML = '<div class="row"><div class="col-4"><div class="form-group"><input type="text" name="meta['+count+'][key]" class="form-control" value="" placeholder="Enter Product Key"></div></div><div class="col-4"><div class="form-group"><input type="text" name="meta['+count+'][value]" class="form-control" value="" placeholder="Enter Product Value"></div></div><div class="col-4"><div class="form-group"><button class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"><i class="fas fa-minus mr-1"></i>Remove</button></div></div></div>';
+            divtest.innerHTML = '<div class="row"><div class="col-5"><div class="form-group"><input type="text" name="meta['+count+'][product_key]" class="form-control" value="" placeholder="Enter Product Key"></div></div><div class="col-5"><div class="form-group"><input type="text" name="meta['+count+'][product_value]" class="form-control" value="" placeholder="Enter Product Value"></div></div><div class="col-2"><div class="form-group"><button class="btn btn-danger btn-sm" type="button" onclick="remove_education_fields('+ room +');"><i class="fas fa-minus mr-1"></i>Remove</button></div></div></div>';
             
             objTo.appendChild(divtest)
         }

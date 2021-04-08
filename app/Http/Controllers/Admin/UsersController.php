@@ -9,6 +9,7 @@ use App\Repositories\{
 	LocationRepository
 };
 use App\Http\Requests\UserRequest;
+
 class UsersController extends Controller{
 
     public function __construct(UserRepository $user_repository,LocationRepository $location_repository){
@@ -31,7 +32,7 @@ class UsersController extends Controller{
     	$allStates = $this->location_repository->getAllStates();
         return view('admin.users.create')->with(['allStates'=>$allStates]);
     }
-    public function save_user(Request $request){
+    public function save_user(UserRequest $request){
     	$result=$this->user_repository->admin_create_user($request);
         return redirect()->back()->with('success', 'User Registered Successfully ! Please Check Your Mail For Email Verification');
     }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\{
-	UserRepository,ProductRepository
+	UserRepository,ProductRepository,LocationRepository
 };
 use Auth;
 use Exception;
@@ -12,10 +12,13 @@ class UsersController extends Controller
 {
     protected $userRepo;
     protected $productRepo;
-    public function __construct(UserRepository $userRepo, ProductRepository $productRepo)
+    protected $locationRepo;
+    public function __construct(UserRepository $userRepo, ProductRepository $productRepo,
+                                LocationRepository $locationRepo)
     {
         $this->userRepo = $userRepo;
         $this->productRepo = $productRepo;
+        $this->locationRepo = $locationRepo;
     }
 
     public function list_users(){
@@ -37,9 +40,13 @@ class UsersController extends Controller
     /**
      * Add New Business of User
      */
-    public function addNewBusiness($id)
+    public function addNewBusiness()
     {
-        return view('new-frontend.add-new-business')->with(['userId'=>$id]);
+        if (Auth::check()) {
+            $id = Auth::id();
+        }
+        $cities = $this->locationRepo->cities();
+        return view('new-frontend.add-new-business')->with(['userId'=>$id, 'cities'=>$cities]);
     }
 
     public function userProfile()

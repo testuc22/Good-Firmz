@@ -2,84 +2,72 @@
 @section('title', 'Sign-up')
 @section('content')
 	<!--Sign up Section Start-->
-	<div class="sign-up-section">
+	<div class="sign-up-section pt-4 pb-4">
 		<div class="container">
-			<div class="row">
-				<div class="col-xl-12">
-					<div class="sign-up-area">
+			<div class="row justify-content-center">
+				<div class="col-xl-6">
+					<div class="sign-up-area p-4 border rounded shadow-lg">
 						@if(session()->has('success'))
 						    <div class="alert alert-success alert-block">
 								<button type="button" class="close" data-dismiss="alert">×</button>	
 						        {{ session()->get('success') }}
 						    </div>
 						@endif
-						<form action="{{ route('save-user') }}" autocomplete="off" method="post">
+						<form action="{{ route('save-user') }}" method="post" autocomplete="off" />
 							@csrf
-							<div class="row">
-								<div class="col-6">
-									<h4>
-										<i class="fas fa-edit"></i> Login Information
-									</h4>
-									<div class="form-group">
-										<label for="">Login E-mail : </label>
-										<input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Your Email">
-										@if ($errors->has('email'))
-											<p class="text-danger">{{$errors->first('email')}}</p>
-										@endif
-									</div>
-									<div class="form-group">
-										<label for="">Create Password : </label>
-										<input type="password" name="password" class="form-control" value="" placeholder="Enter Your Password">
-										@if ($errors->has('password'))
-											<p class="text-danger">{{$errors->first('password')}}</p>
-										@endif
-									</div>
-									<div class="form-group">
-										<label for="">Re-enter Password : </label>
-										<input type="password" name="password_confirmation" class="form-control" value="" placeholder="Enter Your Password again">
-									</div>
-								</div>
-								<div class="col-6">
+							<div class="row justify-content-center">
+								<div class="col-12">
 									<h4>
 										<i class="fas fa-id-card-alt"></i> Basic Information
 									</h4>
 									<div class="row">
 										<div class="col-6">
+											@if ($errors->has('fname'))
+												<p class="text-danger">{{$errors->first('fname')}}</p>
+											@endif
 											<div class="form-group">
 												<label for="">First Name : </label>
 												<input type="text" name="fname" class="form-control" value="{{ old('fname') }}" placeholder="Enter Your First Name">
-												@if ($errors->has('fname'))
-													<p class="text-danger">{{$errors->first('fname')}}</p>
-												@endif
 											</div>
 										</div>
 										<div class="col-6">
+											@if ($errors->has('lname'))
+												<p class="text-danger">{{$errors->first('lname')}}</p>
+											@endif
 											<div class="form-group">
 												<label for="">Last Name : </label>
 												<input type="text" name="lname" class="form-control" value="{{ old('lname') }}" placeholder="Enter Your Last Name">
-												@if ($errors->has('lname'))
-													<p class="text-danger">{{$errors->first('lname')}}</p>
-												@endif
+											</div>
+										</div>
+										<div class="col-6">
+											@if ($errors->has('email'))
+												<p class="text-danger">{{$errors->first('email')}}</p>
+											@endif
+											<div class="form-group">
+												<label for="">E-mail Address : </label>
+												<input type="text" name="email" class="form-control" value="{{ old('email') }}" placeholder="Enter Your Email">
+											</div>
+										</div>
+										<div class="col-6">
+											@if ($errors->has('mobile'))
+												<p class="text-danger">{{$errors->first('mobile')}}</p>
+											@endif
+											<div class="form-group">
+												<label for="">Phone Number : </label>
+												<input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}" placeholder="Enter Your Number">
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label for="">Mobile Number : </label>
-										<input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}" placeholder="Enter Your Mobile Number">
-										@if ($errors->has('mobile'))
-											<p class="text-danger">{{$errors->first('mobile')}}</p>
-										@endif
-									</div>
-									<div class="form-group">
-										<label for="">Website : </label>
-										<input type="text" name="website" class="form-control" value="{{ old('website') }}" placeholder="Enter Your Website Name">
-										@if ($errors->has('website'))
-											<p class="text-danger">{{$errors->first('website')}}</p>
-										@endif
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xl-12 mt-2">
+									<div class="btn_area text-center">
+										<button type="submit" class="btn btn-info btn-sm bg-danger">Create Account</button>
 									</div>
 								</div>
 							</div>
-
+							{{--
 							<input type="checkbox" name="have_business" value="1"> Please check checkbox if you have business <br/>
 							<br/>
 							<h4>
@@ -146,7 +134,7 @@
 								<div class="col-xl-12">
 									<button class="btn btn-info">Create Account</button>
 								</div>
-							</div>
+							</div>--}}
 
 						</form>
 					</div>

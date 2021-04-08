@@ -25,18 +25,33 @@ class UserRequest extends FormRequest
     public function rules(){
         $rules = [
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed',
+            //'password' => 'required|confirmed',
             'fname'=>'required',
             'lname'=>'required',
-            'mobile'=>'required|numeric',
-            'website'=>'required',
+            'mobile'=>'required|numeric|min:10',
+            /*'website'=>'required',
             'company_name'=>'required',
             'company_email'=>'required',
             'company_number'=>'required|numeric',
             'business'=>'required',
-            'company_address'=>'required',
+            'company_address'=>'required',*/
         ];
 
         return $rules;
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.required' => 'Required *',
+            'fname.required' => 'Required *',
+            'lname.required'  => 'Required *',
+            'mobile.required'  => 'Required *',
+        ];
     }
 }

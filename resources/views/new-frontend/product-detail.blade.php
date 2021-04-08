@@ -123,10 +123,13 @@
 	<!--Product Detail Page Section End-->
 	<!-- Login Request -->
 	<div class="modal fade" id="myModal">
-	  <div class="modal-dialog modal-sm">
+	  <div class="modal-dialog modal-md">
 	    <div class="modal-content">
 	    	<div class="modal-header">
-    	        <p class="modal-title">Login</p>
+    	        <div class="brand_logo">
+    	        	<i class="fas fa-hands-helping" style="font-size: 32px; color: #d32e35;"></i>
+    	        	<span style="font-size: 18px; font-weight: bold; color: #555">Good Firmz</span>
+    	        </div>
     	        <button type="button" class="close" data-dismiss="modal">&times;</button>
     	    </div>
 			<!-- Modal body -->
@@ -146,8 +149,9 @@
 						</div>
 						<input type="password" id="password" name="password" class="form-control input_pass" value="" placeholder="Enter Your Password" required>
 					</div>
-					<div class="d-flex justify-content-center">
+					<div class="d-flex justify-content-center align-items-center mt-4">
 				 		<button type="submit" name="button" class="btn btn-danger btn-sm">Login</button>
+				 		<a href="{{ route('sign-up')}}" class="text-secondary text-decoration-none ml-2">Click Here For Sign up</a>
 				   </div>
 				</form>
 			</div>
@@ -213,8 +217,8 @@
 			$('#loginRequest').on('submit', function(e) {
 				e.preventDefault();
 				var formData = {
-				    name: $('#name').val(),
 				    email: $('#email').val(),
+				    password: $('#password').val(),
 				}
 				$.ajax({
 			        type: "post",
