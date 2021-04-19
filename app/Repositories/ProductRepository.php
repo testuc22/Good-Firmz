@@ -180,6 +180,18 @@ class ProductRepository
             $productMeta->value = $meta['product_value'];
             $productMeta->save();
         }
+        if ($request->has('update_meta')) {
+            foreach ($request->update_meta as $key => $meta) {
+                if ($meta['product_key'] && $meta['product_value'] != null) {
+                    $data = [
+                        'product_id' => $id,
+                        'key' => $meta['product_key'],
+                        'value' => $meta['product_value'],
+                    ];
+                    ProductMeta::create($data);
+                }
+            }
+        }
 
         return true;
     }

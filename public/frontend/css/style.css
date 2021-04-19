@@ -779,6 +779,56 @@ p {
   margin-right: 10px;
   text-align: center;
 }
+.dashboard_section .dashboard_area .card .card-body .media1 .product_img_area .main_view{
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+.dashboard_section .dashboard_area .card .card-body .media1 .product_img_area .main_view img{
+  width: 100%;
+  height: 100%;
+}
+.dashboard_section .dashboard_area .card .card-body .media1 .product_img_area #product_carousel {
+  border: 1px solid #ccc;
+  padding: 10px 30px;
+  position: relative;
+}
+.dashboard_section .dashboard_area .card .card-body .media1 .product_img_area #product_carousel .owl-nav .owl-prev {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  outline: none;
+  background-color: #ccc;
+  padding: 0;
+  width: 20px;
+}
+.dashboard_section .dashboard_area .card .card-body .media1 .product_img_area #product_carousel .owl-nav .owl-next {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  outline: none;
+  background-color: #ccc;
+  padding: 0;
+  width: 20px;
+}
+
+.dashboard_section .dashboard_area .card .card-body .media1 .product_img_area #product_carousel .item{
+  height: 70px;
+  width: 70px;
+  margin: 0 auto;
+}
+.dashboard_section .dashboard_area .card .card-body .media1 .product_img_area #product_carousel .item img{
+  width: 100%;
+}
+.dashboard_section .dashboard_area .card .card-body .media .product_img_area .side_view {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 .dashboard_section .dashboard_area .card .card-body .media .product_img_area img {
   width: 100%;
 }

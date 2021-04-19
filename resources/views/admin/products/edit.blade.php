@@ -203,9 +203,23 @@
                                     </div>
                                 </div>  
                             @endforeach
+                            <div class="form-group row">
+                                <div class="col-5">
+                                    <input type="text" class="form-control" name="update_meta[0][product_key]" placeholder="Enter Product Key" value="">
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" class="form-control" name="update_meta[0][product_value]" placeholder="Enter Product Value" value="">
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-info btn-sm" onclick="product_meta_fields()">Add More</button>
+                                </div>
+                            </div>
+                            <div id="additional_fields">
+                                
+                            </div>
                         <div class="card-footer">
                           <button type="submit" class="btn btn-success btn-sm">Update Product</button>
-                          <a href="{{URL::previous()}}" class="btn  bg-gradient-info">Back to Listing</a>
+                          <a href="{{URL::previous()}}" class="btn bg-gradient-info btn-sm">Back to Listing</a>
                         </div>
                       </form>
                     </div>
@@ -243,26 +257,21 @@
                 $('select[name="sub_category"]').empty();
             }
         });
-        {{--$('select[name="sub_category"]').on('change', function() {
-            var catId = $(this).val();
-            var url = '{{ route('admin-category', ['id'=>':id'])}}';
-            url = url.replace(':id', catId);
-            if (catId) {
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    dataType: "json",
-                    success:function(data) {
-                        $('select[name="child_category"]').empty();
-                        $.each(data, function(index) {
-                            $('select[name="child_category"]').append('<option value="'+ data[index].id +'">'+ data[index].name +'</option>');
-                        })
-                    }
-                });
-            }else{
-                $('select[name="child_category"]').empty();
-            }
-        });--}}
+        var room = 1;
+        var count = 0;
+        function product_meta_fields() {
+            room++;
+            count++;
+            var objTo = document.getElementById('additional_fields')
+            var divtest = document.createElement("div");
+            divtest.setAttribute("class", "form-group removeclass"+room);
+            var rdiv = 'removeclass'+room;
+            divtest.innerHTML = '<div class="form-group row"><div class="col-5"><input type="text" name="update_meta['+count+'][product_key]" class="form-control" value="" placeholder="Enter Product Key"></div><div class="col-5"><input type="text" name="update_meta['+count+'][product_value]" class="form-control" value="" placeholder="Enter Product Value"></div><div class="col-2"><button class="btn btn-danger btn-sm" type="button" onclick="remove_product_meta_fields('+ room +');">Remove</button></div></div>';
+            objTo.appendChild(divtest)
+        }
+        function remove_product_meta_fields(rid) {
+           $('.removeclass'+rid).remove();
+        }
     </script>
 @endpush
 

@@ -49,7 +49,7 @@
         var myDropzone = new Dropzone(".dropzone", { 
             autoProcessQueue: false,
             maxFilesize: 2,
-            parallelUploads:4,
+            parallelUploads:10,
             addRemoveLinks: true,
             uploadMultiple: true,
             acceptedFiles: ".jpeg,.jpg,.png,.gif"

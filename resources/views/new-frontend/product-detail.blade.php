@@ -12,18 +12,29 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-xl-12">
-										<div class="media">
+										<div class="media1">
 											<div class="row">
-												<div class="col-xl-4">
+												<div class="col-xl-5">
 													<div class="product_img_area">
 														@if (!empty($product->images))
-															<img src="{{ asset('public/uploads/products/'.$product->images->image) }}" alt="...">
-														@else
-															<img src="{{ asset('public/images/comming.jpg') }}" alt="coming soon....">
-														@endif
+											                <div class="main_view">
+													            <img src="{{ asset('public/uploads/products/'.$product->images->image) }}" id="main" alt="...">
+													        </div>
+										                @else
+										                	<img src="{{ asset('public/images/comming.jpg') }}" alt="coming soon....">
+										                @endif
+										                @if (!empty($product->productImages) && $product->productImages->count() > 1)
+											                <div class="owl-carousel owl-theme" id="product_carousel">
+											                	@foreach ($product->productImages as $image)
+											                		<div class="item">
+												                    	<img src="{{ asset('public/uploads/products/'.$image->image) }}" onclick="change(this.src)">
+												                    </div>
+											                	@endforeach
+											                </div>
+										                @endif
 													</div>
 												</div>
-												<div class="col-xl-8">
+												<div class="col-xl-7">
 													<div class="media-body">
 														<table class="table table-bordered">
 															<tr>
@@ -267,5 +278,26 @@
 		        }
 		    });
 		})
+		const change = src => {
+            document.getElementById('main').src = src
+        }
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            navText: ["<div class='nav-button owl-prev'>‹</div>", "<div class='nav-button owl-next'>›</div>"],
+            dots:false,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:4	
+                }
+            }
+        })
 	</script>
 @endsection
